@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Мой сайт</title>
+  <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+<body>
+<header>
+  <nav>
+    <ul>
+      <li><a href="/">Главная</a></li>
+      <li><a href="/log">Аккаунт</a></li>
+    </ul>
+  </nav>
+</header>
+
+<body>
+<div>
+  <h2>Update User</h2>
+  <div class="row">
+    <div>
+      <form action="#" th:action="@{/update/{id}(id=${user.id})}" th:object="${user}" method="post">
+        <div class="row">
+          <div>
+            <label for="login" >login</label>
+            <input type="text" th:field="*{login}" id="login" placeholder="Login">
+            <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}" ></span>
+          </div>
+          <div>
+            <label for="email" >Email</label>
+            <input type="text" th:field="*{email}" id="email" placeholder="Email">
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" ></span>
+          </div>
+          <div>
+            <label for="password" >password</label>
+            <input type="text" th:field="*{password}" id="password" placeholder="password">
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mt-5">
+            <input type="submit" class="btn btn-primary" value="Update Customer">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+<footer>
+  <p>© 2021 Мой сайт. Все права защищены.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

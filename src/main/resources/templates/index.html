@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Мой сайт</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/">Главная</a></li>
+            <li><a href="/log">Аккаунт</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div th:switch="${users}">
+    <div class="row">
+        <div>
+            <h2 th:case="null">No Users.</h2>
+            <div th:case="*">
+                <h2>Users</h2>
+                <table border="1">
+                    <thead>
+                    <tr>
+                        <th>login</th>
+                        <th>email</th>
+                        <th>password</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.login}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.password}"></td>
+                        <td>
+                            <a th:href="@{/edit/{id}(id=${user.id})}">EDIT</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/delete/{id}(id=${user.id})}">DELETE</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                <a href="/new">Add User</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>© 2021 Мой сайт. Все права защищены.</p>
+</footer>
+
+</body>
+</html>

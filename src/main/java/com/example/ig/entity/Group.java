@@ -23,7 +23,7 @@ public class Group {
     private String description;
     private String avtar;
     private String banner;
-    //private Date dateCreate;
+    private Date dateCreate;
     @OneToOne
     @JoinColumn(name = "idAdmin")
     private User idAdmin;

@@ -25,6 +25,23 @@ public class UserController {
         model.addAttribute("users", userRepository.findAll());
         return "index";
     }
+
+    @GetMapping("/log")
+    public String accountForm(){
+        return "account";
+    }
+    @PostMapping("/auth")
+    public String userAuth(@RequestParam String email, @RequestParam String password, Model model) {
+        User user = userRepository.findByEmail(email);
+        //if (bCryptPasswordEncoder.matches(currentPassword, user.getPassword()))
+        if (user.getPassword().equals(password)){
+            System.err.println(password);
+            model.addAttribute("userLogin", user);
+            return "index";
+        }
+        System.err.println(password);
+        return "account";
+    }
     @GetMapping("/new")
     public String showSignUpForm(Model model) {
         return "add-user";

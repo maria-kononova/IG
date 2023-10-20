@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Мой сайт</title>
+  <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+<body>
+<header>
+  <nav>
+    <ul>
+      <li><a href="/">Главная</a></li>
+      <li><a href="/log">Аккаунт</a></li>
+    </ul>
+  </nav>
+</header>
+
+<body>
+  <div>
+    <h2>Авторизация</h2>
+    <div>
+      <form action="/auth" method="post">
+        <input type="text" name="email" placeholder="введите почту" class="form-control"/>
+        <input type="text" name="password" placeholder="введите пароль" class="form-control"/>
+        <button type="submit" class="btn btn-success">Войти</button>
+      </form>
+      <p><a href="/new">Зарегистрироваться</a></p>
+    </div>
+  </div>
+</body>
+
+<footer>
+  <p>© 2021 Мой сайт. Все права защищены.</p>
+</footer>
+
+</body>
+</html>

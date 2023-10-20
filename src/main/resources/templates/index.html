@@ -10,9 +10,22 @@
         <ul>
             <li><a href="/">Главная</a></li>
             <li><a href="/log">Аккаунт</a></li>
+            <div th:switch="${userLogin}">
+                <h2 th:case="null"></h2>
+                <div th:case="*">
+                    <p th:text="${userLogin.login}"/>
+                </div>
+            </div>
         </ul>
     </nav>
 </header>
+<div th:switch="${userLogin}">
+    <h2 th:case="null">No login.</h2>
+    <div th:case="*">
+        <p th:text="${userLogin.login}"/>
+    </div>
+</div>
+
 
 <div th:switch="${users}">
     <div class="row">

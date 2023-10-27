@@ -19,6 +19,10 @@
         </ul>
     </nav>
 </header>
+<form action="/sendMailCode" method="post">
+    <button type="submit" class="btn btn-success">Получить код</button>
+</form>
+
 <div th:switch="${userLogin}">
     <h2 th:case="null">No login.</h2>
     <div th:case="*">

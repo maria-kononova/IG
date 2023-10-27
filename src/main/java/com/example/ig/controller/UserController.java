@@ -1,5 +1,6 @@
 package com.example.ig.controller;
 
+import com.example.ig.Mail;
 import com.example.ig.entity.User;
 import com.example.ig.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.swing.*;
 
 @Controller
 public class UserController {
@@ -31,15 +34,14 @@ public class UserController {
         return "account";
     }
     @PostMapping("/auth")
-    public String userAuth(@RequestParam String email, @RequestParam String password, Model model) {
+    public String userAuth(@RequestParam String email, @RequestParam String passwordInput, Model model) {
         User user = userRepository.findByEmail(email);
         //if (bCryptPasswordEncoder.matches(currentPassword, user.getPassword()))
-        if (user.getPassword().equals(password)){
-            System.err.println(password);
+        if (user.checkPassword(passwordInput)) {
+            //System.err.println(passwordInput);
             model.addAttribute("userLogin", user);
             return "index";
         }
-        System.err.println(password);
         return "account";
     }
     @GetMapping("/new")
@@ -52,6 +54,15 @@ public class UserController {
         userRepository.save(user);
         return "index";
     }
+
+    @PostMapping("/sendMailCode")
+    public String sendMail(){
+        //JOptionPane.showMessageDialog(null, "My Goodness, this is so concise");
+        Mail mail = new Mail();
+        mail.sendMail("sendCodeConfirm.html", "515nonia515@gmail.com", "IG Подтверждение почты");
+        return "index";
+    }
+
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
@@ -84,4 +95,5 @@ public class UserController {
         model.addAttribute("user", userRepository.findAll());
         return "index";
     }
+
 }

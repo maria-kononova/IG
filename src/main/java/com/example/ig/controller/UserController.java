@@ -8,12 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.swing.*;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
@@ -54,15 +49,6 @@ public class UserController {
         userRepository.save(user);
         return "index";
     }
-
-    @PostMapping("/sendMailCode")
-    public String sendMail(){
-        //JOptionPane.showMessageDialog(null, "My Goodness, this is so concise");
-        Mail mail = new Mail();
-        mail.sendMail("sendCodeConfirm.html", "515nonia515@gmail.com", "IG Подтверждение почты");
-        return "index";
-    }
-
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {

@@ -44,6 +44,11 @@ public class User {
         return new String(salt, StandardCharsets.UTF_8);
     }
 
+    public void updatePassword(String newPassword){
+        this.salt = generateSalt();
+        this.password = getHash(newPassword, this.salt);
+    }
+
     public boolean checkPassword(String passwordForCheck){
         return password.equals(getHash(passwordForCheck, salt));
     }

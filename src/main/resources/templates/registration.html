@@ -35,12 +35,6 @@
               <li><a href="/">Авторизация</a></li>
             </ul>
           </li>
-          <div th:switch="${userLogin}">
-            <h2 th:case="null"></h2>
-            <div th:case="*">
-              <p th:text="${userLogin.login}"/>
-            </div>
-          </div>
         </ul>
       </nav>
     </div>

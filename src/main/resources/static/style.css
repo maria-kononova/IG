@@ -90,10 +90,10 @@ header ul li ul li a {
     transition: all .3s;
     color: #5c5b5b;
     text-decoration: none;
-    margin-left: 220px;
+    /*margin-left: 220px;*/
 }
 .reg_form a:hover {
-    margin-left: 217px;
+    /*margin-left: 217px;*/
     transition: all .3s;
 }
 .reg_form input {

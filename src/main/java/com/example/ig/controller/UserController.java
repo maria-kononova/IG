@@ -47,7 +47,8 @@ public class UserController {
             //System.err.println(passwordInput);
             model.addAttribute("userLogin", user);
             this.model.addAllAttributes(model.asMap());
-            return "redirect:" + getUrl("users", String.valueOf(user.getId()));
+            return "index";
+            //return "redirect:" + getUrl();
         }
         return "authorization";
     }

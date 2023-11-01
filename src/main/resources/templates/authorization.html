@@ -32,7 +32,7 @@
             <a href="/log"><i class="fa-solid fa-user"></i>Аккаунт</a>
             <ul>
               <li><a href="/new">Регистрация</a></li>
-              <li><a href="/">Авторизация</a></li>
+              <li><a href="/log">Авторизация</a></li>
             </ul>
           </li>
           <div th:switch="${userLogin}">
@@ -52,16 +52,10 @@
 
 <div class="container reg_form">
   <form class="row justify-content-center" method="post" action="add-user.html">
-    <h2>Форма регистрации</h2>
-    <div class="mb-3 col-12 col-md-6">
-      <label for="formGroupExampleInput" class="form-label">Ваш логин</label>
-      <input type="text" class="form-control" id="formGroupExampleInput" placeholder="введите ваш логин">
-    </div>
-    <div class="w-100"></div>
+    <h2>Форма авторизации</h2>
     <div class="mb-3 col-12 col-md-6">
       <label for="exampleInputEmail1" class="form-label">Email</label>
       <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="введите ваш email">
-      <div id="emailHelp" class="form-text">Ваш email адрес не будет использован для спама)</div>
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
@@ -70,28 +64,24 @@
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
-      <label for="exampleInputPassword2" class="form-label">Повторите пароль</label>
-      <input type="password" class="form-control" id="exampleInputPassword2" placeholder="повторите ваш пароль">
-    </div>
-    <div class="w-100"></div>
-    <div class="mb-3 col-12 col-md-6">
-      <button type="submit" class="btn btn-secondary">Зарегистрироваться</button>
-      <a href="authorization.html">Авторизоваться</a>
+      <button type="submit" class="btn btn-secondary">Войти</button>
+      <a href="add-user.html">Зарегистрироваться</a>
     </div>
   </form>
 </div>
 
-<div>
-  <h2>New User</h2>
+<body>
   <div>
-    <form action="/new" method="post">
-      <input type="text" name="login" placeholder="введите логин" class="form-control"/>
-      <input type="text" name="email" placeholder="введите почту" class="form-control"/>
-      <input type="text" name="password" placeholder="введите пароль" class="form-control"/>
-      <button type="submit" class="btn btn-success">Добавить пользователя</button>
-    </form>
+    <h2>Авторизация</h2>
+    <div>
+      <form action="/auth" method="post">
+        <input type="text" name="email" placeholder="введите почту" class="form-control"/>
+        <input type="text" name="passwordInput" placeholder="введите пароль" class="form-control"/>
+        <button type="submit" class="btn btn-success">Войти</button>
+      </form>
+      <p><a href="/new">Зарегистрироваться</a></p>
+    </div>
   </div>
-</div>
 </body>
 
 <footer>

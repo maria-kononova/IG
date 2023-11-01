@@ -7,6 +7,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
 @Entity
 @Data
 @Builder
@@ -23,10 +28,38 @@ public class User {
     private String email;
     @NotBlank(message = "password is required")
     private String password;
+    private String salt;
 
     public User(String login, String email, String password){
         this.email = email;
         this.login = login;
-        this.password = password;
+        this.salt = generateSalt();
+        this.password = getHash(password, this.salt);
+    }
+    private String generateSalt() {
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[15];
+        random.nextBytes(salt);
+        return new String(salt, StandardCharsets.UTF_8);
+    }
+
+    public boolean checkPassword(String passwordForCheck){
+        return password.equals(getHash(passwordForCheck, salt));
+    }
+
+    private String getHash(String password, String salt) {
+        StringBuilder sb = new StringBuilder();
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            md.update((password + salt).getBytes());
+            byte[] bytes = md.digest();
+
+            for (byte aByte : bytes) {
+                sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
     }
 }

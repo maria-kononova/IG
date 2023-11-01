@@ -46,9 +46,12 @@
         </div>
     </div>
 </header>
+<form action="/sendMailCode" method="post">
+    <button type="submit" class="btn btn-success">Получить код</button>
+</form>
 
 <div th:switch="${userLogin}">
-    <h3 th:case="null">No login.</h3>
+    <h2 th:case="null">No login.</h2>
     <div th:case="*">
         <p th:text="${userLogin.login}"/>
     </div>
@@ -58,7 +61,7 @@
 <div th:switch="${users}">
     <div class="row">
         <div>
-            <h3 th:case="null">No Users.</h3>
+            <h2 th:case="null">No Users.</h2>
             <div th:case="*">
                 <h2>Users</h2>
                 <table border="1">

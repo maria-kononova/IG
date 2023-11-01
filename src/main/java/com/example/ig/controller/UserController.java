@@ -9,9 +9,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.Collection;
+import java.util.Map;
+
+import static com.example.ig.IgApplication.BASE_URL;
 
 @Controller
 public class UserController {
+    Model model;
     private final UserRepository userRepository;
     @Autowired
     public UserController(UserRepository userRepository){
@@ -21,6 +30,14 @@ public class UserController {
     @GetMapping("/")
     public String homePage(Model model){
         model.addAttribute("users", userRepository.findAll());
+        this.model = model;
+        this.model.addAllAttributes(model.asMap());
+        return "index";
+    }
+
+    @GetMapping("/users/{userId}")
+    public String user(Model model){
+        model = this.model;
         return "index";
     }
 
@@ -35,7 +52,8 @@ public class UserController {
         if (user.checkPassword(passwordInput)) {
             //System.err.println(passwordInput);
             model.addAttribute("userLogin", user);
-            return "index";
+            this.model.addAllAttributes(model.asMap());
+            return "redirect:" + getUrl("users", String.valueOf(user.getId()));
         }
         return "account";
     }
@@ -47,7 +65,7 @@ public class UserController {
     public String postAdd(@RequestParam String login, @RequestParam String email, @RequestParam String password, Model model ){
         User user = new User(login, email, password);
         userRepository.save(user);
-        return "index";
+        return "redirect:" + getUrl();
     }
 
     @GetMapping("/edit/{id}")
@@ -57,6 +75,7 @@ public class UserController {
                         .findById(id)
                         .orElseThrow(() -> new IllegalArgumentException("Invalid customer Id:" + id));
         model.addAttribute("user", user);
+        this.model.addAllAttributes(model.asMap());
         return "update-user";
     }
     @GetMapping("/delete/{id}")
@@ -67,7 +86,7 @@ public class UserController {
                         .orElseThrow(() -> new IllegalArgumentException("Invalid customer Id:" + id));
         userRepository.delete(user);
         model.addAttribute("user", userRepository.findAll());
-        return "index";
+        return "redirect:" + getUrl();
     }
 
     @PostMapping("/update/{id}")
@@ -79,7 +98,14 @@ public class UserController {
         }
         userRepository.save(user);
         model.addAttribute("user", userRepository.findAll());
-        return "index";
+        this.model.addAllAttributes(model.asMap());
+
+        return "redirect:" + getUrl();
     }
 
+    public String getUrl(String ... path){
+        return UriComponentsBuilder.fromHttpUrl(BASE_URL)
+                .pathSegment(path)
+                .build().toUriString();
+    }
 }

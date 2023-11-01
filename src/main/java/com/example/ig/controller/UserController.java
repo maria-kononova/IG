@@ -53,7 +53,7 @@ public class UserController {
     }
     @GetMapping("/new")
     public String showSignUpForm(Model model) {
-        return "add-user";
+        return "registration";
     }
     @PostMapping("/new")
     public String postAdd(@RequestParam String login, @RequestParam String email, @RequestParam String password, Model model ){

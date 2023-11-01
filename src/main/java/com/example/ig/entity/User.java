@@ -28,6 +28,7 @@ public class User {
     private String email;
     @NotBlank(message = "password is required")
     private String password;
+    @NotBlank(message = "salt is required")
     private String salt;
 
     public User(String login, String email, String password){

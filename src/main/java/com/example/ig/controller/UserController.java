@@ -1,6 +1,5 @@
 package com.example.ig.controller;
 
-import com.example.ig.Mail;
 import com.example.ig.entity.User;
 import com.example.ig.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -9,12 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.Collection;
-import java.util.Map;
 
 import static com.example.ig.IgApplication.BASE_URL;
 
@@ -59,7 +53,7 @@ public class UserController {
     }
     @GetMapping("/new")
     public String showSignUpForm(Model model) {
-        return "add-user";
+        return "registration";
     }
     @PostMapping("/new")
     public String postAdd(@RequestParam String login, @RequestParam String email, @RequestParam String password, Model model ){

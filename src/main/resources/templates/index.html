@@ -29,18 +29,15 @@
                 <ul>
                     <li><a href="/">Главная</a> </li>
                     <li>
-                        <a href="/log"><i class="fa-solid fa-user"></i>Аккаунт</a>
+                        <div th:switch="${userLogin}">
+                            <a href="/log" th:case="null"><i class="fa-solid fa-user"></i>Аккаунт</a>
+                            <a href="/log" th:case="*" th:text="${userLogin.login}"></a>
+                        </div>
                         <ul>
                             <li><a href="/new">Регистрация</a></li>
                             <li><a href="/log">Авторизация</a></li>
                         </ul>
                     </li>
-                    <div th:switch="${userLogin}">
-                        <h2 th:case="null"></h2>
-                        <div th:case="*">
-                            <p th:text="${userLogin.login}"/>
-                        </div>
-                    </div>
                 </ul>
             </nav>
         </div>

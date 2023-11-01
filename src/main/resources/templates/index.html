@@ -1,26 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Мой сайт</title>
+    <title>IG</title>
     <link rel="stylesheet" th:href="@{/style.css}" />
+    <!--Картинки-->
+    <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
+
+    <!--Шрифты-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-nU14brUcp6StFntEOOEBvcJm4huWjB0OcIeQ3fltAfSmuZFrkAif0T+UtNGlKKQv" crossorigin="anonymous">
+
 </head>
 <body>
-<header>
-    <nav>
-        <ul>
-            <li><a href="/">Главная</a></li>
-            <li><a href="/log">Аккаунт</a></li>
-            <div th:switch="${userLogin}">
-                <h2 th:case="null"></h2>
-                <div th:case="*">
-                    <p th:text="${userLogin.login}"/>
-                </div>
+<header class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <h1><a href="/">IG</a></h1>
             </div>
-        </ul>
-    </nav>
+            <nav class="col-8">
+                <ul>
+                    <li><a href="/">Главная</a> </li>
+                    <li>
+                        <a href="/log"><i class="fa-solid fa-user"></i>Аккаунт</a>
+                        <ul>
+                            <li><a href="/new">Регистрация</a></li>
+                            <li><a href="/">Авторизация</a></li>
+                        </ul>
+                    </li>
+                    <div th:switch="${userLogin}">
+                        <h2 th:case="null"></h2>
+                        <div th:case="*">
+                            <p th:text="${userLogin.login}"/>
+                        </div>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </div>
 </header>
+
 <div th:switch="${userLogin}">
-    <h2 th:case="null">No login.</h2>
+    <h3 th:case="null">No login.</h3>
     <div th:case="*">
         <p th:text="${userLogin.login}"/>
     </div>
@@ -30,7 +58,7 @@
 <div th:switch="${users}">
     <div class="row">
         <div>
-            <h2 th:case="null">No Users.</h2>
+            <h3 th:case="null">No Users.</h3>
             <div th:case="*">
                 <h2>Users</h2>
                 <table border="1">

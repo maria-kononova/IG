@@ -1,9 +1,106 @@
 /* Стили для шапки */
+*{
+    font-family: 'Comfortaa', sans-serif;
+}
+html,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #5c5b5b
+}
+body {
+    background: #f6f6f6;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+/* Стили для шапки */
 header {
-    background-color: #f2f2f2;
+    background-color: #ebc7df;
     padding: 10px;
+    height: 80px;
+    float: left;
+}
+*header {
+    color: #000000;
+}
+header h1 {
+    margin-top: 6px;
+}
+header h1 a {
+    color: #000000;
+    text-decoration: none;
+}
+header h1 a:hover {
+     color: #000000;
+}
+header ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    float: right;
+}
+header ul li {
+    float: left;
+    position: relative;
+}
+header ul li a {
+    display: block;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #000000;
+    padding: 20px;
+}
+header ul li a:hover {
+    background: #eac7df;
+    transition: 0.5s;
+    color: #000;
+}
+header ul li ul {
+    position: absolute;
+    top: 70px;
+    right: 0px;
+    width: 160px;
+    display: none;
+    z-index: 111;
+}
+header ul li:hover ul {
+    display: block;
+}
+header ul li ul li {
+    width: 100%;
+}
+header ul li ul li a {
+    padding: 10px;
+    background: white;
+    color: #eac7df;
 }
 
+/* Форма регистрации */
+.reg_form h2 {
+    text-align: center;
+    margin: 30px 0px;
+}
+.reg_form a {
+    font-size: 1.2em;
+    transition: all .3s;
+    color: #5c5b5b;
+    text-decoration: none;
+    margin-left: 220px;
+}
+.reg_form a:hover {
+    margin-left: 217px;
+    transition: all .3s;
+}
+.reg_form input {
+    height: 3rem;
+}
+
+/* Стили для шапки */
 nav ul {
     list-style-type: none;
     margin: 0;
@@ -26,4 +123,28 @@ footer {
     color: #fff;
     padding: 10px;
     text-align: center;
+}
+
+/*Базовые стили*/
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+body {
+    font-family: 'font', sans-serif;
 }

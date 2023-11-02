@@ -37,7 +37,7 @@ header h1 a {
     text-decoration: none;
 }
 header h1 a:hover {
-     color: #000000;
+    color: #000000;
 }
 header ul {
     margin: 0;
@@ -81,6 +81,25 @@ header ul li ul li a {
     color: #eac7df;
 }
 
+/* Форма регистрации */
+.auth_form h2 {
+    text-align: center;
+    margin: 30px 0px;
+}
+.auth_form a {
+    font-size: 1.2em;
+    transition: all .3s;
+    color: #5c5b5b;
+    text-decoration: none;
+    margin-left: 310px;
+}
+.auth_form a:hover {
+    margin-left: 307px;
+    transition: all .3s;
+}
+.auth_form input {
+    height: 3rem;
+}
 
 
 /* Стили для подвала */

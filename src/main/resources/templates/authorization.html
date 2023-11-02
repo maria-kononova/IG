@@ -49,12 +49,13 @@
     <h2>Авторизация</h2>
     <div class="mb-3 col-12 col-md-6">
       <label for="exampleInputEmail1" class="form-label">Email</label>
-      <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="введите ваш email">
+      <input required type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="введите ваш email">
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
       <label for="exampleInputPassword1" class="form-label">Пароль</label>
-      <input type="password" name="passwordInput" class="form-control" id="exampleInputPassword1" placeholder="введите ваш пароль">
+      <input required type="password" name="passwordInput" class="form-control" id="exampleInputPassword1" placeholder="введите ваш пароль" minlength="8"
+             oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов!')" oninput="this.setCustomValidity('')">
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">

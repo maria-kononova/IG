@@ -50,19 +50,21 @@
     <h2>Регистрация</h2>
     <div class="mb-3 col-12 col-md-6">
       <label for="formGroupExampleInput" class="form-label">Ваш логин</label>
-      <input type="text" name="login" class="form-control" id="formGroupExampleInput" placeholder="введите ваш логин">
+      <input required type="text" name="login" class="form-control" id="formGroupExampleInput" placeholder="введите ваш логин" minlength="5"
+             oninvalid="this.setCustomValidity('Имя пользователя должно быть не меньше 5 символов!')" oninput="this.setCustomValidity('')">
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
       <label for="exampleInputEmail1" class="form-label">Email</label>
-      <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="введите ваш email">
+      <input required type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="введите ваш email">
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
       <label for="inputPassword2" class="form-label">Код подтверждения</label>
       <div class="row g-3">
         <div class="col-md-8">
-          <input type="password" class="form-control" id="inputPassword2" placeholder="Ввведите код подтверждения">
+          <input required type="text" class="form-control" id="inputPassword2" placeholder="Ввведите код подтверждения" minlength="6" maxlength="6"
+                 oninvalid="this.setCustomValidity('Проверьте ещё раз ваш код подтверждения. Он должен состоять из 6 символов.')" oninput="this.setCustomValidity('')">
         </div>
         <div class="col-md-4" style="margin-top: 25px;">
           <a id="a_code" href="authorization.html">Получить код</a>
@@ -72,12 +74,14 @@
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
       <label for="exampleInputPassword1" class="form-label">Пароль</label>
-      <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="введите ваш пароль">
+      <input required type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="введите ваш пароль" minlength="8"
+             oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов!')" oninput="this.setCustomValidity('')">
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
       <label for="exampleInputPassword2" class="form-label">Повторите пароль</label>
-      <input type="password" class="form-control" id="exampleInputPassword2" placeholder="повторите ваш пароль">
+      <input required type="password" class="form-control" id="exampleInputPassword2" placeholder="повторите ваш пароль" minlength="8"
+             oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов!')" oninput="this.setCustomValidity('')">
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">

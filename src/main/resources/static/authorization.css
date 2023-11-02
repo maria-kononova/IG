@@ -100,7 +100,13 @@ header ul li ul li a {
 .auth_form input {
     height: 3rem;
 }
-
+/* Обработка полей для ввода */
+input:invalid:not(:placeholder-shown) {
+    border-color: red;
+}
+input:valid:not(:placeholder-shown) {
+    border-color: green;
+}
 
 /* Стили для подвала */
 footer {

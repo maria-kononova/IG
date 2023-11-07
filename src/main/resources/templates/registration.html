@@ -75,13 +75,13 @@
     <div class="mb-3 col-12 col-md-6">
       <label for="exampleInputPassword1" class="form-label">Пароль</label>
       <input required type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="введите ваш пароль" minlength="8"
-             oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов!')" oninput="this.setCustomValidity('')">
+             oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов!')" oninput="this.setCustomValidity('')" onchange="onChange()">
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
       <label for="exampleInputPassword2" class="form-label">Повторите пароль</label>
-      <input required type="password" class="form-control" id="exampleInputPassword2" placeholder="повторите ваш пароль" minlength="8"
-             oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов!')" oninput="this.setCustomValidity('')">
+      <input required type="password" name="confirm" class="form-control" id="exampleInputPassword2" placeholder="повторите ваш пароль" minlength="8"
+              oninput="this.setCustomValidity('')" onchange="onChange()">
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
@@ -90,6 +90,19 @@
     </div>
   </form>
 </div>
+
+<script>
+  <!-- Функция для проверки совпадения паролей -->
+  function onChange() {
+    const password = document.querySelector('input[name=password]');
+    const confirm = document.querySelector('input[name=confirm]');
+    if (confirm.value != password.value) {
+      confirm.setCustomValidity('Пароли не совпали!');
+    } else {
+      confirm.setCustomValidity('');
+    }
+  }
+</script>
 
 <footer>
   <p>© 2021 Мой сайт. Все права защищены.</p>

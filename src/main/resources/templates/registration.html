@@ -98,7 +98,45 @@
     </div>
   </form>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $("#registrationForm").submit(function(event) {
+      event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+      // Ответ от сервера об успешной регистрации
+      // Отправляем письмо на указанный email
+      const formData = {
+        login: $("#login").val(),
+        email: $("#email").val(),
+        password: $("#password").val(),
+      };
+      $.ajax({
+        url: "/send-email",
+        type: "POST",
+        data: formData,
+        success: function(emailResponse) {
 
+        }
+      });
+    });
+  });
+  $("#checkMailForm").submit(function(event) {
+    event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+    // Ответ от сервера об успешной регистрации
+    // Отправляем письмо на указанный email
+    const formData = {
+      code: $("#code").val()
+    };
+    $.ajax({
+      url: "/checkMailCode",
+      type: "POST",
+      data: { code: formData.code },
+      success: function(emailResponse) {
+        // Обработка успешной отправки письма
+      }
+    });
+  });
+</script>
 <script>
   <!-- Функция, позволяющая посмотреть введенный пароль -->
   function show_hide_password(pass, target, img){

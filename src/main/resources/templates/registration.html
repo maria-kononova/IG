@@ -46,42 +46,45 @@
 
 
 <div class="container reg_form">
-  <form class="row justify-content-center" action="/new" method="post">
+  <form class="row justify-content-center" id="registrationForm" method="post">
     <h2>Регистрация</h2>
     <div class="mb-3 col-12 col-md-6">
-      <label for="formGroupExampleInput" class="form-label">Ваш логин</label>
-      <input required type="text" name="login" class="form-control" id="formGroupExampleInput" placeholder="введите ваш логин" minlength="5"
-             oninvalid="this.setCustomValidity('Имя пользователя должно быть не меньше 5 символов!')" oninput="this.setCustomValidity('')">
-    </div>
-    <div class="w-100"></div>
-    <div class="mb-3 col-12 col-md-6">
-      <label for="exampleInputEmail1" class="form-label">Email</label>
-      <input required type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="введите ваш email">
-    </div>
-    <div class="w-100"></div>
-    <div class="mb-3 col-12 col-md-6">
-      <label for="inputPassword2" class="form-label">Код подтверждения</label>
-      <div class="row g-3">
-        <div class="col-md-8">
-          <input required type="text" class="form-control" id="inputPassword2" placeholder="Ввведите код подтверждения" minlength="6" maxlength="6"
-                 oninvalid="this.setCustomValidity('Проверьте ещё раз ваш код подтверждения. Он должен состоять из 6 символов.')" oninput="this.setCustomValidity('')">
-        </div>
-        <div class="col-md-4" style="margin-top: 25px;">
-          <a id="a_code" href="authorization.html">Получить код</a>
-        </div>
-      </div>
+      <label for="formGroupExampleInput" class="form-label">Логин</label>
+      <input required type="text" name="login" class="form-control" id="formGroupExampleInput" placeholder="Введите ваш логин" minlength="4"
+             oninvalid="this.setCustomValidity('Имя пользователя должно быть больше 4 символов')" oninput="this.setCustomValidity('')"/>
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
       <label for="exampleInputPassword1" class="form-label">Пароль</label>
-      <input required type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="введите ваш пароль" minlength="8"
-             oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов!')" oninput="this.setCustomValidity('')" onchange="onChange()">
+      <input required type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Введите ваш пароль" minlength="8"
+             oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов')" oninput="this.setCustomValidity('')" onchange="onChange()"/>
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
       <label for="exampleInputPassword2" class="form-label">Повторите пароль</label>
-      <input required type="password" name="confirm" class="form-control" id="exampleInputPassword2" placeholder="повторите ваш пароль" minlength="8"
+      <input required  type="password" name="confirm" class="form-control" id="exampleInputPassword2" placeholder="Повторите ваш пароль" minlength="8"
               oninput="this.setCustomValidity('')" onchange="onChange()">
+    </div>
+    <div class="w-100"></div>
+    <div class="mb-3 col-12 col-md-6">
+      <label for="email" class="form-label">Почта</label>
+      <div class="row g-3">
+        <div class="col-md-9">
+          <input required type="email" id="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Введите вашу почту"/>
+        </div>
+        <div class="col-md-3" >
+          <button type="submit" class="btn btn-secondary">Получить код</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <form class="row justify-content-center" id="checkMailForm" method="post">
+
+    <div class="w-100"></div>
+    <div class="mb-3 col-12 col-md-6">
+      <label for="code" class="form-label">Код подтверждения</label>
+          <input required type="text" class="form-control" id="code" placeholder="Ввведите код подтверждения" minlength="6" maxlength="6"
+                 oninvalid="this.setCustomValidity('Проверьте код подтверждения. Он состоит из 6 символов')" oninput="this.setCustomValidity('')">
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
@@ -91,22 +94,61 @@
   </form>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $("#registrationForm").submit(function(event) {
+      event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+          // Ответ от сервера об успешной регистрации
+          // Отправляем письмо на указанный email
+      const formData = {
+        login: $("#login").val(),
+        email: $("#email").val(),
+        password: $("#password").val(),
+      };
+          $.ajax({
+            url: "/send-email",
+            type: "POST",
+            data: formData,
+            success: function(emailResponse) {
+
+            }
+          });
+      });
+  });
+  $("#checkMailForm").submit(function(event) {
+    event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+    // Ответ от сервера об успешной регистрации
+    // Отправляем письмо на указанный email
+    const formData = {
+      code: $("#code").val()
+    };
+    $.ajax({
+      url: "/checkMailCode",
+      type: "POST",
+      data: { code: formData.code },
+      success: function(emailResponse) {
+        // Обработка успешной отправки письма
+      }
+    });
+  });
+</script>
+
 <script>
   <!-- Функция для проверки совпадения паролей -->
   function onChange() {
     const password = document.querySelector('input[name=password]');
     const confirm = document.querySelector('input[name=confirm]');
     if (confirm.value != password.value) {
-      confirm.setCustomValidity('Пароли не совпали!');
+      confirm.setCustomValidity('Пароли не совпадают!');
     } else {
       confirm.setCustomValidity('');
     }
   }
 </script>
 
+</body>
 <footer>
   <p>© 2021 Мой сайт. Все права защищены.</p>
 </footer>
-
-</body>
 </html>

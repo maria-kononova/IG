@@ -5,24 +5,31 @@ import com.example.ig.repository.MailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MailController {
     Model model;
     @RequestMapping(value="/sendMailCode", method= RequestMethod.POST)
-    public String sendMail(Model model){
+    public void sendMail(Model model){
         this.model = model;
-        //JOptionPane.showMessageDialog(null, "My Goodness, this is so concise");
         Mail mail = new Mail();
         mail.setCode();
         System.err.println(mail.getCode());
         model.addAttribute("mail", mail);
         mail.sendMail("sendCodeConfirm.html", "515nonia515@gmail.com", "IG Подтверждение почты", model);
-        return "index";
+    }
+
+    @RequestMapping(value="/send-email", method= RequestMethod.POST)
+    @ResponseBody
+    public String sendMail(@RequestParam String email, Model model) {
+        this.model = model;
+        Mail mail = new Mail();
+        mail.setCode();
+        System.err.println(mail.getCode());
+        model.addAttribute("mail", mail);
+        mail.sendMail("sendCodeConfirm.html", email, "IG Подтверждение почты", model);
+        return "Success";
     }
     @PostMapping("/checkMailCode")
     public String checkMailCOde(Model model, @RequestParam String code){

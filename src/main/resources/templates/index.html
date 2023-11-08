@@ -43,6 +43,23 @@
         </div>
     </div>
 </header>
+<button id="myButton">Получить код</button>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#myButton").click(function() {
+            $.ajax({
+                url: "/some-action",
+                type: "POST",
+                success: function(response) {
+                    // Обработка успешного ответа от сервера
+                }
+            });
+        });
+    });
+</script>
+
 <form action="/sendMailCode" method="post">
     <button type="submit" class="btn btn-success">Получить код</button>
 </form>

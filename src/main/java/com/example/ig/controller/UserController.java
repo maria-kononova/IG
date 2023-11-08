@@ -1,5 +1,6 @@
 package com.example.ig.controller;
 
+import com.example.ig.Mail;
 import com.example.ig.entity.User;
 import com.example.ig.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -56,12 +57,21 @@ public class UserController {
     public String showSignUpForm(Model model) {
         return "registration";
     }
-    @PostMapping("/new")
+    @RequestMapping(value="/new-user", method= RequestMethod.POST)
+    @ResponseBody
     public String postAdd(@RequestParam String login, @RequestParam String email, @RequestParam String password, Model model ){
-        User user = new User(login, email, password);
-        userRepository.save(user);
-        return "redirect:" + getUrl();
+        System.out.println("тут");
+        if (userRepository.existsByEmail(email)) {
+            User user = new User(login, email, password);
+
+            //userRepository.save(user);
+            model.addAttribute("user", user);
+
+            return "Success";
+        }
+        else return "NotEmail";
     }
+
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {

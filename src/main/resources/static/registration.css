@@ -111,6 +111,18 @@ input:valid:not(:placeholder-shown) {
     border-color: green;
 }
 
+.password {
+    position: relative;
+}
+.password-control {
+    position: absolute;
+    top: 11px;
+    right: 6px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
 /* Стили для подвала */
 footer {
     background-color: #333;

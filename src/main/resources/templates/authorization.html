@@ -53,9 +53,12 @@
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
-      <label for="exampleInputPassword1" class="form-label">Пароль</label>
-      <input required type="password" name="passwordInput" class="form-control" id="exampleInputPassword1" placeholder="введите ваш пароль" minlength="8"
-             oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов!')" oninput="this.setCustomValidity('')">
+      <label for="password_" class="form-label">Пароль</label>
+      <div class="password">
+        <input required type="password" name="password" class="form-control" id="password_" placeholder="введите ваш пароль" minlength="8"
+               oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов!')" oninput="this.setCustomValidity('')" onchange="onChange()">
+        <a href="#" class="password-control" style="margin-right: 15px;" onclick="return show_hide_password('password_', this, 'eye_');"><i id="eye_" class="fa-solid fa-eye-slash"></i></a>
+      </div>
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
@@ -65,9 +68,31 @@
   </form>
 </div>
 
-<footer>
-  <p>© 2021 Мой сайт. Все права защищены.</p>
-</footer>
+<script>
+  <!-- Функция, позволяющая посмотреть введенный пароль -->
+  function show_hide_password(pass, target, img){
+    var image = document.getElementById(img);
+    var input = document.getElementById(pass);
+    if (input.getAttribute('type') == 'password') {
+      target.classList.add('view');
+      input.setAttribute('type', 'text');
+      image.className = "fa-solid fa-eye";
+    } else {
+      target.classList.remove('view');
+      input.setAttribute('type', 'password');
+      image.className = "fa-solid fa-eye-slash";
+    }
+    return false;
+  }
+</script>
+
+<div class="footer container-fluid">
+  <div class="footer-content container">
+    <div class="row">
+      <p>© 2023 Мой сайт. Все права защищены.</p>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

@@ -82,9 +82,21 @@
 
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
-      <label for="code" class="form-label">Код подтверждения</label>
-          <input required type="text" class="form-control" id="code" placeholder="Ввведите код подтверждения" minlength="6" maxlength="6"
-                 oninvalid="this.setCustomValidity('Проверьте код подтверждения. Он состоит из 6 символов')" oninput="this.setCustomValidity('')">
+      <label for="password1" class="form-label">Пароль</label>
+      <div class="password">
+        <input required type="password" name="password" class="form-control" id="password1" placeholder="введите ваш пароль" minlength="8"
+               oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов!')" oninput="this.setCustomValidity('')" onchange="onChange()">
+        <a href="#" class="password-control" style="margin-right: 15px;" onclick="return show_hide_password('password1', this, 'eye1');"><i id="eye1" class="fa-solid fa-eye-slash"></i></a>
+      </div>
+    </div>
+    <div class="w-100"></div>
+    <div class="mb-3 col-10 col-md-6">
+      <label for="password2" class="form-label">Повторите пароль</label>
+      <div class="password">
+        <input required type="password" name="confirm" class="form-control" id="password2" placeholder="повторите ваш пароль" minlength="8"
+             oninput="this.setCustomValidity('')" onchange="onChange()" >
+        <a href="#" class="password-control" style="margin-right: 15px;"  onclick="return show_hide_password('password2', this, 'eye2');"><i id="eye2" class="fa-solid fa-eye-slash"></i></a>
+      </div>
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
@@ -94,44 +106,22 @@
   </form>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function() {
-    $("#registrationForm").submit(function(event) {
-      event.preventDefault(); // Предотвращаем отправку формы по умолчанию
-          // Ответ от сервера об успешной регистрации
-          // Отправляем письмо на указанный email
-      const formData = {
-        login: $("#login").val(),
-        email: $("#email").val(),
-        password: $("#password").val(),
-      };
-          $.ajax({
-            url: "/send-email",
-            type: "POST",
-            data: formData,
-            success: function(emailResponse) {
-
-            }
-          });
-      });
-  });
-  $("#checkMailForm").submit(function(event) {
-    event.preventDefault(); // Предотвращаем отправку формы по умолчанию
-    // Ответ от сервера об успешной регистрации
-    // Отправляем письмо на указанный email
-    const formData = {
-      code: $("#code").val()
-    };
-    $.ajax({
-      url: "/checkMailCode",
-      type: "POST",
-      data: { code: formData.code },
-      success: function(emailResponse) {
-        // Обработка успешной отправки письма
-      }
-    });
-  });
+  <!-- Функция, позволяющая посмотреть введенный пароль -->
+  function show_hide_password(pass, target, img){
+    var image = document.getElementById(img);
+    var input = document.getElementById(pass);
+    if (input.getAttribute('type') == 'password') {
+      target.classList.add('view');
+      input.setAttribute('type', 'text');
+      image.className = "fa-solid fa-eye";
+    } else {
+      target.classList.remove('view');
+      input.setAttribute('type', 'password');
+      image.className = "fa-solid fa-eye-slash";
+    }
+    return false;
+  }
 </script>
 
 <script>
@@ -140,7 +130,7 @@
     const password = document.querySelector('input[name=password]');
     const confirm = document.querySelector('input[name=confirm]');
     if (confirm.value != password.value) {
-      confirm.setCustomValidity('Пароли не совпадают!');
+      confirm.setCustomValidity('Пароли не совпали!');
     } else {
       confirm.setCustomValidity('');
     }
@@ -151,4 +141,14 @@
 <footer>
   <p>© 2021 Мой сайт. Все права защищены.</p>
 </footer>
+
+<div class="footer container-fluid">
+  <div class="footer-content container">
+    <div class="row">
+      <p>© 2023 Мой сайт. Все права защищены.</p>
+    </div>
+  </div>
+</div>
+
+</body>
 </html>

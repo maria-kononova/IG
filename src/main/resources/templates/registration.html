@@ -30,12 +30,12 @@
           <li><a href="/">Главная</a> </li>
           <li>
             <div th:switch="${userLogin}">
-              <a href="/log" th:case="null"><i class="fa-solid fa-user"></i>Аккаунт</a>
-              <a href="/log" th:case="*" th:text="${userLogin.login}"></a>
+              <a href="/acc" th:case="null"><i class="fa-solid fa-user"></i>Аккаунт</a>
+              <a href="/acc" th:case="*" th:text="${userLogin.login}"></a>
             </div>
             <ul>
               <li><a href="/new">Регистрация</a></li>
-              <li><a href="/">Авторизация</a></li>
+              <li><a href="/log">Авторизация</a></li>
             </ul>
           </li>
         </ul>
@@ -94,10 +94,11 @@
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
       <button type="submit" class="btn btn-secondary">Зарегистрироваться</button>
-      <a href="authorization.html">Авторизоваться</a>
+      <a href="/log">Авторизоваться</a>
     </div>
   </form>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(document).ready(function() {

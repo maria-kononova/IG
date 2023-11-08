@@ -72,6 +72,10 @@ public class UserController {
         else return "NotEmail";
     }
 
+    @GetMapping("/acc")
+    public String accountInput(){
+        return "account";
+    }
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {

@@ -49,8 +49,8 @@
   <form class="row justify-content-center" id="registrationForm" method="post">
     <h2>Регистрация</h2>
     <div class="mb-3 col-12 col-md-6">
-      <label for="formGroupExampleInput" class="form-label">Логин</label>
-      <input required type="text" name="login" class="form-control" id="formGroupExampleInput" placeholder="Введите ваш логин" minlength="4"
+      <label for="login" class="form-label">Логин</label>
+      <input required type="text" name="login" class="form-control" id="login" placeholder="Введите ваш логин" minlength="4"
              oninvalid="this.setCustomValidity('Имя пользователя должно быть больше 4 символов')" oninput="this.setCustomValidity('')"/>
     </div>
     <div class="w-100"></div>
@@ -101,39 +101,71 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(document).ready(function() {
-    $("#registrationForm").submit(function(event) {
+    $("#registrationForm").submit(function (event) {
       event.preventDefault(); // Предотвращаем отправку формы по умолчанию
       // Ответ от сервера об успешной регистрации
       // Отправляем письмо на указанный email
       const formData = {
-        login: $("#login").val(),
         email: $("#email").val(),
-        password: $("#password").val(),
       };
       $.ajax({
-        url: "/send-email",
-        type: "POST",
+        url: "/checkMail",
+        type: "GET",
         data: formData,
-        success: function(emailResponse) {
+        success: function (emailResponse) {
+          if (emailResponse === "Success") {
+          $.ajax({
+            url: "/send-email",
+            type: "POST",
+            data: formData,
+            success: function (emailResponse) {
+            }
+          });
+        }
+          else{
 
+          }
         }
       });
     });
-  });
-  $("#checkMailForm").submit(function(event) {
-    event.preventDefault(); // Предотвращаем отправку формы по умолчанию
-    // Ответ от сервера об успешной регистрации
-    // Отправляем письмо на указанный email
-    const formData = {
-      code: $("#code").val()
-    };
-    $.ajax({
-      url: "/checkMailCode",
-      type: "POST",
-      data: { code: formData.code },
-      success: function(emailResponse) {
-        // Обработка успешной отправки письма
-      }
+    $("#checkMailForm").submit(function (event) {
+      event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+      // Ответ от сервера об успешной регистрации
+      // Отправляем письмо на указанный email
+      const formData = {
+        code: $("#code").val()
+      };
+      $.ajax({
+        url: "/checkMailCode",
+        type: "POST",
+        data: {code: formData.code},
+        success: function (emailResponse) {
+          if (emailResponse === "Success"){
+            const formData2 = {
+              login: $("#login").val(),
+              email: $("#email").val(),
+              password: $("#password1").val(),
+            }
+            $.ajax({
+              url: "/saveNewUser",
+              type: "POST",
+              data: formData2,
+              success: function (emailResponse) {
+                if (emailResponse === "Success"){
+
+
+                }
+                else{
+
+                }
+              }
+            });
+          }
+          else{
+
+          }
+        }
+      });
     });
   });
 </script>
@@ -142,7 +174,7 @@
   function show_hide_password(pass, target, img){
     var image = document.getElementById(img);
     var input = document.getElementById(pass);
-    if (input.getAttribute('type') == 'password') {
+    if (input.getAttribute('type') === 'password') {
       target.classList.add('view');
       input.setAttribute('type', 'text');
       image.className = "fa-solid fa-eye";

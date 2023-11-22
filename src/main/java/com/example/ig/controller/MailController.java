@@ -32,6 +32,7 @@ public class MailController {
         return "Success";
     }
     @PostMapping("/checkMailCode")
+    @ResponseBody
     public String checkMailCOde(Model model, @RequestParam String code){
         Mail mail = (Mail) this.model.getAttribute("mail");
 
@@ -39,6 +40,6 @@ public class MailController {
             System.out.println("true");
         }
         else System.out.println("false");
-        return "index";
+        return "Success";
     }
 }

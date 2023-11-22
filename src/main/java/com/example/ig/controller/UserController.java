@@ -57,7 +57,8 @@ public class UserController {
     public String showSignUpForm(Model model) {
         return "registration";
     }
-    @RequestMapping(value="/new-user", method= RequestMethod.POST)
+
+    @GetMapping(value="/new-user")
     @ResponseBody
     public String postAdd(@RequestParam String login, @RequestParam String email, @RequestParam String password, Model model ){
         System.out.println("тут");
@@ -70,6 +71,29 @@ public class UserController {
             return "Success";
         }
         else return "NotEmail";
+    }
+    @GetMapping("/checkMail")
+    @ResponseBody
+    public String checkMail(Model model, @RequestParam String email) {
+        for (int i = 0; i < userRepository.findAll().size(); i++) {
+            if (userRepository.findAll().get(i).getEmail().equals(email)) {
+                System.out.println("почта уже зарегистрирована");
+                return "NotSuccess";
+            }
+        }
+        System.out.println("почта свободна");
+        return "Success";
+    }
+
+
+    @PostMapping("/saveNewUser")
+    @ResponseBody
+    public String checkMailCode(Model model, @RequestParam  String login, @RequestParam String email, @RequestParam String password){
+            User user = new User(login, email, password);
+            userRepository.save(user);
+            System.out.println("пользователь успешно зарегистрирован");
+            model.addAttribute("user", user);
+            return "redirect:" + getUrl();
     }
 
 

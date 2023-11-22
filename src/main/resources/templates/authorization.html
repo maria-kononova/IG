@@ -30,8 +30,8 @@
           <li><a href="/">Главная</a> </li>
           <li>
               <div th:switch="${userLogin}">
-                <a href="/log" th:case="null"><i class="fa-solid fa-user"></i>Аккаунт</a>
-                <a href="/log" th:case="*">${userLogin.login}</a>
+                <a href="/acc" th:case="null"><i class="fa-solid fa-user"></i>Аккаунт</a>
+                <a href="/acc" th:case="*">${userLogin.login}</a>
               </div>
             <ul>
               <li><a href="/new">Регистрация</a></li>
@@ -63,7 +63,7 @@
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
       <button type="submit" class="btn btn-secondary">Войти</button>
-      <a href="add-user.html">Зарегистрироваться</a>
+      <a href="/new">Зарегистрироваться</a>
     </div>
   </form>
 </div>

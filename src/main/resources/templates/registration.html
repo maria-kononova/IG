@@ -49,8 +49,8 @@
   <form class="row justify-content-center" id="registrationForm" method="post">
     <h2>Регистрация</h2>
     <div class="mb-3 col-12 col-md-6">
-      <label for="formGroupExampleInput" class="form-label">Логин</label>
-      <input required type="text" name="login" class="form-control" id="formGroupExampleInput" placeholder="Введите ваш логин" minlength="4"
+      <label for="login" class="form-label">Логин</label>
+      <input required type="text" name="login" class="form-control" id="login" placeholder="Введите ваш логин" minlength="4"
              oninvalid="this.setCustomValidity('Имя пользователя должно быть больше 4 символов')" oninput="this.setCustomValidity('')"/>
     </div>
     <div class="w-100"></div>
@@ -77,9 +77,11 @@
       <div class="row g-3">
         <div class="col-md-9">
           <input required type="email" id="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Введите вашу почту"/>
+          <p id="emailMessage"></p>
+          <div id="codeAgainMassage"></div>
         </div>
         <div class="col-md-3" >
-          <button type="submit" class="btn btn-secondary">Получить код</button>
+          <button type="submit" id="codeSendButton" class="btn btn-secondary">Получить код</button>
         </div>
       </div>
     </div>
@@ -101,40 +103,104 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+  var element = document.getElementById('email');
+  element.addEventListener('input', function() {
+    if (state === "true") alert("почта изменилась")
+  });
+</script>
+<script>
+  const timerVal = document.getElementById('codeAgainMassage');
+  function initTimer() {
+    let seconds = 10;
+    const timer = setInterval(() => {
+      timerVal.textContent = `Письмо успешно отправлено! Запросить следующее можно через ${seconds} секунд`;
+      if (seconds === 0) {
+        timerVal.textContent = "";
+        document.getElementById('email').disabled = false;
+        document.getElementById('codeSendButton').disabled = false;
+        clearInterval(timer);}
+      seconds -= 1;
+    }, 1000);
+  }
+  var state = "false";
   $(document).ready(function() {
-    $("#registrationForm").submit(function(event) {
+    $("#registrationForm").submit(function (event) {
+      document.getElementById('email').disabled = true;
+      document.getElementById('codeSendButton').disabled = true;
       event.preventDefault(); // Предотвращаем отправку формы по умолчанию
       // Ответ от сервера об успешной регистрации
       // Отправляем письмо на указанный email
       const formData = {
-        login: $("#login").val(),
         email: $("#email").val(),
-        password: $("#password").val(),
       };
       $.ajax({
-        url: "/send-email",
-        type: "POST",
+        url: "/checkMail",
+        type: "GET",
         data: formData,
-        success: function(emailResponse) {
+        success: function (emailResponse) {
+          if (emailResponse === "Success") {
+          $.ajax({
+            url: "/send-email",
+            type: "POST",
+            data: formData,
+            success: function (emailResponse) {
+              if (emailResponse === "Success") {
+                //document.getElementById('emailMessage').textContent = "Письмо успешно отправлено. Проверьте почту!";
+                initTimer();
+              }
+              else{
+                document.getElementById('emailMessage').textContent = "Ошибка отправки сообщения. Попробуйте снова!";
+                //document.getElementById('email').disabled = false;
+              }
+            }
+          });
+        }
+          else{
+            //document.getElementById('email').disabled = false;
+            document.getElementById('emailMessage').textContent = "Данный email уже зарегистрирован"
 
+          }
         }
       });
     });
-  });
-  $("#checkMailForm").submit(function(event) {
-    event.preventDefault(); // Предотвращаем отправку формы по умолчанию
-    // Ответ от сервера об успешной регистрации
-    // Отправляем письмо на указанный email
-    const formData = {
-      code: $("#code").val()
-    };
-    $.ajax({
-      url: "/checkMailCode",
-      type: "POST",
-      data: { code: formData.code },
-      success: function(emailResponse) {
-        // Обработка успешной отправки письма
-      }
+    $("#checkMailForm").submit(function (event) {
+      event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+      // Ответ от сервера об успешной регистрации
+      // Отправляем письмо на указанный email
+      const formData = {
+        code: $("#code").val()
+      };
+      $.ajax({
+        url: "/checkMailCode",
+        type: "POST",
+        data: {code: formData.code},
+        success: function (emailResponse) {
+          if (emailResponse === "Success"){
+            const formData2 = {
+              login: $("#login").val(),
+              email: $("#email").val(),
+              password: $("#password1").val(),
+            }
+            $.ajax({
+              url: "/saveNewUser",
+              type: "POST",
+              data: formData2,
+              success: function (emailResponse) {
+                if (emailResponse === "Success"){
+
+
+                }
+                else{
+
+                }
+              }
+            });
+          }
+          else{
+
+          }
+        }
+      });
     });
   });
 </script>
@@ -143,7 +209,7 @@
   function show_hide_password(pass, target, img){
     var image = document.getElementById(img);
     var input = document.getElementById(pass);
-    if (input.getAttribute('type') == 'password') {
+    if (input.getAttribute('type') === 'password') {
       target.classList.add('view');
       input.setAttribute('type', 'text');
       image.className = "fa-solid fa-eye";
@@ -170,11 +236,16 @@
 </script>
 
 </body>
-<div class="footer container-fluid">
-  <div class="footer-content container">
-    <div class="row">
-      <p>© 2023 Мой сайт. Все права защищены.</p>
+<footer>
+  <div id="site_footer" style="background: black;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-8">
+          <p style="color: white;">© 2023 Мой сайт. Все права защищены.</p>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+
+</footer>
 </html>

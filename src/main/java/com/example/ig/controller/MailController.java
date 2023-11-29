@@ -31,14 +31,18 @@ public class MailController {
         mail.sendMail("sendCodeConfirm.html", email, "IG Подтверждение почты", model);
         return "Success";
     }
+
+
     @PostMapping("/checkMailCode")
+    @ResponseBody
     public String checkMailCOde(Model model, @RequestParam String code){
         Mail mail = (Mail) this.model.getAttribute("mail");
 
         if (code.equals(mail != null ? mail.getCode() : null)){
             System.out.println("true");
+            return "Success";
         }
         else System.out.println("false");
-        return "index";
+        return "NotSuccess";
     }
 }

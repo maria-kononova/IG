@@ -44,6 +44,39 @@
   </div>
 </header>
 
+<div class="container text-center account_form">
+  <div class="row row-cols-auto">
+    <div class="col-7" >
+      <div class="account_div" >
+        <div class="account_div2">
+
+        </div>
+
+        <form class="row justify-content-center" id="accountForm" method="post">
+          <div class="mb-3 col-12 col-md-6">
+            <input required type="text" name="login" class="form-control margin-top-20" id="loginAcc" placeholder="Ваш логин" minlength="4"
+                   oninvalid="this.setCustomValidity('Имя пользователя должно быть больше 4 символов')" oninput="this.setCustomValidity('')"/>
+          </div>
+          <div class="w-100"></div>
+          <div class="mb-3 col-12 col-md-6">
+            <input required type="email" name="email" class="form-control" id="emailAcc" aria-describedby="emailHelp" placeholder="Ваша почта"/>
+
+          </div>
+          <div class="w-100"></div>
+          <div class="mb-3 col-12 col-md-6">
+            <button type="submit" class="btn btn-secondary">Изменить данные</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col"></div>
+  </div>
+</div>
 
 
 

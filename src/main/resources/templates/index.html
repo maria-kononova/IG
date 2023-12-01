@@ -44,32 +44,6 @@
     </div>
 </header>
 
-<button id="myButton">Получить код</button>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $("#myButton").click(function() {
-            $.ajax({
-                url: "/some-action",
-                type: "POST",
-                success: function(response) {
-                    // Обработка успешного ответа от сервера
-                }
-            });
-        });
-    });
-</script>
-
-<form action="/sendMailCode" method="post">
-    <button type="submit" class="btn btn-success">Получить код</button>
-</form>
-<form action="/checkMailCode" method="post">
-    <input type="text" name="code" placeholder="введите код" class="form-control"/>
-    <button type="submit" class="btn btn-success">Проверить код</button>
-</form>
-
-
 <div th:switch="${userLogin}">
     <h2 th:case="null">No login.</h2>
     <div th:case="*">

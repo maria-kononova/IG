@@ -92,6 +92,7 @@
       <label for="code" class="form-label">Код подтверждения</label>
       <input required type="text" class="form-control" id="code" placeholder="Ввведите код подтверждения" minlength="6" maxlength="6"
              oninvalid="this.setCustomValidity('Проверьте код подтверждения. Он состоит из 6 символов')" oninput="this.setCustomValidity('')">
+      <p id="codeMessage"></p>
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
@@ -186,9 +187,8 @@
               type: "POST",
               data: formData2,
               success: function (emailResponse) {
-                if (emailResponse === "Success"){
-
-
+                if (emailResponse === "account"){
+                  window.location.href = '/account';
                 }
                 else{
 
@@ -197,7 +197,7 @@
             });
           }
           else{
-
+            document.getElementById('codeMessage').textContent = "Ошибка! Неверный код. Проверьте его на своём email или запросите другой.";
           }
         }
       });

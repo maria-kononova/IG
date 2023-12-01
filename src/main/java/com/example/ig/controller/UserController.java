@@ -30,6 +30,14 @@ public class UserController {
         return "index";
     }
 
+    @GetMapping("/account")
+    public String accountPage(Model model){
+        User user = (User) this.model.getAttribute("userLogin");
+        assert user != null;
+        System.out.println(user.getEmail());
+        return "account";
+    }
+
     @GetMapping("/users/{userId}")
     public String user(Model model){
         model = this.model;
@@ -40,14 +48,16 @@ public class UserController {
     public String accountForm(){
         return "authorization";
     }
+
     @PostMapping("/auth")
-    public String userAuth(@RequestParam String email, @RequestParam String passwordInput, Model model) {
+    public String userAuth(@RequestParam String email, @RequestParam String password, Model model) {
         User user = userRepository.findByEmail(email);
         //if (bCryptPasswordEncoder.matches(currentPassword, user.getPassword()))
-        if (user.checkPassword(passwordInput)) {
+        if (user.checkPassword(password)) {
             //System.err.println(passwordInput);
             model.addAttribute("userLogin", user);
             this.model.addAllAttributes(model.asMap());
+            //this.model.addAllAttributes(model.asMap());
             return "index";
             //return "redirect:" + getUrl();
         }
@@ -58,20 +68,6 @@ public class UserController {
         return "registration";
     }
 
-    @GetMapping(value="/new-user")
-    @ResponseBody
-    public String postAdd(@RequestParam String login, @RequestParam String email, @RequestParam String password, Model model ){
-        System.out.println("тут");
-        if (userRepository.existsByEmail(email)) {
-            User user = new User(login, email, password);
-
-            //userRepository.save(user);
-            model.addAttribute("user", user);
-
-            return "Success";
-        }
-        else return "NotEmail";
-    }
     @GetMapping("/checkMail")
     @ResponseBody
     public String checkMail(Model model, @RequestParam String email) {
@@ -92,8 +88,10 @@ public class UserController {
             User user = new User(login, email, password);
             userRepository.save(user);
             System.out.println("пользователь успешно зарегистрирован");
-            model.addAttribute("user", user);
-            return "redirect:" + getUrl();
+            model.addAttribute("userLogin", user);
+            //this.model.addAttribute("user", user);
+            this.model.addAllAttributes(model.asMap());
+            return "account";
     }
 
     @GetMapping("/acc")

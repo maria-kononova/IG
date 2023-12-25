@@ -30,8 +30,8 @@
                     <li><a href="/">Главная</a> </li>
                     <li>
                         <div th:switch="${userLogin}">
-                            <a href="/acc" th:case="null"><i class="fa-solid fa-user"></i>Аккаунт</a>
-                            <a href="/acc" th:case="*" th:text="${userLogin.login}"></a>
+                            <a href="/account" th:case="null"><i class="fa-solid fa-user"></i>Аккаунт</a>
+                            <a href="/account" th:case="*" th:text="${userLogin.login}"></a>
                         </div>
                         <ul>
                             <li><a href="/new">Регистрация</a></li>

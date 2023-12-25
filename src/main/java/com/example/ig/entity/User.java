@@ -37,6 +37,7 @@ public class User {
         this.salt = generateSalt();
         this.password = getHash(password, this.salt);
     }
+
     private String generateSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[15];

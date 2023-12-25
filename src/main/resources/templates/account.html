@@ -30,8 +30,8 @@
           <li><a href="/">Главная</a> </li>
           <li>
             <div th:switch="${userLogin}">
-              <a href="/acc" th:case="null"><i class="fa-solid fa-user"></i>Аккаунт</a>
-              <a href="/acc" th:case="*" th:text="${userLogin.login}"></a>
+              <a href="/account" th:case="null"><i class="fa-solid fa-user"></i>Аккаунт</a>
+              <a href="/account" th:case="*" th:text="${userLogin.login}"></a>
             </div>
             <ul>
               <li><a href="/new">Регистрация</a></li>
@@ -52,15 +52,14 @@
 
         </div>
 
-        <form class="row justify-content-center" id="accountForm" method="post">
+        <form class="row justify-content-center" id="accountForm"  action="#" th:action="@{/update/{id}(id=${userLogin.id})}" method="post">
           <div class="mb-3 col-12 col-md-6">
-            <input required type="text" name="login" class="form-control margin-top-20" id="loginAcc" placeholder="Ваш логин" minlength="4"
+            <input required type="text" name="login" th:value="${userLogin.login}" class="form-control margin-top-20" id="loginAcc" minlength="4"
                    oninvalid="this.setCustomValidity('Имя пользователя должно быть больше 4 символов')" oninput="this.setCustomValidity('')"/>
           </div>
           <div class="w-100"></div>
           <div class="mb-3 col-12 col-md-6">
-            <input required type="email" name="email" class="form-control" id="emailAcc" aria-describedby="emailHelp" placeholder="Ваша почта"/>
-
+            <input required type="email" name="email" th:value="${userLogin.email}" class="form-control" id="emailAcc" aria-describedby="emailHelp"/>
           </div>
           <div class="w-100"></div>
           <div class="mb-3 col-12 col-md-6">

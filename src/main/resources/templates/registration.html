@@ -30,13 +30,20 @@
           <li><a href="/">Главная</a> </li>
           <li>
             <div th:switch="${userLogin}">
-              <a href="/acc" th:case="null"><i class="fa-solid fa-user"></i>Аккаунт</a>
-              <a href="/acc" th:case="*" th:text="${userLogin.login}"></a>
+              <div th:case="null">
+                <a href="/account"><i class="fa-solid fa-user"></i>Аккаунт</a>
+                <ul>
+                  <li><a href="/new">Регистрация</a></li>
+                  <li><a href="/log">Авторизация</a></li>
+                </ul>
+              </div>
+              <div th:case="*">
+                <a href="/account" th:text="${userLogin.login}"></a>
+                <ul>
+                  <li><a href="/exit">Выйти</a></li>
+                </ul>
+              </div>
             </div>
-            <ul>
-              <li><a href="/new">Регистрация</a></li>
-              <li><a href="/log">Авторизация</a></li>
-            </ul>
           </li>
         </ul>
       </nav>
@@ -101,6 +108,7 @@
     </div>
   </form>
 </div>
+</body>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -228,8 +236,6 @@
     }
   }
 </script>
-
-</body>
 <footer>
   <div id="site_footer" style="background: black;">
     <div class="container">

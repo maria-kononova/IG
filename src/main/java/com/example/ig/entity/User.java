@@ -30,12 +30,15 @@ public class User {
     private String password;
     @NotBlank(message = "salt is required")
     private String salt;
+    @Column(columnDefinition="TEXT")
+    private String img;
 
     public User(String login, String email, String password){
         this.email = email;
         this.login = login;
         this.salt = generateSalt();
         this.password = getHash(password, this.salt);
+        this.setImg("https://i.vimeocdn.com/portrait/42976218_640x640");
     }
 
     private String generateSalt() {

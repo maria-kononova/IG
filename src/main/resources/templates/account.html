@@ -16,9 +16,7 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-nU14brUcp6StFntEOOEBvcJm4huWjB0OcIeQ3fltAfSmuZFrkAif0T+UtNGlKKQv" crossorigin="anonymous">
-
 </head>
-<body>
   <header class="container-fluid">
     <div class="container">
       <div class="row">
@@ -30,13 +28,20 @@
             <li><a href="/">Главная</a> </li>
             <li>
               <div th:switch="${userLogin}">
-                <a href="/account" th:case="null"><i class="fa-solid fa-user"></i>Аккаунт</a>
-                <a href="/account" th:case="*" th:text="${userLogin.login}"></a>
+                <div th:case="null">
+                  <a href="/account"><i class="fa-solid fa-user"></i>Аккаунт</a>
+                  <ul>
+                    <li><a href="/new">Регистрация</a></li>
+                    <li><a href="/log">Авторизация</a></li>
+                  </ul>
+                </div>
+                <div th:case="*">
+                  <a href="/account" th:text="${userLogin.login}"></a>
+                  <ul>
+                    <li><a href="/exit">Выйти</a></li>
+                  </ul>
+                </div>
               </div>
-              <ul>
-                <li><a href="/new">Регистрация</a></li>
-                <li><a href="/log">Авторизация</a></li>
-              </ul>
             </li>
           </ul>
         </nav>
@@ -46,36 +51,71 @@
 
 <div class="container text-center account_form">
   <div class="row row-cols-auto">
-    <div class="col-7" >
+    <div class="col-8" >
       <div class="account_div" >
         <div class="account_div2">
-          <img class="figure_img" src="https://pichold.ru/wp-content/uploads/2022/02/25-16.jpg" alt="image">
+          <main>
+            <br/>
+            <input type="file" name="image" id="image" accept="image/*" />
+            <div id="preview">
+                <img class="figure_img" id="avatar" alt="image" th:src="${userLogin.getImg()}"/>
+            </div>
+          </main>
         </div>
 
         <form class="row justify-content-center" id="accountForm"  action="#" th:action="@{/update/{id}(id=${userLogin.id})}" method="post">
           <div class="mb-3 col-12 col-md-6">
-            <input required type="text" name="login" th:value="${userLogin.login}" class="form-control margin-top-20" id="loginAcc" minlength="4"
+            <input required type="email" name="email" th:value="${userLogin.email}" class="form-control margin-top-20" id="emailAcc" aria-describedby="emailHelp" readonly/>
+          </div>
+          <div class="w-100"></div>
+          <div class="mb-3 col-12 col-md-6">
+            <input required type="text" name="login" th:value="${userLogin.login}" class="form-control" id="loginAcc" minlength="4"
                    oninvalid="this.setCustomValidity('Имя пользователя должно быть больше 4 символов')" oninput="this.setCustomValidity('')"/>
           </div>
           <div class="w-100"></div>
           <div class="mb-3 col-12 col-md-6">
-            <input required type="email" name="email" th:value="${userLogin.email}" class="form-control" id="emailAcc" aria-describedby="emailHelp"/>
+            <button type="submit" class="btn btn-secondary">Изменить логин</button>
+          </div>
+        </form>
+
+
+        <form class="row justify-content-center" id="passwordUpdateForm"  action="#" th:action="@{/update/{id}(id=${userLogin.id})}" method="post">
+          <div class="w-100"></div>
+          <div class="mb-3 col-12 col-md-6">
+            <input required type="text" name="old_pass" class="form-control" id="oldPassAcc" placeholder="Старый пароль" minlength="8"
+                   oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов!')" oninput="this.setCustomValidity('')"/>
           </div>
           <div class="w-100"></div>
           <div class="mb-3 col-12 col-md-6">
-            <button type="submit" class="btn btn-secondary">Изменить данные</button>
+            <input required type="text" name="new_pass" class="form-control" id="newPassAcc" aria-describedby="emailHelp" placeholder="Новый пароль" minlength="8"
+                   oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов!')" oninput="this.setCustomValidity('')"/>
+
+          </div>
+          <div class="w-100"></div>
+          <div class="mb-3 col-12 col-md-6">
+            <div id="passwordUpdate"></div>
+            <button type="submit" class="btn btn-secondary">Изменить пароль</button>
           </div>
         </form>
       </div>
     </div>
-    <div class="col"></div>
-    <div class="col"></div>
+
+    <div class="col-4" >
+      <div class="recommend_div" >
+        <div class="recommend_div2">
+          <br/>
+          <p>Ваши сообщества:</p>
+        </div>
+      </div>
+    </div>
     <div class="col"></div>
   </div>
 </div>
+
+</div>
   <div class="container text-center account_form">
     <div class="row row-cols-auto">
-      <div class="col-7" >
+      <div class="col-8" >
         <div class="account_div" >
           <form class="row justify-content-center" id="colorForm" method="post">
             <div class="w-100"></div>
@@ -114,8 +154,62 @@
     }
   });
 </script>
-
-<footer>
+<script>
+  const FILE_INPUT = document.querySelector("input[type=file]");
+  const AVATAR = document.getElementById("avatar");
+  AVATAR.addEventListener("click", () => FILE_INPUT.click());
+  FILE_INPUT.addEventListener("change", event => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      AVATAR.setAttribute("aria-label", file.name);
+      AVATAR.src = `${reader.result}`;
+      const formData = {
+        url: reader.result
+      };
+      $.ajax({
+        url: "/changeImg",
+        type: "POST",
+        data: formData,
+        success: function (authResponse) {
+        }
+      });
+    };
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+  }, false);
+</script>
+<script>
+  $(document).ready(function() {
+    $("#passwordUpdateForm").submit(function (event) {
+      event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+      // Ответ от сервера об успешной регистрации
+      // Отправляем письмо на указанный email
+      const formData = {
+        oldPassword: $("#oldPassAcc").val(),
+        newPassword: $("#newPassAcc").val(),
+      };
+      $.ajax({
+        url: "/updatePassword",
+        type: "POST",
+        data: formData,
+        success: function (response) {
+          if (response === "Success") {
+            window.location.href = '/account';
+          }
+          else if (response === "Match"){
+            document.getElementById('passwordUpdate').textContent = "Новый пароль совпадает со старым!";
+          }
+          else{
+            document.getElementById('passwordUpdate').textContent = "Старый пароль введён не верно!";
+          }
+        }
+      });
+    });
+  });
+</script>
+<footer role="contentinfo">
   <div id="site_footer" style="background: black;">
     <div class="container">
       <div class="row">

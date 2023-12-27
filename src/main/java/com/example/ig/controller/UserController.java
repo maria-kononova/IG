@@ -15,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,7 +36,7 @@ public class UserController {
 
     @GetMapping("/")
     public String homePage(Model model) {
-        if(user == null){
+        if (user == null) {
             model.addAttribute("users", userRepository.findAll());
             this.model = model;
         }
@@ -128,15 +130,22 @@ public class UserController {
     @PostMapping("/saveNewUser")
     @ResponseBody
     public String checkMailCode(Model model, @RequestParam String login, @RequestParam String email, @RequestParam String password) {
-        User user = new User(login, email, password);
+        user = new User(login, email, password);
         userRepository.save(user);
         System.out.println("пользователь успешно зарегистрирован");
         model.addAttribute("userLogin", user);
         //this.model.addAttribute("user", user);
-        this.model.addAllAttributes(model.asMap());
         return "account";
     }
 
+    @PostMapping("/changeImg")
+    @ResponseBody
+    public String changeImg(Model model, @RequestParam String url) {
+        user.setImg(url);
+        userRepository.save(user);
+        model.addAttribute("userLogin", user);
+        return "account";
+    }
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
@@ -159,23 +168,30 @@ public class UserController {
         return "redirect:" + getUrl();
     }
 
+    @PostMapping("/updatePassword")
+    @ResponseBody
+    public String updatePassword(@RequestParam String oldPassword, @RequestParam String newPassword, Model model) {
+        if (!oldPassword.equals(newPassword)) {
+            if (user.checkPassword(oldPassword)) {
+                user.updatePassword(newPassword);
+                userRepository.save(user);
+            } else {
+                return "notValid";
+            }
+        } else {
+            return "Match";
+        }
+        return "Success";
+    }
+
     @PostMapping("/update/{id}")
     public String updateUser(
             @PathVariable("id") long id, @RequestParam String login, @RequestParam String email, Model model) {
-        System.out.println(id);
-        System.out.println(email);
-        System.out.println(login);
-        user = userRepository.getById(id);
-        user.setLogin(login);
-        userRepository.save(user);
-        model.addAttribute("userLogin", user);
-        System.out.println(user.getId());
-        /*if (result.hasErrors()) {
-            user.setId(id);
-            return "account";
+        if (!user.getLogin().equals(login)) {
+            user.setLogin(login);
+            userRepository.save(user);
+            model.addAttribute("userLogin", user);
         }
-        userRepository.save(user);
-        model.addAttribute("user", user);*/
         return "account";
     }
 

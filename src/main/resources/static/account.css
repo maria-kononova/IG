@@ -84,7 +84,7 @@ header ul li ul li a {
 /* Стили для аккаунта */
 .account_div {
     background: #f8f4ff;
-    height: 420px;
+    height: 500px;
     margin-top: 30px;
     border-radius: 20px;
 }
@@ -111,27 +111,31 @@ header ul li ul li a {
     height: 120px;
     margin-top: 50px;
     border-radius: 20px;
-    text-align: right;
+}
+.recommend_div2 p{
+    margin-top: 20px;
+    font-size: 24px;
 }
 
 .figure_div {
     object-fit: cover;
-    object-position: top center;
+    object-position: center;
     border-radius:50%;
     width: 130px;
     height: 130px;
-    margin-top: 35px;
+    margin-top: 50px;
     margin-left: 35px;
     background: white;
 }
 .figure_img {
     object-fit: cover;
-    object-position: top center;
+    object-position: center;
     border-radius:50%;
-    width: 120px;
-    height: 120px;
-    margin-top: 5px;
-    margin-left: 5px;
+    background: white;
+    height: 150px;
+    width: 150px;
+    border: 3px solid #fff;
+    transition: background ease-out 200ms;
 }
 
 
@@ -193,4 +197,23 @@ input[type=color]:after {
 #primary_color::-webkit-color-swatch {
     border: none;
     border-radius: 50%;
+}
+#avatar {
+    object-fit: cover;
+    object-position: center;
+    border-radius:50%;
+    margin-left: 35px;
+    background: white;
+    height: 150px;
+    width: 150px;
+    border: 3px solid #fff;
+    transition: background ease-out 200ms;
+}
+
+#preview {
+    position: relative;
+}
+
+input[type="file"] {
+    display: none;
 }

@@ -46,10 +46,12 @@
 
 <div class="container text-center account_form">
   <div class="row row-cols-auto">
-    <div class="col-7" >
+    <div class="col-8" >
       <div class="account_div" >
         <div class="account_div2">
-
+          <div class="figure_div" style="margin-top: 30px;">
+            <img class="figure_img" src="https://pichold.ru/wp-content/uploads/2022/02/25-16.jpg" alt="image">
+          </div>
         </div>
 
         <form class="row justify-content-center" id="accountForm" method="post">
@@ -64,16 +66,80 @@
           </div>
           <div class="w-100"></div>
           <div class="mb-3 col-12 col-md-6">
+            <input required type="text" name="old_pass" class="form-control" id="oldPassAcc" placeholder="Старый пароль" minlength="8"
+                   oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов!')" oninput="this.setCustomValidity('')"/>
+          </div>
+          <div class="w-100"></div>
+          <div class="mb-3 col-12 col-md-6">
+            <input required type="email" name="new_pass" class="form-control" id="newPassAcc" aria-describedby="emailHelp" placeholder="Новый пароль" minlength="8"
+                   oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов!')" oninput="this.setCustomValidity('')"/>
+
+          </div>
+          <div class="w-100"></div>
+          <div class="mb-3 col-12 col-md-6">
             <button type="submit" class="btn btn-secondary">Изменить данные</button>
           </div>
+
+
         </form>
       </div>
     </div>
 
+    <div class="col-4" >
+      <div class="recommend_div" >
+        <div class="recommend_div2">
+
+        </div>
 
 
-    <div class="col"></div>
-    <div class="col"></div>
+        <head>
+          <title>HTML input type file</title>
+
+          <!--CSS code-->
+          <style>
+            h1 {
+              color: green;
+            }
+
+            h2,
+            h3 {
+              font-family: Impact;
+            }
+
+            body {
+              text-align: center;
+            }
+          </style>
+        </head>
+
+        <body>
+        <h2>GeeksforGeeks</h2>
+        <h3>
+          How to create a file Upload
+          Button using html?
+        </h3>
+
+        <label> Choose the File to upload: </label>
+        <input type="file" id="myFile" /> <br /><br />
+
+        <input type="submit" value="submit" />
+        </body>
+        
+      </div>
+    </div>
+
+
+    <!--<div class="col-3" >
+      <div class="account_div" >
+        <div class="account_div2">
+
+        </div>
+
+
+      </div>
+    </div>-->
+
+
     <div class="col"></div>
   </div>
 </div>

@@ -10,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,38 +44,35 @@
     </div>
   </header>
 
-  <div class="container text-center account_form">
-    <div class="row row-cols-auto">
-      <div class="col-7" >
-        <div class="account_div" >
-          <div class="account_div2">
-
-          </div>
-          <form class="row justify-content-center" id="accountForm"  action="#" th:action="@{/update/{id}(id=${userLogin.id})}" method="post">
-            <div class="mb-3 col-12 col-md-6">
-              <input required type="text" name="login" th:value="${userLogin.login}" class="form-control margin-top-20" id="loginAcc" minlength="4"
-                     oninvalid="this.setCustomValidity('Имя пользователя должно быть больше 4 символов')" oninput="this.setCustomValidity('')"/>
-            </div>
-            <div class="w-100"></div>
-            <div class="mb-3 col-12 col-md-6">
-              <input required type="email" name="email" th:value="${userLogin.email}" class="form-control" id="emailAcc" aria-describedby="emailHelp"/>
-            </div>
-            <div class="w-100"></div>
-            <div class="mb-3 col-12 col-md-6">
-              <button type="submit" class="btn btn-secondary">Изменить данные</button>
-            </div>
-          </form>
+<div class="container text-center account_form">
+  <div class="row row-cols-auto">
+    <div class="col-7" >
+      <div class="account_div" >
+        <div class="account_div2">
+          <img class="figure_img" src="https://pichold.ru/wp-content/uploads/2022/02/25-16.jpg" alt="image">
         </div>
+
+        <form class="row justify-content-center" id="accountForm"  action="#" th:action="@{/update/{id}(id=${userLogin.id})}" method="post">
+          <div class="mb-3 col-12 col-md-6">
+            <input required type="text" name="login" th:value="${userLogin.login}" class="form-control margin-top-20" id="loginAcc" minlength="4"
+                   oninvalid="this.setCustomValidity('Имя пользователя должно быть больше 4 символов')" oninput="this.setCustomValidity('')"/>
+          </div>
+          <div class="w-100"></div>
+          <div class="mb-3 col-12 col-md-6">
+            <input required type="email" name="email" th:value="${userLogin.email}" class="form-control" id="emailAcc" aria-describedby="emailHelp"/>
+          </div>
+          <div class="w-100"></div>
+          <div class="mb-3 col-12 col-md-6">
+            <button type="submit" class="btn btn-secondary">Изменить данные</button>
+          </div>
+        </form>
       </div>
-      <div class="col"></div>
-      <div class="col"></div>
-      <div class="col"></div>
     </div>
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col"></div>
   </div>
-
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
+</div>
   <div class="container text-center account_form">
     <div class="row row-cols-auto">
       <div class="col-7" >
@@ -100,7 +96,8 @@
     </div>
   </div>
 </body>
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
   $("input.color").each(function() {
     let colorButton = document.getElementById("primary_color");
@@ -130,4 +127,3 @@
   </div>
 </footer>
 </html>
-

@@ -1,5 +1,6 @@
 package com.example.ig.controller;
 
+import com.example.ig.IgApplication;
 import com.example.ig.Mail;
 import com.example.ig.entity.User;
 import com.example.ig.repository.UserRepository;
@@ -19,6 +20,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.example.ig.IgApplication.BASE_URL;
+import static com.example.ig.IgApplication.user;
 
 @Controller
 public class UserController {
@@ -32,13 +34,23 @@ public class UserController {
 
     @GetMapping("/")
     public String homePage(Model model) {
-        model.addAttribute("users", userRepository.findAll());
-        this.model = model;
+        if(user == null){
+            model.addAttribute("users", userRepository.findAll());
+            this.model = model;
+        }
+        model.addAttribute("userLogin", user);
         return "index";
     }
 
     @GetMapping("/news")
     public String newsPage(Model model) {
+        return "index";
+    }
+
+    @GetMapping("/exit")
+    public String exit(Model model) {
+        user = null;
+        model.addAttribute("userLogin", null);
         return "index";
     }
 
@@ -55,7 +67,6 @@ public class UserController {
             data = Arrays.stream(cookies)
                     .map(c -> c.getName() + "=" + c.getValue()).collect(Collectors.joining(", "));
         }
-        User user = (User) this.model.getAttribute("userLogin");
         model.addAttribute("userLogin", user);
         return "account";
     }
@@ -74,11 +85,12 @@ public class UserController {
     @GetMapping("/auth")
     @ResponseBody
     public String userAuth(Model model, @RequestParam String email, @RequestParam String password) {
-        User user = userRepository.findByEmail(email);
+        User user1 = userRepository.findByEmail(email);
         System.out.println("тут");
         //if (bCryptPasswordEncoder.matches(currentPassword, user.getPassword()))
-        if (user.checkPassword(password)) {
+        if (user1.checkPassword(password)) {
             //System.err.println(passwordInput);
+            user = user1;
             model.addAttribute("userLogin", user);
             /*Cookie cookie = new Cookie("username", user.getLogin());
             cookie.setAttribute("email", user.getEmail());
@@ -86,7 +98,7 @@ public class UserController {
             //add a cookie to the response
             response.addCookie(cookie);*/
             System.out.println(user.getLogin());
-            this.model.addAttribute("userLogin", user);
+            //this.model.addAttribute("userLogin", user);
             return "Success";
             //return "redirect:" + getUrl();
         }
@@ -128,7 +140,7 @@ public class UserController {
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        User user =
+        user =
                 userRepository
                         .findById(id)
                         .orElseThrow(() -> new IllegalArgumentException("Invalid customer Id:" + id));
@@ -138,7 +150,7 @@ public class UserController {
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") long id, Model model) {
-        User user =
+        user =
                 userRepository
                         .findById(id)
                         .orElseThrow(() -> new IllegalArgumentException("Invalid customer Id:" + id));
@@ -153,7 +165,7 @@ public class UserController {
         System.out.println(id);
         System.out.println(email);
         System.out.println(login);
-        User user = userRepository.getById(id);
+        user = userRepository.getById(id);
         user.setLogin(login);
         userRepository.save(user);
         model.addAttribute("userLogin", user);

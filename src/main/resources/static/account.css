@@ -110,3 +110,52 @@ header ul li ul li a {
     width: 100%;
     height: 40px;
 }
+/*Стиль выбора цвета*/
+label {
+    font-family: sans-serif;
+    width: 300px;
+    display: block;
+    position: relative;
+}
+input {
+    padding: 5px 15px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+input[type=color] {
+    padding: 0;
+    border: 0;
+    height: 40px;
+}
+input[type=color]:after {
+    content: attr(data-value);
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+    color: #fffff5;
+    display: block;
+    width: 100%;
+}
+.color-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: #666;
+}
+#primary_color{
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+#primary_color::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+#primary_color::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}

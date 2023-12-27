@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,73 +20,114 @@
 
 </head>
 <body>
-<header class="container-fluid">
-  <div class="container">
-    <div class="row">
-      <div class="col-4">
-        <h1><a href="/">IG</a></h1>
-      </div>
-      <nav class="col-8">
-        <ul>
-          <li><a href="/">Главная</a> </li>
-          <li>
-            <div th:switch="${userLogin}">
-              <a href="/account" th:case="null"><i class="fa-solid fa-user"></i>Аккаунт</a>
-              <a href="/account" th:case="*" th:text="${userLogin.login}"></a>
-            </div>
-            <ul>
-              <li><a href="/new">Регистрация</a></li>
-              <li><a href="/log">Авторизация</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-</header>
-
-<div class="container text-center account_form">
-  <div class="row row-cols-auto">
-    <div class="col-7" >
-      <div class="account_div" >
-        <div class="account_div2">
-
+  <header class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-4">
+          <h1><a href="/">IG</a></h1>
         </div>
-
-        <form class="row justify-content-center" id="accountForm"  action="#" th:action="@{/update/{id}(id=${userLogin.id})}" method="post">
-          <div class="mb-3 col-12 col-md-6">
-            <input required type="text" name="login" th:value="${userLogin.login}" class="form-control margin-top-20" id="loginAcc" minlength="4"
-                   oninvalid="this.setCustomValidity('Имя пользователя должно быть больше 4 символов')" oninput="this.setCustomValidity('')"/>
-          </div>
-          <div class="w-100"></div>
-          <div class="mb-3 col-12 col-md-6">
-            <input required type="email" name="email" th:value="${userLogin.email}" class="form-control" id="emailAcc" aria-describedby="emailHelp"/>
-          </div>
-          <div class="w-100"></div>
-          <div class="mb-3 col-12 col-md-6">
-            <button type="submit" class="btn btn-secondary">Изменить данные</button>
-          </div>
-        </form>
+        <nav class="col-8">
+          <ul>
+            <li><a href="/">Главная</a> </li>
+            <li>
+              <div th:switch="${userLogin}">
+                <a href="/account" th:case="null"><i class="fa-solid fa-user"></i>Аккаунт</a>
+                <a href="/account" th:case="*" th:text="${userLogin.login}"></a>
+              </div>
+              <ul>
+                <li><a href="/new">Регистрация</a></li>
+                <li><a href="/log">Авторизация</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
+  </header>
 
+  <div class="container text-center account_form">
+    <div class="row row-cols-auto">
+      <div class="col-7" >
+        <div class="account_div" >
+          <div class="account_div2">
 
-
-    <div class="col"></div>
-    <div class="col"></div>
-    <div class="col"></div>
-  </div>
-</div>
-
-
-
-<div class="footer container-fluid">
-  <div class="footer-content container">
-    <div class="row">
-      <p>© 2023 Мой сайт. Все права защищены.</p>
+          </div>
+          <form class="row justify-content-center" id="accountForm"  action="#" th:action="@{/update/{id}(id=${userLogin.id})}" method="post">
+            <div class="mb-3 col-12 col-md-6">
+              <input required type="text" name="login" th:value="${userLogin.login}" class="form-control margin-top-20" id="loginAcc" minlength="4"
+                     oninvalid="this.setCustomValidity('Имя пользователя должно быть больше 4 символов')" oninput="this.setCustomValidity('')"/>
+            </div>
+            <div class="w-100"></div>
+            <div class="mb-3 col-12 col-md-6">
+              <input required type="email" name="email" th:value="${userLogin.email}" class="form-control" id="emailAcc" aria-describedby="emailHelp"/>
+            </div>
+            <div class="w-100"></div>
+            <div class="mb-3 col-12 col-md-6">
+              <button type="submit" class="btn btn-secondary">Изменить данные</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
     </div>
   </div>
-</div>
 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  <div class="container text-center account_form">
+    <div class="row row-cols-auto">
+      <div class="col-7" >
+        <div class="account_div" >
+          <form class="row justify-content-center" id="colorForm" method="post">
+            <div class="w-100"></div>
+            <div class="mb-3 col-12 col-md-6">
+              <div class="container">
+                <input type="color" id="primary_color" class="field-radio color">
+                <input type="text" class="form-control" id="textColor" placeholder="#XXXXXX" data-value="#xxxxxx"/>
+              </div>
+              <br/>
+            </div>
+            <div class="w-100"></div>
+            <div class="mb-3 col-12 col-md-6">
+              <button type="submit" class="btn btn-secondary">Изменить</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+
+<script>
+  $("input.color").each(function() {
+    let colorButton = document.getElementById("primary_color");
+    let colorDiv = document.getElementById("textColor");
+    colorButton.oninput = function() {
+      colorDiv.value = colorButton.value;
+    }
+  });
+  var colorDiv = document.getElementById('textColor');
+  colorDiv.addEventListener('input', function() {
+    if (/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(colorDiv.value)){
+      let colorButton = document.getElementById("primary_color");
+      colorButton.value = colorDiv.value;
+    }
+  });
+</script>
+
+<footer>
+  <div id="site_footer" style="background: black;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-8">
+          <p style="color: white;">© 2023 Мой сайт. Все права защищены.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
 </html>
+

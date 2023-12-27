@@ -1,5 +1,6 @@
 package com.example.ig;
 
+import com.example.ig.entity.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ public class IgApplication {
     static final String MAIL_PASSWORD = "fnhc xkhn xwie njsp";
     static final Properties PROPERTIES = new Properties();
     public static  final String BASE_URL = "http://localhost:8080/";
+    public static User user;
     public static void main(String[] args) {
         SpringApplication.run(IgApplication.class, args);
 

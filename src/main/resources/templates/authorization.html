@@ -45,7 +45,7 @@
 </header>
 
 <div class="container auth_form">
-  <form class="row justify-content-center" action="/auth" method="post">
+  <form class="row justify-content-center" id="authForm" method="get">
     <h2>Авторизация</h2>
     <div class="mb-3 col-12 col-md-6">
       <label for="exampleInputEmail1" class="form-label">Email</label>
@@ -59,6 +59,7 @@
                oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов!')" oninput="this.setCustomValidity('')" onchange="onChange()">
         <a href="#" class="password-control" style="margin-right: 15px;" onclick="return show_hide_password('password_', this, 'eye_');"><i id="eye_" class="fa-solid fa-eye-slash"></i></a>
       </div>
+      <p id="errorMessage"></p>
     </div>
     <div class="w-100"></div>
     <div class="mb-3 col-12 col-md-6">
@@ -67,7 +68,33 @@
     </div>
   </form>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $("#authForm").submit(function (event) {
+      event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+      // Ответ от сервера об успешной регистрации
+      // Отправляем письмо на указанный email
+      const formData = {
+        email: $("#exampleInputEmail1").val(),
+        password: $("#password_").val(),
+      };
+      $.ajax({
+        url: "/auth",
+        type: "GET",
+        data: formData,
+        success: function (authResponse) {
+          if (authResponse === "Success") {
+            window.location.href = '/account';
+          }
+          else{
+            document.getElementById('errorMessage').textContent = "Ошибка авторизации. Проверьте введённые данные!";
+          }
+        }
+      });
+    });
+  });
+</script>
 <script>
   <!-- Функция, позволяющая посмотреть введенный пароль -->
   function show_hide_password(pass, target, img){

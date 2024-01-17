@@ -21,7 +21,7 @@ a {
 
 /* Стили для шапки */
 header {
-    background-color: #ebc7df;
+    background-color: var(--main-color);
     padding: 10px;
     height: 80px;
     float: left;
@@ -57,7 +57,7 @@ header ul li a {
     padding: 20px;
 }
 header ul li a:hover {
-    background: #eac7df;
+    background: var(--main-color);
     transition: 0.5s;
     color: #000;
 }
@@ -78,18 +78,18 @@ header ul li ul li {
 header ul li ul li a {
     padding: 10px;
     background: white;
-    color: #eac7df;
+    color: var(--main-color);
 }
 
 /* Стили для аккаунта */
 .account_div {
-    background: #f8f4ff;
+    background: var(--second-color);
     height: 500px;
     margin-top: 30px;
     border-radius: 20px;
 }
 .account_div2 {
-    background: #ebc7df;
+    background: var(--main-color);
     height: 120px;
     margin-top: 50px;
     border-radius: 20px;
@@ -100,20 +100,30 @@ header ul li ul li a {
 }
 
 .recommend_div {
-    background: #f8f4ff;
+    background: var(--second-color);
     height: 420px;
     margin-top: 30px;
     margin-left: 50px;
     border-radius: 20px;
 }
+.recommend_div3{
+    background: #ffffff;
+    height: 100px;
+    width: 350px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 20px;
+}
+
 .recommend_div2 {
-    background: #ebc7df;
+    background: var(--main-color);
     height: 120px;
     margin-top: 50px;
     border-radius: 20px;
 }
 .recommend_div2 p{
-    margin-top: 20px;
+    margin-top: 5px;
     font-size: 24px;
 }
 
@@ -183,10 +193,10 @@ input[type=color]:after {
     color: #666;
 }
 #primary_color{
+    border: 3px solid #fff;
     border-radius: 50%;
     height: 60px;
     width: 60px;
-    border: none;
     outline: none;
     -webkit-appearance: none;
 }
@@ -195,6 +205,22 @@ input[type=color]:after {
     padding: 0;
 }
 #primary_color::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+#second_color{
+    border: 3px solid #fff;
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+#second_color::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+#second_color::-webkit-color-swatch {
     border: none;
     border-radius: 50%;
 }

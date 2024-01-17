@@ -21,7 +21,7 @@ a {
 
 /* Стили для шапки */
 header {
-    background-color: #ebc7df;
+    background-color: var(--main-color);
     padding: 10px;
     height: 80px;
     float: left;
@@ -57,7 +57,7 @@ header ul li a {
     padding: 20px;
 }
 header ul li a:hover {
-    background: #eac7df;
+    background: var(--main-color);
     transition: 0.5s;
     color: #000;
 }
@@ -78,7 +78,7 @@ header ul li ul li {
 header ul li ul li a {
     padding: 10px;
     background: white;
-    color: #eac7df;
+    color: var(--main-color);
 }
 
 /* Форма регистрации */

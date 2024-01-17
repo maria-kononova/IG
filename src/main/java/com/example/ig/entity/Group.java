@@ -24,6 +24,7 @@ public class Group {
     private String avtar;
     private String banner;
     private Date dateCreate;
+    private int subscribes;
     @OneToOne
     @JoinColumn(name = "idAdmin")
     private User idAdmin;

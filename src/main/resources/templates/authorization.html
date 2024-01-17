@@ -3,6 +3,7 @@
 <head>
   <title>IG</title>
   <link rel="stylesheet" th:href="@{/authorization.css}" />
+  <link rel="stylesheet" th:href="@{/color.css}" />
   <!--Картинки-->
   <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
 
@@ -27,11 +28,11 @@
       </div>
       <nav class="col-8">
         <ul>
-          <li><a href="/">Главная</a> </li>
+          <li><a href="/group">Сообщества</a> </li>
           <li>
             <div th:switch="${userLogin}">
               <div th:case="null">
-                <a href="/account"><i class="fa-solid fa-user"></i>Аккаунт</a>
+                <a href="/log"><i class="fa-solid fa-user"></i>Аккаунт</a>
                 <ul>
                   <li><a href="/new">Регистрация</a></li>
                   <li><a href="/log">Авторизация</a></li>

@@ -109,7 +109,7 @@ header ul li ul li a {
 .recommend_div3{
     background: #ffffff;
     height: 100px;
-    width: 350px;
+    width: 500px;
     margin-top: 5px;
     margin-left: 5px;
     margin-right: 5px;
@@ -242,4 +242,9 @@ input[type=color]:after {
 
 input[type="file"] {
     display: none;
+}
+#separator{
+    background: var(--main-color);
+    width: 500px;
+    height: 20px;
 }

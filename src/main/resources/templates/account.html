@@ -105,7 +105,39 @@
       <div class="recommend_div" >
         <div class="recommend_div2">
           <br/>
-          <p>Ваши сообщества:</p>
+          <p>Цвета:</p>
+        </div>
+        <form class="row justify-content-center" id="colorForm" method="post">
+          <div class="mb-3 col-12 col-md-6">
+            <div class="container">
+              <input type="color" id="primary_color" class="field-radio color">
+            </div>
+            <input type="text" class="form-control" id="textColor" placeholder="#XXXXXX" data-value="#xxxxxx"/>
+            <br/>
+          </div>
+          <div class="mb-3 col-12 col-md-6">
+            <div class="container">
+              <input type="color" id="second_color" class="field-radio color">
+            </div>
+            <input type="text" class="form-control" id="textSecondColor" placeholder="#XXXXXX" data-value="#xxxxxx"/>
+            <br/>
+          </div>
+          <div class="w-100"></div>
+          <div class="mb-3 col-12 col-md-6">
+            <button type="submit" class="btn btn-secondary">Сохранить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container text-center account_form">
+  <div class="row row-cols-auto">
+    <div class="col-10" >
+      <div class="account_div" >
+        <div class="account_div2">
+          <p>Мои сообщества</p>
         </div>
         <table>
           <tbody>
@@ -117,13 +149,13 @@
             <td>
               <div class="recommend_div3" >
                 <div class="row">
-                <div class="col-1">
-                <img class="figure_img" style="width: 80px; height: 80px; margin-left: 5px" alt="image" th:src="${group.getAvtar()}"/>
-                </div>
-                <div class="col-4 col-md-9">
-                <p style="font-size: 20px" th:text="${group.getName()}"> Имя </p>
-                <p th:text="${group.getSubscribes()}"> Подписки </p>
-                </div>
+                  <div class="col-1">
+                    <img class="figure_img" style="width: 80px; height: 80px; margin-left: 5px" alt="image" th:src="${group.getAvtar()}"/>
+                  </div>
+                  <div class="col-3 col-md-9">
+                    <p style="font-size: 20px" th:text="${group.getName()}"> Имя </p>
+                    <p th:text="${group.getSubscribes()}"> Подписки </p>
+                  </div>
                 </div>
               </div>
             </td>
@@ -134,43 +166,30 @@
     </div>
   </div>
 </div>
-
-
-
-</div>
-  <div class="container text-center account_form">
-    <div class="row row-cols-auto">
-      <div class="col-8" >
-        <div class="account_div" >
-          <form class="row justify-content-center" id="colorForm" method="post">
-            <div class="w-100"></div>
-            <div class="mb-3 col-12 col-md-6">
-              <div class="container">
-                <input type="color" id="primary_color" class="field-radio color">
-                <input type="text" class="form-control" id="textColor" placeholder="#XXXXXX" data-value="#xxxxxx"/>
-              </div>
-              <br/>
-            </div>
-            <div class="w-100"></div>
-            <div class="mb-3 col-12 col-md-6">
-              <div class="container">
-                <input type="color" id="second_color" class="field-radio color">
-                <input type="text" class="form-control" id="textSecondColor" placeholder="#XXXXXX" data-value="#xxxxxx"/>
-              </div>
-              <br/>
-            </div>
-            <div class="w-100"></div>
-            <div class="mb-3 col-12 col-md-6">
-              <button type="submit" class="btn btn-secondary">Изменить</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
 </body>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+  function getCookie(name) {
+    name = name + "=";
+    var cookies = document.cookie.split(';');
+    for(var i = 0; i <cookies.length; i++) {
+      var cookie = cookies[i];
+      while (cookie.charAt(0)==' ') {
+        cookie = cookie.substring(1);
+      }
+      if (cookie.indexOf(name) == 0) {
+        return cookie.substring(name.length,cookie.length);
+      }
+    }
+    return "";
+  }
+  window.onload = function(){
+    document.documentElement.style.setProperty('--main-color', getCookie("mainColor"));
+    document.documentElement.style.setProperty('--second-color', getCookie("secondColor"));
+    document.getElementsByTagName("html")[0].style.visibility = "visible";
+  }
+</script>
 <script>
   $("input.color").each(function() {
     let colorButton = document.getElementById("primary_color");
@@ -194,6 +213,7 @@
     colorButton2.oninput = function() {
       colorDiv2.value = colorButton2.value;
       document.documentElement.style.setProperty('--second-color', colorButton2.value);
+      setCookie("mainColor", colorButton2.value, 10);
     }
   });
   var colorDiv2 = document.getElementById('textSecondColor');
@@ -203,6 +223,24 @@
       colorButton2.value = colorDiv2.value;
       document.documentElement.style.setProperty('--second-color', colorDiv2.value);
     }
+  });
+  function setCookie(name, value, expirydays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (expirydays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = name + "=" + value + "; " + expires;
+  }
+  function deleteCookie(name){
+    setCookie(name,"",-1);
+  }
+  $(document).ready(function() {
+    $("#colorForm").submit(function (event) {
+      event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+      deleteCookie("mainColor");
+      deleteCookie("secondColor");
+      setCookie("mainColor", document.getElementById("primary_color").value, 10);
+      setCookie("secondColor", document.getElementById("second_color").value, 10);
+    });
   });
 </script>
 <script>

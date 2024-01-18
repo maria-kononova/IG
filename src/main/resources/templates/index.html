@@ -98,6 +98,27 @@
     </div>
 </div>
 </body>
+<script>
+    function getCookie(name) {
+        name = name + "=";
+        var cookies = document.cookie.split(';');
+        for(var i = 0; i <cookies.length; i++) {
+            var cookie = cookies[i];
+            while (cookie.charAt(0)==' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(name) == 0) {
+                return cookie.substring(name.length,cookie.length);
+            }
+        }
+        return "";
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        document.documentElement.style.setProperty('--main-color', getCookie("mainColor"));
+        document.documentElement.style.setProperty('--second-color', getCookie("secondColor"));
+        document.getElementsByTagName("html")[0].style.visibility = "visible";
+    }, false);
+</script>
 <footer role="contentinfo">
     <div id="site_footer" style="background: black;">
         <div class="container">

@@ -5,3 +5,4 @@
 #foo {
     color: var(--main-color);
 }
+html { visibility:hidden; }

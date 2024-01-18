@@ -38,7 +38,7 @@ public class User {
         this.login = login;
         this.salt = generateSalt();
         this.password = getHash(password, this.salt);
-        this.setImg("https://i.vimeocdn.com/portrait/42976218_640x640");
+        this.setImg("https://freepngimg.com/thumb/playstation_3/88138-playstation-photography-carnivoran-avatar-monochrome-free-download-png-hq.png");
     }
 
     private String generateSalt() {

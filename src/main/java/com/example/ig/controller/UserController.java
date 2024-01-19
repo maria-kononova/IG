@@ -34,7 +34,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final GroupRepository groupRepository;
     private static final String FILE_IMAGE = "src/main/resources/image/";
-
+    //авбдыаы
     @Autowired
     public UserController(UserRepository userRepository, GroupRepository groupRepository) {
         this.userRepository = userRepository;

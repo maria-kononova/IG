@@ -1,8 +1,12 @@
 :root {
     --main-color:#cccccc;
     --second-color:#f7f7f7;
+    --background-color:#fff;
+    --text-color:#000;
 }
 #foo {
     color: var(--main-color);
 }
-html { visibility:hidden; }
+
+html { visibility:hidden;
+background: var(--background-color);}

@@ -4,6 +4,7 @@
     <title>IG</title>
     <link rel="stylesheet" th:href="@{/groups.css}"/>
     <link rel="stylesheet" th:href="@{/color.css}"/>
+    <link rel="stylesheet" th:href="@{/header.css}"/>
     <!--Картинки-->
     <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
 
@@ -51,7 +52,7 @@
         </div>
     </div>
 </header>
-
+<body style="background: var(--background-color);">
 <div class="container text-center account_form">
     <div class="row row-cols-auto">
         <div class="col-8">
@@ -274,6 +275,14 @@
     window.onload = function(){
         document.documentElement.style.setProperty('--main-color', getCookie("mainColor"));
         document.documentElement.style.setProperty('--second-color', getCookie("secondColor"));
+        if (getCookie("theme") === "white"){
+            document.documentElement.style.setProperty('--background-color', "#fff");
+            document.documentElement.style.setProperty('--text-color', "#000");
+        }
+        else{
+            document.documentElement.style.setProperty('--background-color', "#28292c");
+            document.documentElement.style.setProperty('--text-color', "#fff");
+        }
         document.getElementsByTagName("html")[0].style.visibility = "visible";
     }
 </script>

@@ -84,13 +84,13 @@ header ul li ul li a {
 /* Стили для сообщества */
 .group_div {
     background: var(--second-color);
-    height: 330px;
+    height: 310px;
     margin-top: 30px;
     border-radius: 20px;
 }
 .group_div2 {
     background: var(--main-color);
-    height: 120px;
+    height: 90px;
     margin-top: 50px;
     border-radius: 20px;
     text-align: left;
@@ -99,9 +99,16 @@ header ul li ul li a {
     margin-top: 20px;
 }
 
-.recommend_div {
+.post_div {
     background: var(--second-color);
     height: 330px;
+    margin-top: 30px;
+    border-radius: 20px;
+}
+
+.recommend_div {
+    background: var(--second-color);
+    height: 600px;
     margin-top: 30px;
     margin-left: 50px;
     border-radius: 20px;
@@ -114,6 +121,22 @@ header ul li ul li a {
     margin-left: 5px;
     margin-right: 5px;
     border-radius: 20px;
+}
+
+.line_block {
+    border-bottom: 3px solid var(--main-color);
+    width: 100%;
+}
+
+.recommend_div2_no_color {
+    height: 72px;
+    margin-top: 50px;
+    border-radius: 20px;
+    font-size: 26px;
+}
+
+.recommend_p_no_color {
+    margin-top: -10px;
 }
 
 .recommend_div2 {
@@ -148,9 +171,27 @@ header ul li ul li a {
     transition: background ease-out 200ms;
 }
 
+.textNameGroups {
+    font-size: 22px;
+    text-align: left;
+    margin-top: 20px;
+    width: 600px;
+    height: 25px;
+}
+
+.textDescGroups {
+    font-size: 18px;
+    text-align: left;
+    margin-top: 0px;
+    width: 600px;
+    height: 140px;
+    overflow: auto;
+}
+
 .nameGroups {
     font-size: 20px;
     text-align: left;
+    margin-top: 20px;
 }
 
 .dataNews {
@@ -158,13 +199,7 @@ header ul li ul li a {
     text-align: left;
 }
 
-.textNameGroups {
-    font-size: 20px;
-}
 
-.textDescGroups {
-    font-size: 18px;
-}
 
 /* Стили для подвала */
 .footer {

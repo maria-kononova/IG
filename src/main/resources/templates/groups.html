@@ -55,32 +55,60 @@
 <div class="container text-center account_form">
     <div class="row row-cols-auto">
         <div class="col-8">
+            <!--Шапка сообщества-->
             <div class="group_div">
                 <div class="group_div2">
                     <main>
                         <br/>
                         <input type="file" name="image" id="image" accept="image/*"/>
                         <div id="preview">
-                            <img class="figure_img" id="avatar" alt="image"/>  <!--th:src="${userLogin.getImg()}"/>-->
+                            <img class="figure_img" id="avatar" alt="image" src="https://phonoteka.org/uploads/posts/2022-09/1663789606_3-phonoteka-org-p-liga-legend-oboi-na-rabochii-stol-vkontakt-3.jpg"/>
                         </div>
                     </main>
                 </div>
 
                 <form class="row justify-content-center" id="accountForm" action="#" method="post"> <!--th:action=""-->
                     <div class="mb-3 col-12 col-md-6" align="left">
-                        <p id="nameGroups" class="nameGroups">Название сообщества</p>
-                        <p id="descGroups" class="dataNews">Описание сообщества)) ge ge ge ge ge ge ge ge</p>
+                        <p id="nameGroups" class="textNameGroups">League of Legends</p>
+                        <p id="descGroups" class="textDescGroups">Многопользовательская компьютерная игра в жанре MOBA, разработанная и выпущенная американской компанией Riot Games в 2009 году для платформ Microsoft Windows и macOS.</p>
                     </div>
                 </form>
             </div>
+
+            <!--Пост-->
+            <div class="post_div">
+                <form class="row justify-content-center" id="colorForm" method="post">
+                    <div class="mb-3 col-12 col-md-6">
+                        <input type="file" name="image" id="image1" accept="image/*"/>
+                        <div id="news">
+                            <img class="figure_img" id="avatar1" alt="image1"/>  <!--th:src="${userLogin.getImg()}"/>-->
+                        </div>
+                        <br/>
+                    </div>
+                    <div class="mb-3 col-12 col-md-6" align="left">
+                        <p class="nameGroups">Название сообщества</p>
+                        <p class="dataNews">Дата публикации</p>
+                        <br/>
+                    </div>
+                    <div class="mb-3 col-12 col-md-6" align="left">
+                        <p class="nameGroups">League of Legends</p>
+                        <img class="col-12 col-md-6" src="https://newcdn.igromania.ru/articles/pics/tmp/images/2024/1/5/3c54d2b3-ec9a-49a1-90f1-e08585752577.webp">
+                        <br/>
+                    </div>
+                </form>
+            </div>
+
         </div>
 
         <div class="col-4">
+            <!--Список сообществ-->
             <div class="recommend_div">
-                <div class="recommend_div2">
+                <div class="recommend_div2_no_color">
                     <br/>
-                    <p>Рекомендации:</p>
+                    <p class="recommend_p_no_color">Рекомендации</p>
                 </div>
+                <hr class="line_block"/>
+
                 <table>
                     <tbody>
                     <tr th:if="${groups.isEmpty()}">
@@ -110,7 +138,7 @@
     </div>
 </div>
 
-<div class="container text-center account_form">
+<!--<div class="container text-center account_form">
     <div class="row row-cols-auto">
         <div class="col-8">
             <div class="group_div">
@@ -118,7 +146,7 @@
                     <div class="mb-3 col-10 col-md-8">
                         <input type="file" name="image" id="image1" accept="image/*"/>
                         <div id="news">
-                            <img class="figure_img" id="avatar1" alt="image1"/>  <!--th:src="${userLogin.getImg()}"/>-->
+                            <img class="figure_img" id="avatar1" alt="image1"/>  &lt;!&ndash;th:src="${userLogin.getImg()}"/>&ndash;&gt;
                         </div>
                         <br/>
                     </div>
@@ -136,7 +164,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 </body>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet"/>

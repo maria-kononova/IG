@@ -56,6 +56,7 @@
 <div class="container text-center account_form">
     <div class="row row-cols-auto">
         <div class="col-8">
+            <!--Аватар и изменение данных пользователя-->
             <div class="account_div">
                 <div class="account_div2">
                     <main>
@@ -111,56 +112,14 @@
                     </div>
                 </form>
             </div>
-        </div>
 
-        <div class="col-4">
-            <div class="recommend_div">
-                <div class="recommend_div2">
+            <!--Сообщества пользователя-->
+            <div class="groups_div">
+                <div class="groups_div2_no_color">
                     <br/>
-                    <p>Цвета:</p>
+                    <p class="groups_p_no_color">Мои сообщества</p>
                 </div>
-                <form class="row justify-content-center" id="colorForm" method="post">
-                    <div class="mb-3 col-12 col-md-6">
-                        <div class="container">
-                            <input type="color" id="primary_color" class="field-radio color">
-                        </div>
-                        <input type="text" class="form-control" id="textColor" placeholder="#XXXXXX"
-                               data-value="#xxxxxx"/>
-                        <br/>
-                    </div>
-                    <div class="mb-3 col-12 col-md-6">
-                        <div class="container">
-                            <input type="color" id="second_color" class="field-radio color">
-                        </div>
-                        <input type="text" class="form-control" id="textSecondColor" placeholder="#XXXXXX"
-                               data-value="#xxxxxx"/>
-                        <br/>
-                    </div>
-                    <div class="w-100"></div>
-                    <div class="mb-3 col-12 col-md-6">
-                        <button type="submit" class="btn"  style="background: var(--main-color); color: var(--second-color);">Сохранить</button>
-                        <input type="checkbox" id="toggle_checkbox">
-                        <label for="toggle_checkbox">
-                            <div id="star">
-                                <div class="star" id="star-1">★</div>
-                                <div class="star" id="star-2">★</div>
-                            </div>
-                            <div id="moon"></div>
-                        </label>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container text-center account_form">
-    <div class="row row-cols-auto">
-        <div class="col-10">
-            <div class="account_div">
-                <div class="account_div2">
-                    <p>Мои сообщества</p>
-                </div>
+                <hr class="line_block"/>
                 <table>
                     <tbody>
                     <tr th:if="${groups.isEmpty()}">
@@ -171,11 +130,11 @@
                         <td>
                             <div class="recommend_div3">
                                 <div class="row">
-                                    <div class="col-1">
+                                    <div class="col-2">
                                         <img class="figure_img" style="width: 80px; height: 80px; margin-left: 5px"
                                              alt="image" th:src="${group.getAvtar()}"/>
                                     </div>
-                                    <div class="col-3 col-md-9">
+                                    <div class="col-8 col-md-8">
                                         <p style="font-size: 20px" th:text="${group.getName()}"> Имя </p>
                                         <p th:text="${group.getSubscribes()}"> Подписки </p>
                                     </div>
@@ -187,8 +146,63 @@
                 </table>
             </div>
         </div>
+
+        <div class="col-4">
+            <!--Изменение темы-->
+            <div class="theme_div">
+                <div class="theme_div2_no_color">
+                    <br/>
+                    <p class="theme_p_no_color">Тема</p>
+                </div>
+                <hr class="line_block"/>
+
+                <form class="row justify-content-center" id="colorForm" method="post">
+                    <div class="mb-1 col-4 col-md-3">
+                        <div class="container">
+                            <input type="color" id="primary_color" class="field-radio color" style="margin-left: -20px; margin-top: 10px;">
+                        </div>
+                        <div class="container">
+                            <input type="color" id="second_color" class="field-radio color" style="margin-left: -20px; margin-top: 15px;">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 col-6 col-md-4">
+                        <input type="text" class="form-control" id="textColor" placeholder="#XXXXXX"
+                               data-value="#xxxxxx" style="margin-top: 22px;"/>
+                        <br/>
+                        <input type="text" class="form-control" id="textSecondColor" placeholder="#XXXXXX"
+                               data-value="#xxxxxx" style="margin-top: 20px;"/>
+                        <br/>
+                    </div>
+
+                    <div class="w-100"></div>
+
+
+                    <div class="row" >
+                        <div class="mb-3 col-12 col-md-6">
+                            <input type="checkbox" id="toggle_checkbox">
+                            <label for="toggle_checkbox">
+                                <div id="star">
+                                    <div class="star" id="star-1">★</div>
+                                    <div class="star" id="star-2">★</div>
+                                </div>
+                                <div id="moon"></div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="mb-3 col-12 col-md-6">
+                            <button type="submit" class="btn"  style="background: var(--main-color); color: var(--second-color); margin-left: 110px;">Сохранить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
+
+
 </body>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

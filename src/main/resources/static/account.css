@@ -25,13 +25,13 @@ a {
 /* Стили для аккаунта */
 .account_div {
     background: var(--second-color);
-    height: 500px;
+    height: 440px;
     margin-top: 30px;
     border-radius: 20px;
 }
 .account_div2 {
     background: var(--main-color);
-    height: 120px;
+    height: 90px;
     margin-top: 50px;
     border-radius: 20px;
     text-align: left;
@@ -40,21 +40,47 @@ a {
     margin-top: 20px;
 }
 
-.recommend_div {
+.theme_div {
     background: var(--second-color);
-    height: 420px;
+    height: 440px;
     margin-top: 30px;
     margin-left: 50px;
     border-radius: 20px;
 }
-.recommend_div3{
-    background: #ffffff;
-    height: 100px;
-    width: 500px;
-    margin-top: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
+
+.theme_div2_no_color {
+    height: 72px;
+    margin-top: 50px;
     border-radius: 20px;
+    font-size: 26px;
+}
+
+.theme_p_no_color {
+    margin-top: -10px;
+}
+
+.line_block {
+    border-bottom: 3px solid var(--main-color);
+    width: 100%;
+}
+
+.groups_div {
+    background: var(--second-color);
+    height: 420px;
+    margin-top: 30px;
+    margin-left: 0px;
+    border-radius: 20px;
+}
+
+.groups_div2_no_color {
+    height: 72px;
+    margin-top: 50px;
+    border-radius: 20px;
+    font-size: 26px;
+}
+
+.groups_p_no_color {
+    margin-top: -10px;
 }
 
 .recommend_div2 {
@@ -66,6 +92,16 @@ a {
 .recommend_div2 p{
     margin-top: 5px;
     font-size: 24px;
+}
+
+.recommend_div3{
+    background: #ffffff;
+    height: 100px;
+    width: 400px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 20px;
 }
 
 .figure_div {
@@ -200,13 +236,12 @@ input[type="file"] {
 
 label
 {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    left: 0;
+    position: static;
     width: 116px;
     height: 56px;
-    margin: 0 auto;
+    margin-top: 30px;
+    margin-left: 114px;
+    margin-bottom: -20px;
     background-color: #fff;
     border-radius: 56px;
     transform: translateY(-50%);

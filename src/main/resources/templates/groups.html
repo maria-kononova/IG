@@ -1,10 +1,242 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>IG</title>
+    <link rel="stylesheet" th:href="@{/groups.css}"/>
+    <link rel="stylesheet" th:href="@{/color.css}"/>
+    <!--Картинки-->
+    <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
+
+    <!--Шрифты-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css"
+          integrity="sha384-nU14brUcp6StFntEOOEBvcJm4huWjB0OcIeQ3fltAfSmuZFrkAif0T+UtNGlKKQv" crossorigin="anonymous">
 </head>
-<body>
+<header class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <h1><a href="/">IG</a></h1>
+            </div>
+            <nav class="col-8">
+                <ul>
+                    <li><a href="/group">Сообщества</a></li>
+                    <li>
+                        <div th:switch="${userLogin}">
+                            <div th:case="null">
+                                <a href="/log"><i class="fa-solid fa-user"></i>Аккаунт</a>
+                                <ul>
+                                    <li><a href="/new">Регистрация</a></li>
+                                    <li><a href="/log">Авторизация</a></li>
+                                </ul>
+                            </div>
+                            <div th:case="*">
+                                <a href="/account" th:text="${userLogin.login}"></a>
+                                <ul>
+                                    <li><a href="/exit">Выйти</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="container text-center account_form">
+    <div class="row row-cols-auto">
+        <div class="col-8">
+            <div class="group_div">
+                <div class="group_div2">
+                    <main>
+                        <br/>
+                        <input type="file" name="image" id="image" accept="image/*"/>
+                        <div id="preview">
+                            <img class="figure_img" id="avatar" alt="image"/>  <!--th:src="${userLogin.getImg()}"/>-->
+                        </div>
+                    </main>
+                </div>
+
+                <form class="row justify-content-center" id="accountForm" action="#" method="post"> <!--th:action=""-->
+                    <div class="mb-3 col-12 col-md-6" align="left">
+                        <p id="nameGroups" class="nameGroups">Название сообщества</p>
+                        <p id="descGroups" class="dataNews">Описание сообщества)) ge ge ge ge ge ge ge ge</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="recommend_div">
+                <div class="recommend_div2">
+                    <br/>
+                    <p>Рекомендации:</p>
+                </div>
+                <table>
+                    <tbody>
+                    <tr th:if="${groups.isEmpty()}">
+                        </br>
+                        <p style="justify-content: center;"> Нет сообществ </p>
+                    </tr>
+                    <tr th:each="group : ${groups}">
+                        <td>
+                            <div class="recommend_div3">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img class="figure_img" style="width: 80px; height: 80px; margin-left: 5px"
+                                             alt="image" th:src="${group.getAvtar()}"/>
+                                    </div>
+                                    <div class="col-4 col-md-9">
+                                        <p style="font-size: 20px" th:text="${group.getName()}"> Имя </p>
+                                        <p th:text="${group.getSubscribes()}"> Подписки </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center account_form">
+    <div class="row row-cols-auto">
+        <div class="col-8">
+            <div class="group_div">
+                <form class="row justify-content-center" id="colorForm" method="post">
+                    <div class="mb-3 col-10 col-md-8">
+                        <input type="file" name="image" id="image1" accept="image/*"/>
+                        <div id="news">
+                            <img class="figure_img" id="avatar1" alt="image1"/>  <!--th:src="${userLogin.getImg()}"/>-->
+                        </div>
+                        <br/>
+                    </div>
+                    <div class="mb-3 col-10 col-md-8" align="left">
+                        <p class="nameGroups">Название сообщества</p>
+                        <p class="dataNews">Дата публикации</p>
+                        <br/>
+                    </div>
+                    <div class="mb-3 col-10 col-md-8" align="left">
+                        <p class="nameGroups">Игра 2023 года: Hi-Fi Rush, Alan Wake 2, Baldur's Gate 3</p>
+                        <img class="col-12 col-md-8" src="https://newcdn.igromania.ru/articles/pics/tmp/images/2024/1/5/3c54d2b3-ec9a-49a1-90f1-e08585752577.webp">
+                        <br/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $("input.color").each(function () {
+        let colorButton = document.getElementById("primary_color");
+        let colorDiv = document.getElementById("textColor");
+        colorButton.oninput = function () {
+            colorDiv.value = colorButton.value;
+            document.documentElement.style.setProperty('--main-color', colorButton.value);
+        }
+    });
+    var colorDiv = document.getElementById('textColor');
+    colorDiv.addEventListener('input', function () {
+        if (/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(colorDiv.value)) {
+            let colorButton = document.getElementById("primary_color");
+            colorButton.value = colorDiv.value;
+            document.documentElement.style.setProperty('--main-color', colorDiv.value);
+        }
+    });
+    $("input.color").each(function () {
+        let colorButton2 = document.getElementById("second_color");
+        let colorDiv2 = document.getElementById("textSecondColor");
+        colorButton2.oninput = function () {
+            colorDiv2.value = colorButton2.value;
+            document.documentElement.style.setProperty('--second-color', colorButton2.value);
+        }
+    });
+    var colorDiv2 = document.getElementById('textSecondColor');
+    colorDiv2.addEventListener('input', function () {
+        if (/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(colorDiv2.value)) {
+            let colorButton2 = document.getElementById("second_color");
+            colorButton2.value = colorDiv2.value;
+            document.documentElement.style.setProperty('--second-color', colorDiv2.value);
+        }
+    });
+</script>
+<script>
+    const FILE_INPUT = document.querySelector("input[type=file]");
+    const AVATAR = document.getElementById("avatar");
+    AVATAR.addEventListener("click", () => FILE_INPUT.click());
+    FILE_INPUT.addEventListener("change", event => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            AVATAR.setAttribute("aria-label", file.name);
+            AVATAR.src = `${reader.result}`;
+            const formData = {
+                url: reader.result
+            };
+            $.ajax({
+                url: "/changeImg",
+                type: "POST",
+                data: formData,
+                success: function (authResponse) {
+                }
+            });
+        };
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+    }, false);
+</script>
+<script>
+    $(document).ready(function () {
+        $("#passwordUpdateForm").submit(function (event) {
+            event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+            // Ответ от сервера об успешной регистрации
+            // Отправляем письмо на указанный email
+            const formData = {
+                oldPassword: $("#oldPassAcc").val(),
+                newPassword: $("#newPassAcc").val(),
+            };
+            $.ajax({
+                url: "/updatePassword",
+                type: "POST",
+                data: formData,
+                success: function (response) {
+                    if (response === "Success") {
+                        window.location.href = '/account';
+                    } else if (response === "Match") {
+                        document.getElementById('passwordUpdate').textContent = "Новый пароль совпадает со старым!";
+                    } else {
+                        document.getElementById('passwordUpdate').textContent = "Старый пароль введён не верно!";
+                    }
+                }
+            });
+        });
+    });
+</script>
+<footer role="contentinfo">
+    <div id="site_footer" style="background: black;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-8">
+                    <p style="color: white;">© 2023 Мой сайт. Все права защищены.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 </html>

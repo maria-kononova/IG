@@ -2,9 +2,10 @@
 <html>
 <head>
     <title>IG</title>
-    <link rel="stylesheet" th:href="@{/account.css}"/>
+    <link rel="stylesheet" th:href="@{/css/account.css}"/>
     <link rel="stylesheet" th:href="@{/color.css}"/>
     <link rel="stylesheet" th:href="@{/header.css}"/>
+    <script type="text/javascript" th:src="@{/js/getThemeFromCookie.js}"></script>
     <!--Картинки-->
     <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
 
@@ -222,42 +223,6 @@
             setCookie("theme", "white", 10);
         }
     });
-</script>
-<script>
-    function getCookie(name) {
-        name = name + "=";
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(name) == 0) {
-                return cookie.substring(name.length, cookie.length);
-            }
-        }
-        return "";
-    }
-
-    window.onload = function () {
-        document.documentElement.style.setProperty('--main-color', getCookie("mainColor"));
-        document.documentElement.style.setProperty('--second-color', getCookie("secondColor"));
-        if (getCookie("theme") === "white"){
-            document.documentElement.style.setProperty('--background-color', "#fff");
-            document.documentElement.style.setProperty('--text-color', "#000");
-            document.getElementById('toggle_checkbox').checked = false;
-        }
-        else{
-            document.documentElement.style.setProperty('--background-color', "#28292c");
-            document.documentElement.style.setProperty('--text-color', "#fff");
-            document.getElementById('toggle_checkbox').checked = true;
-        }
-        document.getElementById('primary_color').value = getCookie("mainColor");
-        document.getElementById('second_color').value = getCookie("secondColor");
-        document.getElementById('textColor').value = getCookie("mainColor");
-        document.getElementById('textSecondColor').value = getCookie("secondColor");
-        document.getElementsByTagName("html")[0].style.visibility = "visible";
-    }
 </script>
 <script>
     $("input.color").each(function () {

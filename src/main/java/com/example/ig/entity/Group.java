@@ -25,7 +25,5 @@ public class Group {
     private String banner;
     private Date dateCreate;
     private int subscribes;
-    @OneToOne
-    @JoinColumn(name = "idAdmin")
-    private User idAdmin;
+    private long idAdmin;
 }

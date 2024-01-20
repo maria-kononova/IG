@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700");
+.flexbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search {
+    margin: 5px;
+}
+
+.search > h3 {
+    font-weight: normal;
+}
+
+.search > h1,
+.search > h3 {
+    color: var(--text-color);
+    margin-bottom: 10px;
+    text-shadow: 0 1px var(--text-color);
+}
+
+.search > div {
+    display: inline-block;
+    position: relative;
+    filter: drop-shadow(0 1px var(--text-color));
+}
+
+.search > div:after {
+    content: "";
+    background: var(--text-color);;
+    width: 4px;
+    height: 20px;
+    position: absolute;
+    top: 40px;
+    right: 2px;
+    transform: rotate(135deg);
+}
+
+.search > div > input {
+    color: var(--text-color);;
+    font-size: 16px;
+    background: transparent;
+    width: 45px;
+    height: 45px;
+    padding: 10px;
+    border: solid 3px var(--text-color);;
+    outline: none;
+    border-radius: 35px;
+    transition: width 0.5s;
+}
+
+.search > div > input::placeholder {
+    color: var(--text-color);;
+    opacity: 0;
+    transition: opacity 150ms ease-out;
+}
+
+.search > div > input:focus::placeholder {
+    opacity: 1;
+}
+
+.search > div > input:focus,
+.search > div > input:not(:placeholder-shown) {
+    width: 250px;
+}

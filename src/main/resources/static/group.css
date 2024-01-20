@@ -9,27 +9,27 @@ h3,
 h4,
 h5,
 h6 {
-    color: var(--text-color);
+    color: #5c5b5b
 }
 p{
-    color: var(--main-color);
+    color: var(--text-color);
 }
 body {
-    background: var(--background-color);
+    background: #f6f6f6;
 }
 a {
     text-decoration: none;
     color: inherit;
 }
 
-/* Стили для аккаунта */
-.account_div {
+/* Стили для сообщества */
+.group_div {
     background: var(--second-color);
-    height: 440px;
+    height: 310px;
     margin-top: 30px;
     border-radius: 20px;
 }
-.account_div2 {
+.group_div2 {
     background: var(--main-color);
     height: 90px;
     margin-top: 50px;
@@ -40,23 +40,28 @@ a {
     margin-top: 20px;
 }
 
-.theme_div {
+.post_div {
     background: var(--second-color);
-    height: 440px;
+    height: 330px;
+    margin-top: 30px;
+    border-radius: 20px;
+}
+
+.recommend_div {
+    background: var(--second-color);
+    height: 600px;
     margin-top: 30px;
     margin-left: 50px;
     border-radius: 20px;
 }
-
-.theme_div2_no_color {
-    height: 72px;
-    margin-top: 50px;
+.recommend_div3{
+    background: var(--background-color);
+    height: 100px;
+    width: 350px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
     border-radius: 20px;
-    font-size: 26px;
-}
-
-.theme_p_no_color {
-    margin-top: -10px;
 }
 
 .line_block {
@@ -64,22 +69,14 @@ a {
     width: 100%;
 }
 
-.groups_div {
-    background: var(--second-color);
-    height: 420px;
-    margin-top: 30px;
-    margin-left: 0px;
-    border-radius: 20px;
-}
-
-.groups_div2_no_color {
+.recommend_div2_no_color {
     height: 72px;
     margin-top: 50px;
     border-radius: 20px;
     font-size: 26px;
 }
 
-.groups_p_no_color {
+.recommend_p_no_color {
     margin-top: -10px;
 }
 
@@ -92,16 +89,6 @@ a {
 .recommend_div2 p{
     margin-top: 5px;
     font-size: 24px;
-}
-
-.recommend_div3{
-    background: #ffffff;
-    height: 100px;
-    width: 400px;
-    margin-top: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
-    border-radius: 20px;
 }
 
 .figure_div {
@@ -124,6 +111,35 @@ a {
     border: 3px solid #fff;
     transition: background ease-out 200ms;
 }
+
+.textNameGroups {
+    font-size: 22px;
+    text-align: left;
+    margin-top: 20px;
+    width: 600px;
+    height: 25px;
+}
+
+.textDescGroups {
+    font-size: 18px;
+    text-align: left;
+    margin-top: 0px;
+    width: 600px;
+    height: 140px;
+    overflow: auto;
+}
+
+.nameGroups {
+    font-size: 20px;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.dataNews {
+    font-size: 16px;
+    text-align: left;
+}
+
 
 
 /* Стили для подвала */
@@ -170,7 +186,7 @@ input[type=color]:after {
     color: #666;
 }
 #primary_color{
-    border: 3px solid var(--background-color);
+    border: 3px solid #fff;
     border-radius: 50%;
     height: 60px;
     width: 60px;
@@ -186,7 +202,7 @@ input[type=color]:after {
     border-radius: 50%;
 }
 #second_color{
-    border: 3px solid var(--background-color);;
+    border: 3px solid #fff;
     border-radius: 50%;
     height: 60px;
     width: 60px;
@@ -209,7 +225,7 @@ input[type=color]:after {
     background: white;
     height: 150px;
     width: 150px;
-    border: 3px solid var(--background-color);
+    border: 3px solid #fff;
     transition: background ease-out 200ms;
 }
 
@@ -219,121 +235,4 @@ input[type=color]:after {
 
 input[type="file"] {
     display: none;
-}
-#separator{
-    background: var(--main-color);
-    width: 500px;
-    height: 20px;
-}
-.button{
-    background: var(--main-color);
-}
-/*переключатель темы*/
-#toggle_checkbox
-{
-    display: none;
-}
-
-label
-{
-    position: static;
-    width: 116px;
-    height: 56px;
-    margin-top: 30px;
-    margin-left: 114px;
-    margin-bottom: -20px;
-    background-color: #fff;
-    border-radius: 56px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    transition: 0.3s ease background-color;
-    overflow: hidden;
-}
-
-#star
-{
-    position: absolute;
-    top: 13px;
-    left: 13px;
-    width: 30px;
-    height: 30px;
-    background-color: #fafd0f;
-    transform: scale(1);
-    border-radius: 50%;
-    transition: 0.3s ease top, 0.3s ease left, 0.3s ease transform, 0.3s ease background-color;
-    z-index: 1;
-}
-
-#star-1
-{
-    position: relative;
-}
-
-#star-2
-{
-    position: absolute;
-    transform: rotateZ(36deg);
-}
-
-.star
-{
-    top: 0;
-    left: -7px;
-    font-size: 54px;
-    line-height: 28px;
-    color: #fafd0f;
-    transition: 0.3s ease color;
-}
-
-#moon
-{
-    position: absolute;
-    bottom: -52px;
-    right: 8px;
-    width: 40px;
-    height: 40px;
-    background-color: #fff;
-    border-radius: 50%;
-    transition: 0.3s ease bottom;
-}
-
-#moon:before
-{
-    content: "";
-    position: absolute;
-    top: -12px;
-    left: -17px;
-    width: 40px;
-    height: 40px;
-    background-color:#fff;
-    border-radius: 50%;
-    transition: 0.3s ease background-color;
-}
-
-#toggle_checkbox:checked + label
-{
-    background-color: #000;
-}
-
-#toggle_checkbox:checked + label #star
-{
-    top: 3px;
-    left: 64px;
-    transform: scale(0.3);
-    background-color: yellow;
-}
-
-#toggle_checkbox:checked + label .star
-{
-    color: yellow;
-}
-
-#toggle_checkbox:checked + label #moon
-{
-    bottom: 8px;
-}
-
-#toggle_checkbox:checked + label #moon:before
-{
-    background-color: #000;
 }

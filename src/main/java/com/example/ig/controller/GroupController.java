@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import static com.example.ig.IgApplication.user;
 
@@ -36,8 +37,17 @@ public class GroupController {
         }
         return null;
     }
-    @GetMapping("/group")
-    public String groupPage(Model model, HttpServletRequest request, HttpServletResponse response){
+    @GetMapping("/group/{id}")
+    public String groupPage(@PathVariable("id") long id, Model model, HttpServletRequest request, HttpServletResponse response){
+        Long userId = getUserFromCookie(request, response);
+        if (userId != null) user = userRepository.getById(userId);
+        model.addAttribute("groups", groupRepository.findAll());
+        model.addAttribute("userLogin", user);
+        model.addAttribute("group", groupRepository.getById(id));
+        return "group";
+    }
+    @GetMapping("/groups")
+    public String groupPage( Model model, HttpServletRequest request, HttpServletResponse response) {
         Long userId = getUserFromCookie(request, response);
         if (userId != null) user = userRepository.getById(userId);
         model.addAttribute("groups", groupRepository.findAll());
@@ -45,4 +55,5 @@ public class GroupController {
         model.addAttribute("groups", groupRepository.findAll());
         return "groups";
     }
+
 }

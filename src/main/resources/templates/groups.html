@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>IG</title>
-    <link rel="stylesheet" th:href="@{/groups.css}"/>
+    <link rel="stylesheet" th:href="@{/group.css}"/>
     <link rel="stylesheet" th:href="@{/color.css}"/>
     <link rel="stylesheet" th:href="@{/header.css}"/>
     <!--Картинки-->
@@ -29,7 +29,7 @@
             </div>
             <nav class="col-8">
                 <ul>
-                    <li><a href="/group">Сообщества</a></li>
+                    <li><a href="/groups">Сообщества</a></li>
                     <li>
                         <div th:switch="${userLogin}">
                             <div th:case="null">
@@ -56,49 +56,41 @@
 <div class="container text-center account_form">
     <div class="row row-cols-auto">
         <div class="col-8">
-            <!--Шапка сообщества-->
-            <div class="group_div">
-                <div class="group_div2">
-                    <main>
-                        <br/>
-                        <input type="file" name="image" id="image" accept="image/*"/>
-                        <div id="preview">
-                            <img class="figure_img" id="avatar" alt="image" src="https://phonoteka.org/uploads/posts/2022-09/1663789606_3-phonoteka-org-p-liga-legend-oboi-na-rabochii-stol-vkontakt-3.jpg"/>
-                        </div>
-                    </main>
-                </div>
-
-                <form class="row justify-content-center" id="accountForm" action="#" method="post"> <!--th:action=""-->
-                    <div class="mb-3 col-12 col-md-6" align="left">
-                        <p id="nameGroups" class="textNameGroups">League of Legends</p>
-                        <p id="descGroups" class="textDescGroups">Многопользовательская компьютерная игра в жанре MOBA, разработанная и выпущенная американской компанией Riot Games в 2009 году для платформ Microsoft Windows и macOS.</p>
-                    </div>
-                </form>
-            </div>
-
             <!--Пост-->
-            <div class="post_div">
-                <form class="row justify-content-center" id="colorForm" method="post">
-                    <div class="mb-3 col-12 col-md-6">
-                        <input type="file" name="image" id="image1" accept="image/*"/>
-                        <div id="news">
-                            <img class="figure_img" id="avatar1" alt="image1"/>  <!--th:src="${userLogin.getImg()}"/>-->
-                        </div>
-                        <br/>
-                    </div>
-                    <div class="mb-3 col-12 col-md-6" align="left">
-                        <p class="nameGroups">Название сообщества</p>
-                        <p class="dataNews">Дата публикации</p>
-                        <br/>
-                    </div>
-                    <div class="mb-3 col-12 col-md-6" align="left">
-                        <p class="nameGroups">League of Legends</p>
-                        <img class="col-12 col-md-6" src="https://newcdn.igromania.ru/articles/pics/tmp/images/2024/1/5/3c54d2b3-ec9a-49a1-90f1-e08585752577.webp">
-                        <br/>
-                    </div>
-                </form>
+            <div class="recommend_div">
+                <div class="recommend_div2_no_color">
+                    <br/>
+                    <p class="recommend_p_no_color">Мои сообщества</p>
+                </div>
+                <hr class="line_block"/>
+                <table>
+                    <tbody>
+                    <tr th:if="${groups.isEmpty()}">
+                        </br>
+                        <p style="justify-content: center;"> Нет сообществ </p>
+                    </tr>
+                    <tr th:each="group : ${groups}">
+                        <td>
+                            <div class="recommend_div3">
+                                <form id="groupForm" action="#"
+                                      th:action="@{/group/{id}(id=${group.getId()})}" method="get">
+                                    <div class="row" onClick="document.forms['groupForm'].submit();">
+                                        <div class="col-1">
+                                            <img class="figure_img" style="width: 80px; height: 80px; margin-left: 5px"
+                                                 alt="image" th:src="${group.getAvtar()}"/>
+                                        </div>
+                                        <div class="col-4 col-md-9">
+                                            <p style="font-size: 20px" th:text="${group.getName()}"> Имя </p>
+                                            <p th:text="${group.getSubscribes()}"> Подписки </p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-
         </div>
 
         <div class="col-4">
@@ -109,7 +101,6 @@
                     <p class="recommend_p_no_color">Рекомендации</p>
                 </div>
                 <hr class="line_block"/>
-
                 <table>
                     <tbody>
                     <tr th:if="${groups.isEmpty()}">
@@ -138,148 +129,32 @@
         </div>
     </div>
 </div>
-
-<!--<div class="container text-center account_form">
-    <div class="row row-cols-auto">
-        <div class="col-8">
-            <div class="group_div">
-                <form class="row justify-content-center" id="colorForm" method="post">
-                    <div class="mb-3 col-10 col-md-8">
-                        <input type="file" name="image" id="image1" accept="image/*"/>
-                        <div id="news">
-                            <img class="figure_img" id="avatar1" alt="image1"/>  &lt;!&ndash;th:src="${userLogin.getImg()}"/>&ndash;&gt;
-                        </div>
-                        <br/>
-                    </div>
-                    <div class="mb-3 col-10 col-md-8" align="left">
-                        <p class="nameGroups">Название сообщества</p>
-                        <p class="dataNews">Дата публикации</p>
-                        <br/>
-                    </div>
-                    <div class="mb-3 col-10 col-md-8" align="left">
-                        <p class="nameGroups">Игра 2023 года: Hi-Fi Rush, Alan Wake 2, Baldur's Gate 3</p>
-                        <img class="col-12 col-md-8" src="https://newcdn.igromania.ru/articles/pics/tmp/images/2024/1/5/3c54d2b3-ec9a-49a1-90f1-e08585752577.webp">
-                        <br/>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>-->
-
 </body>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
-    $("input.color").each(function () {
-        let colorButton = document.getElementById("primary_color");
-        let colorDiv = document.getElementById("textColor");
-        colorButton.oninput = function () {
-            colorDiv.value = colorButton.value;
-            document.documentElement.style.setProperty('--main-color', colorButton.value);
-        }
-    });
-    var colorDiv = document.getElementById('textColor');
-    colorDiv.addEventListener('input', function () {
-        if (/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(colorDiv.value)) {
-            let colorButton = document.getElementById("primary_color");
-            colorButton.value = colorDiv.value;
-            document.documentElement.style.setProperty('--main-color', colorDiv.value);
-        }
-    });
-    $("input.color").each(function () {
-        let colorButton2 = document.getElementById("second_color");
-        let colorDiv2 = document.getElementById("textSecondColor");
-        colorButton2.oninput = function () {
-            colorDiv2.value = colorButton2.value;
-            document.documentElement.style.setProperty('--second-color', colorButton2.value);
-        }
-    });
-    var colorDiv2 = document.getElementById('textSecondColor');
-    colorDiv2.addEventListener('input', function () {
-        if (/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(colorDiv2.value)) {
-            let colorButton2 = document.getElementById("second_color");
-            colorButton2.value = colorDiv2.value;
-            document.documentElement.style.setProperty('--second-color', colorDiv2.value);
-        }
-    });
-</script>
-<script>
-    const FILE_INPUT = document.querySelector("input[type=file]");
-    const AVATAR = document.getElementById("avatar");
-    AVATAR.addEventListener("click", () => FILE_INPUT.click());
-    FILE_INPUT.addEventListener("change", event => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            AVATAR.setAttribute("aria-label", file.name);
-            AVATAR.src = `${reader.result}`;
-            const formData = {
-                url: reader.result
-            };
-            $.ajax({
-                url: "/changeImg",
-                type: "POST",
-                data: formData,
-                success: function (authResponse) {
-                }
-            });
-        };
-    });
-    document.addEventListener('DOMContentLoaded', function () {
-    }, false);
-</script>
-<script>
-    $(document).ready(function () {
-        $("#passwordUpdateForm").submit(function (event) {
-            event.preventDefault(); // Предотвращаем отправку формы по умолчанию
-            // Ответ от сервера об успешной регистрации
-            // Отправляем письмо на указанный email
-            const formData = {
-                oldPassword: $("#oldPassAcc").val(),
-                newPassword: $("#newPassAcc").val(),
-            };
-            $.ajax({
-                url: "/updatePassword",
-                type: "POST",
-                data: formData,
-                success: function (response) {
-                    if (response === "Success") {
-                        window.location.href = '/account';
-                    } else if (response === "Match") {
-                        document.getElementById('passwordUpdate').textContent = "Новый пароль совпадает со старым!";
-                    } else {
-                        document.getElementById('passwordUpdate').textContent = "Старый пароль введён не верно!";
-                    }
-                }
-            });
-        });
-    });
-</script>
-<script>
     function getCookie(name) {
         name = name + "=";
         var cookies = document.cookie.split(';');
-        for(var i = 0; i <cookies.length; i++) {
+        for (var i = 0; i < cookies.length; i++) {
             var cookie = cookies[i];
-            while (cookie.charAt(0)==' ') {
+            while (cookie.charAt(0) == ' ') {
                 cookie = cookie.substring(1);
             }
             if (cookie.indexOf(name) == 0) {
-                return cookie.substring(name.length,cookie.length);
+                return cookie.substring(name.length, cookie.length);
             }
         }
         return "";
     }
-    window.onload = function(){
+
+    window.onload = function () {
         document.documentElement.style.setProperty('--main-color', getCookie("mainColor"));
         document.documentElement.style.setProperty('--second-color', getCookie("secondColor"));
-        if (getCookie("theme") === "white"){
+        if (getCookie("theme") === "white") {
             document.documentElement.style.setProperty('--background-color', "#fff");
             document.documentElement.style.setProperty('--text-color', "#000");
-        }
-        else{
+        } else {
             document.documentElement.style.setProperty('--background-color', "#28292c");
             document.documentElement.style.setProperty('--text-color', "#fff");
         }

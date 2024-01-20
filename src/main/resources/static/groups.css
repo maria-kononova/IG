@@ -1,52 +1,18 @@
-/* Общие стили страниц */
 *{
     font-family: 'Comfortaa', sans-serif;
 }
-html,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: #5c5b5b
-}
-body {
-    background: #f6f6f6;
-}
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-/* Стили для сообщества */
-.group_div {
-    background: var(--second-color);
-    height: 310px;
-    margin-top: 30px;
+.recommend_div3{
+    background: #ffffff;
+    height: 100px;
+    width: 500px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
     border-radius: 20px;
 }
-.group_div2 {
-    background: var(--main-color);
-    height: 90px;
-    margin-top: 50px;
-    border-radius: 20px;
-    text-align: left;
-}
-.margin-top-20 {
-    margin-top: 20px;
-}
-
-.post_div {
-    background: var(--second-color);
-    height: 330px;
-    margin-top: 30px;
-    border-radius: 20px;
-}
-
 .recommend_div {
     background: var(--second-color);
-    height: 600px;
+    height: 100%;
     margin-top: 30px;
     margin-left: 50px;
     border-radius: 20px;
@@ -60,12 +26,6 @@ a {
     margin-right: 5px;
     border-radius: 20px;
 }
-
-.line_block {
-    border-bottom: 3px solid var(--main-color);
-    width: 100%;
-}
-
 .recommend_div2_no_color {
     height: 72px;
     margin-top: 50px;
@@ -87,58 +47,10 @@ a {
     margin-top: 5px;
     font-size: 24px;
 }
-
-.figure_div {
-    object-fit: cover;
-    object-position: center;
-    border-radius:50%;
-    width: 130px;
-    height: 130px;
-    margin-top: 50px;
-    margin-left: 35px;
-    background: white;
+.line_block {
+    border-bottom: 3px solid var(--main-color);
+    width: 400px;
 }
-.figure_img {
-    object-fit: cover;
-    object-position: center;
-    border-radius:50%;
-    background: white;
-    height: 150px;
-    width: 150px;
-    border: 3px solid #fff;
-    transition: background ease-out 200ms;
-}
-
-.textNameGroups {
-    font-size: 22px;
-    text-align: left;
-    margin-top: 20px;
-    width: 600px;
-    height: 25px;
-}
-
-.textDescGroups {
-    font-size: 18px;
-    text-align: left;
-    margin-top: 0px;
-    width: 600px;
-    height: 140px;
-    overflow: auto;
-}
-
-.nameGroups {
-    font-size: 20px;
-    text-align: left;
-    margin-top: 20px;
-}
-
-.dataNews {
-    font-size: 16px;
-    text-align: left;
-}
-
-
-
 /* Стили для подвала */
 .footer {
     background-color: #333;
@@ -148,88 +60,4 @@ a {
     bottom: 0;
     width: 100%;
     height: 40px;
-}
-/*Стиль выбора цвета*/
-label {
-    font-family: sans-serif;
-    width: 300px;
-    display: block;
-    position: relative;
-}
-input {
-    padding: 5px 15px;
-    font-size: 16px;
-    width: 100%;
-    box-sizing: border-box;
-}
-input[type=color] {
-    padding: 0;
-    border: 0;
-    height: 40px;
-}
-input[type=color]:after {
-    content: attr(data-value);
-    position: absolute;
-    bottom: 10px;
-    text-align: center;
-    color: #fffff5;
-    display: block;
-    width: 100%;
-}
-.color-icon {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    color: #666;
-}
-#primary_color{
-    border: 3px solid #fff;
-    border-radius: 50%;
-    height: 60px;
-    width: 60px;
-    outline: none;
-    -webkit-appearance: none;
-}
-
-#primary_color::-webkit-color-swatch-wrapper {
-    padding: 0;
-}
-#primary_color::-webkit-color-swatch {
-    border: none;
-    border-radius: 50%;
-}
-#second_color{
-    border: 3px solid #fff;
-    border-radius: 50%;
-    height: 60px;
-    width: 60px;
-    outline: none;
-    -webkit-appearance: none;
-}
-
-#second_color::-webkit-color-swatch-wrapper {
-    padding: 0;
-}
-#second_color::-webkit-color-swatch {
-    border: none;
-    border-radius: 50%;
-}
-#avatar {
-    object-fit: cover;
-    object-position: center;
-    border-radius:50%;
-    margin-left: 35px;
-    background: white;
-    height: 150px;
-    width: 150px;
-    border: 3px solid #fff;
-    transition: background ease-out 200ms;
-}
-
-#preview {
-    position: relative;
-}
-
-input[type="file"] {
-    display: none;
 }

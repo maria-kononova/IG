@@ -64,7 +64,7 @@ a {
 .recommend_div3 {
     background: var(--background-color);
     height: 90px;
-    width: 350px;
+    width: 340px;
     margin-top: 5px;
     margin-left: 5px;
     margin-right: 5px;
@@ -267,4 +267,16 @@ input[type=color]:after {
 
 input[type="file"] {
     display: none;
+}
+.no-button{
+    background: transparent;
+    border: none !important;
+    height: 90px;
+    width: 355px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 20px;
+    padding: 5px;
+    font-size:0;
 }

@@ -4,10 +4,11 @@
     <title>IG</title>
     <link rel="stylesheet" th:href="@{/css/account.css}"/>
     <link rel="stylesheet" th:href="@{/css/main_layout_items.css}"/>
-    <link rel="stylesheet" th:href="@{/item_list_group.css}"/>
-    <link rel="stylesheet" th:href="@{/color.css}"/>
-    <link rel="stylesheet" th:href="@{/header.css}"/>
+    <link rel="stylesheet" th:href="@{/css/item_list_group.css}"/>
+    <link rel="stylesheet" th:href="@{/css/color.css}"/>
+    <link rel="stylesheet" th:href="@{/css/header.css}"/>
     <link rel="stylesheet" th:href="@{/css/search.css}"/>
+    <link rel="stylesheet" th:href="@{/css/button.css}"/>
     <script type="text/javascript" th:src="@{/js/getThemeFromCookie.js}"></script>
     <!--Картинки-->
     <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
@@ -103,8 +104,7 @@
                     </div>
                     <div class="w-100"></div>
                     <div class="mb-3 col-12 col-md-6">
-                        <button type="submit" class="btn"
-                                style="background: var(--main-color); color: var(--second-color);">Изменить логин
+                        <button type="submit" class="btn btn-primary">Изменить логин
                         </button>
                     </div>
                 </form>
@@ -130,8 +130,7 @@
                     <div class="w-100"></div>
                     <div class="mb-3 col-12 col-md-6">
                         <div id="passwordUpdate"></div>
-                        <button type="submit" class="btn"
-                                style="background: var(--main-color); color: var(--second-color);">Изменить пароль
+                        <button type="submit" class="btn btn-primary">Изменить пароль
                         </button>
                     </div>
                 </form>
@@ -141,7 +140,7 @@
             <div class="block_div" style="height: 440px;">
                 <div class="block_div_no_color">
                     <br/>
-                    <p class="block_p_no_color">Мои сообщества</p>
+                    <p class="block_p_no_color p-main-color">Мои сообщества</p>
                 </div>
                 <hr class="block_line"/>
                 <table style="margin-top: -10px; margin-left: -2px;">
@@ -188,7 +187,7 @@
             <div class="block_div" style="margin-left: 50px; height: 440px;">
                 <div class="block_div_no_color">
                     <br/>
-                    <p class="block_p_no_color">Тема</p>
+                    <p class="block_p_no_color p-main-color">Тема</p>
                 </div>
                 <hr class="block_line"/>
 
@@ -231,8 +230,8 @@
 
                     <div class="row">
                         <div class="mb-3 col-12 col-md-6">
-                            <button type="submit" class="btn"
-                                    style="background: var(--main-color); color: var(--second-color); margin-left: 110px;">
+                            <button type="submit" class="btn btn-primary"
+                                    style="margin-left: 110px;">
                                 Сохранить
                             </button>
                         </div>
@@ -370,15 +369,4 @@
         });
     });
 </script>
-<footer role="contentinfo">
-    <div id="site_footer" style="background: black;">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-8">
-                    <p style="color: white;">© 2023 Мой сайт. Все права защищены.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
 </html>

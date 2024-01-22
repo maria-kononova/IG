@@ -2,10 +2,12 @@
 <html>
 <head>
     <title>IG</title>
-    <link rel="stylesheet" th:href="@{/registration.css}"/>
+    <link rel="stylesheet" th:href="@{/css/registration.css}"/>
     <link rel="stylesheet" th:href="@{/css/main_layout_items.css}"/>
-    <link rel="stylesheet" th:href="@{/color.css}"/>
-    <link rel="stylesheet" th:href="@{/header.css}"/>
+    <link rel="stylesheet" th:href="@{/css/color.css}"/>
+    <link rel="stylesheet" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" th:href="@{/css/button.css}"/>
+    <script type="text/javascript" th:src="@{/js/getThemeFromCookie.js}"></script>
     <!--Картинки-->
     <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
 
@@ -74,7 +76,7 @@
 
 <div class="container reg_form">
     <form class="row justify-content-center" id="registrationForm" method="post">
-        <h2>Регистрация</h2>
+        <h2 class="p-text-color">Регистрация</h2>
         <div class="mb-3 col-12 col-md-6">
             <label for="login" class="form-label">Логин</label>
             <input required type="text" name="login" class="form-control" id="login" placeholder="Введите ваш логин"
@@ -114,12 +116,12 @@
                 <div class="col-md-9">
                     <input required type="email" id="email" name="email" class="form-control"
                            aria-describedby="emailHelp" placeholder="Введите вашу почту"/>
-                    <p id="emailMessage"></p>
-                    <div id="codeAgainMassage"></div>
+                    <p class="p-text-color" id="emailMessage"></p>
+                    <div class="p-text-color" id="codeAgainMassage"></div>
                 </div>
                 <div class="col-md-3">
-                    <button type="submit" id="codeSendButton" class="btn btn-secondary"
-                            style="background: var(--main-color); color: var(--second-color); font-size: 15px; margin-top: 6px;">
+                    <button type="submit" id="codeSendButton" class="btn btn-primary"
+                            style="font-size: 15px; margin-top: 6px;">
                         Получить код
                     </button>
                 </div>
@@ -134,14 +136,13 @@
                    minlength="6" maxlength="6"
                    oninvalid="this.setCustomValidity('Проверьте код подтверждения. Он состоит из 6 символов')"
                    oninput="this.setCustomValidity('')">
-            <p id="codeMessage"></p>
+            <p class="p-text-color" id="codeMessage"></p>
         </div>
         <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-6">
-            <button type="submit" class="btn btn-secondary"
-                    style="background: var(--main-color); color: var(--second-color);">Зарегистрироваться
+            <button type="submit" class="btn btn-primary">Зарегистрироваться
             </button>
-            <a href="/log">Авторизоваться</a>
+            <a href="/log" class="p-text-color">Авторизоваться</a>
         </div>
     </form>
 </div>
@@ -259,7 +260,6 @@
         return false;
     }
 </script>
-
 <script>
     <!-- Функция для проверки совпадения паролей -->
     function onChange() {
@@ -272,37 +272,4 @@
         }
     }
 </script>
-<script>
-    function getCookie(name) {
-        name = name + "=";
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(name) == 0) {
-                return cookie.substring(name.length, cookie.length);
-            }
-        }
-        return "";
-    }
-
-    window.onload = function () {
-        document.documentElement.style.setProperty('--main-color', getCookie("mainColor"));
-        document.documentElement.style.setProperty('--second-color', getCookie("secondColor"));
-        document.getElementsByTagName("html")[0].style.visibility = "visible";
-    }
-</script>
-<footer>
-    <div id="site_footer" style="background: black;">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-8">
-                    <p style="color: white;">© 2023 Мой сайт. Все права защищены.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
 </html>

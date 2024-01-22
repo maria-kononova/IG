@@ -1,7 +1,4 @@
 /* Общие стили страниц */
-* {
-    font-family: 'Comfortaa', sans-serif;
-}
 
 html,
 h1,
@@ -12,11 +9,6 @@ h5,
 h6 {
     color: #5c5b5b
 }
-
-p {
-    color: var(--text-color);
-}
-
 body {
     background: #f6f6f6;
 }
@@ -42,17 +34,6 @@ a {
     width: 600px;
     height: 140px;
     overflow: auto;
-}
-
-/* Стили для подвала */
-.footer {
-    background-color: #333;
-    color: #fff;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 40px;
 }
 
 /*Стиль выбора цвета*/

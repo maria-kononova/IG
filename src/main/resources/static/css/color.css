@@ -10,3 +10,13 @@
 
 html { visibility:hidden;
 background: var(--background-color);}
+
+.p-main-color {
+    color: var(--main-color);
+}
+.p-text-color{
+    color: var(--text-color);
+}
+* {
+    font-family: 'Comfortaa', sans-serif;
+}

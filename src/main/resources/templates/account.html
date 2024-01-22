@@ -3,6 +3,8 @@
 <head>
     <title>IG</title>
     <link rel="stylesheet" th:href="@{/css/account.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main_layout_items.css}"/>
+    <link rel="stylesheet" th:href="@{/item_list_group.css}"/>
     <link rel="stylesheet" th:href="@{/color.css}"/>
     <link rel="stylesheet" th:href="@{/header.css}"/>
     <link rel="stylesheet" th:href="@{/css/search.css}"/>
@@ -30,7 +32,8 @@
                 <h1><a href="/">IG</a></h1>
             </div>
             <div class="col-3">
-                <img src="/image/cat-icon.png" alt="Тут должна сидеть кошка!" height="95px" style="margin-top: -15px; margin-left: -50px;"/>
+                <img src="/image/cat-icon.png" alt="Тут должна сидеть кошка!" height="95px"
+                     style="margin-top: -15px; margin-left: -50px;"/>
             </div>
             <div class="col-3">
             </div>
@@ -45,7 +48,7 @@
             </div>
             <nav class="col-4">
                 <ul>
-                    <li><a href="/groups">Сообщества</a> </li>
+                    <li><a href="/groups">Сообщества</a></li>
                     <li>
                         <div th:switch="${userLogin}">
                             <div th:case="null">
@@ -69,17 +72,17 @@
     </div>
 </header>
 <body style="background: var(--background-color);">
-<div class="container text-center account_form">
+<div class="container text-center">
     <div class="row row-cols-auto">
         <div class="col-8">
             <!--Аватар и изменение данных пользователя-->
-            <div class="account_div">
-                <div class="account_div2">
+            <div class="block_div" style="height: 440px;">
+                <div class="block_div_color">
                     <main>
                         <br/>
                         <input type="file" name="image" id="image" accept="image/*"/>
                         <div id="preview">
-                            <img class="figure_img" id="avatar" alt="image" th:src="${userLogin.getImg()}"/>
+                            <img class="avatar_img" id="avatar" alt="image" th:src="${userLogin.getImg()}"/>
                         </div>
                     </main>
                 </div>
@@ -88,7 +91,8 @@
                       th:action="@{/update/{id}(id=${userLogin.id})}" method="post">
                     <div class="mb-3 col-12 col-md-6">
                         <input required type="email" name="email" th:value="${userLogin.email}"
-                               class="form-control margin-top-20" id="emailAcc" aria-describedby="emailHelp" readonly/>
+                               class="form-control" id="emailAcc" aria-describedby="emailHelp" readonly
+                               style="margin-top: 20px;"/>
                     </div>
                     <div class="w-100"></div>
                     <div class="mb-3 col-12 col-md-6">
@@ -99,7 +103,9 @@
                     </div>
                     <div class="w-100"></div>
                     <div class="mb-3 col-12 col-md-6">
-                        <button type="submit" class="btn"  style="background: var(--main-color); color: var(--second-color);">Изменить логин</button>
+                        <button type="submit" class="btn"
+                                style="background: var(--main-color); color: var(--second-color);">Изменить логин
+                        </button>
                     </div>
                 </form>
 
@@ -124,19 +130,21 @@
                     <div class="w-100"></div>
                     <div class="mb-3 col-12 col-md-6">
                         <div id="passwordUpdate"></div>
-                        <button type="submit" class="btn" style="background: var(--main-color); color: var(--second-color);">Изменить пароль</button>
+                        <button type="submit" class="btn"
+                                style="background: var(--main-color); color: var(--second-color);">Изменить пароль
+                        </button>
                     </div>
                 </form>
             </div>
 
             <!--Сообщества пользователя-->
-            <div class="groups_div">
-                <div class="groups_div2_no_color">
+            <div class="block_div" style="height: 440px;">
+                <div class="block_div_no_color">
                     <br/>
-                    <p class="groups_p_no_color">Мои сообщества</p>
+                    <p class="block_p_no_color">Мои сообщества</p>
                 </div>
-                <hr class="line_block"/>
-                <table>
+                <hr class="block_line"/>
+                <table style="margin-top: -10px; margin-left: -2px;">
                     <tbody>
                     <tr th:if="${groups.isEmpty()}">
                         </br>
@@ -144,18 +152,30 @@
                     </tr>
                     <tr th:each="group : ${groups}">
                         <td>
-                            <div class="recommend_div3">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <img class="figure_img" style="width: 80px; height: 80px; margin-left: 5px"
-                                             alt="image" th:src="${group.getAvtar()}"/>
+                            <form id="groupForm" action="#"
+                                  th:action="@{/group/{id}(id=${group.getId()})}" method="get">
+                                <button type="submit" class="no-button">
+                                    <div class="div_group_item_list">
+                                        <div class="row">
+                                            <div class="col-2 col-md-1">
+                                                <img class="figure_img_group_item_list" alt="image"
+                                                     th:src="${group.getAvtar()}"/>
+                                            </div>
+                                            <div class="col align-self-center">
+                                                <p class="name_group_item_list" th:text="${group.getName()}"> Имя </p>
+                                                <div class="main_div_item_list">
+                                                    <div class="icon_div_item_list">
+                                                        <i class="fa-solid fa-user"></i></div>
+                                                    <div class="subscribes_div_item_list">
+                                                        <p class="subscribes_p_item_list"
+                                                           th:text="${group.getSubscribes()}"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-8 col-md-8">
-                                        <p style="font-size: 20px" th:text="${group.getName()}"> Имя </p>
-                                        <p th:text="${group.getSubscribes()}"> Подписки </p>
-                                    </div>
-                                </div>
-                            </div>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     </tbody>
@@ -165,20 +185,22 @@
 
         <div class="col-4">
             <!--Изменение темы-->
-            <div class="theme_div">
-                <div class="theme_div2_no_color">
+            <div class="block_div" style="margin-left: 50px; height: 440px;">
+                <div class="block_div_no_color">
                     <br/>
-                    <p class="theme_p_no_color">Тема</p>
+                    <p class="block_p_no_color">Тема</p>
                 </div>
-                <hr class="line_block"/>
+                <hr class="block_line"/>
 
                 <form class="row justify-content-center" id="colorForm" method="post">
                     <div class="mb-1 col-4 col-md-3">
                         <div class="container">
-                            <input type="color" id="primary_color" class="field-radio color" style="margin-left: -20px; margin-top: 10px;">
+                            <input type="color" id="primary_color" class="field-radio color"
+                                   style="margin-left: -20px; margin-top: 10px;">
                         </div>
                         <div class="container">
-                            <input type="color" id="second_color" class="field-radio color" style="margin-left: -20px; margin-top: 15px;">
+                            <input type="color" id="second_color" class="field-radio color"
+                                   style="margin-left: -20px; margin-top: 15px;">
                         </div>
                     </div>
 
@@ -194,7 +216,7 @@
                     <div class="w-100"></div>
 
 
-                    <div class="row" >
+                    <div class="row">
                         <div class="mb-3 col-12 col-md-6">
                             <input type="checkbox" id="toggle_checkbox">
                             <label for="toggle_checkbox">
@@ -209,7 +231,10 @@
 
                     <div class="row">
                         <div class="mb-3 col-12 col-md-6">
-                            <button type="submit" class="btn"  style="background: var(--main-color); color: var(--second-color); margin-left: 110px;">Сохранить</button>
+                            <button type="submit" class="btn"
+                                    style="background: var(--main-color); color: var(--second-color); margin-left: 110px;">
+                                Сохранить
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -224,7 +249,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
     var switchStatus = false;
-    $("#toggle_checkbox").on('change', function() {
+    $("#toggle_checkbox").on('change', function () {
         //black
         if ($(this).is(':checked')) {
             document.documentElement.style.setProperty('--background-color', "#28292c");

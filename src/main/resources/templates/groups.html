@@ -3,9 +3,10 @@
 <head>
     <title>IG</title>
     <link rel="stylesheet" th:href="@{/groups.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main_layout_items.css}"/>
+    <link rel="stylesheet" th:href="@{/item_list_group.css}"/>
     <link rel="stylesheet" th:href="@{/color.css}"/>
     <link rel="stylesheet" th:href="@{/header.css}"/>
-    <link rel="stylesheet" th:href="@{/item_list_group.css}"/>
     <link rel="stylesheet" th:href="@{/css/search.css}"/>
     <!--Картинки-->
     <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
@@ -26,10 +27,25 @@
 <header class="container-fluid">
     <div class="container">
         <div class="row">
-            <div class="col-4">
+            <div class="col-1">
                 <h1><a href="/">IG</a></h1>
             </div>
-            <nav class="col-8">
+            <div class="col-3">
+                <img src="/image/cat-icon.png" alt="Тут должна сидеть кошка!" height="95px"
+                     style="margin-top: -15px; margin-left: -50px;"/>
+            </div>
+            <div class="col-3">
+            </div>
+            <div class="col-1">
+                <!--<div class="flexbox">
+                    <div class="search">
+                        <div>
+                            <input type="text" placeholder="Поиск..." required>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+            <nav class="col-4">
                 <ul>
                     <li><a href="/groups">Сообщества</a></li>
                     <li>
@@ -55,12 +71,12 @@
     </div>
 </header>
 <body style="background: var(--background-color);">
-<div class="container text-center account_form">
+<div class="container text-center">
     <div class="row row-cols-auto">
         <div class="col-8">
             <!--Поиск-->
-            <div class="recommend_div">
-                <div class="recommend_div2_no_color">
+            <div class="block_div" style="height: 600px;">
+                <div class="block_div_no_color">
                     <div class="row">
                         <div class="col-5">
                             <div class="flexbox">
@@ -73,12 +89,12 @@
                         </div>
                         <div class="col-2">
                             <br/>
-                            <p class="recommend_p_no_color">Поиск</p>
+                            <p class="block_p_no_color">Поиск</p>
                         </div>
                     </div>
                 </div>
-                <hr class="line_block"/>
-                <table>
+                <hr class="block_line"/>
+                <table style="margin-top: -10px; margin-left: -2px;">
                     <tbody>
                     <tr th:if="${groups.isEmpty()}">
                         </br>
@@ -89,7 +105,7 @@
                             <form id="groupForm" action="#"
                                   th:action="@{/group/{id}(id=${group.getId()})}" method="get">
                                 <button type="submit" class="no-button">
-                                    <div class="recommend_div3">
+                                    <div class="div_group_item_list">
                                         <div class="row">
                                             <div class="col-2 col-md-1">
                                                 <img class="figure_img_group_item_list" alt="image"
@@ -99,7 +115,8 @@
                                                 <p class="name_group_item_list" th:text="${group.getName()}"> Имя </p>
                                                 <div class="main_div_item_list">
                                                     <div class="icon_div_item_list">
-                                                        <i class="fa-solid fa-user"></i></div>
+                                                        <i class="fa-solid fa-user"></i>
+                                                    </div>
                                                     <div class="subscribes_div_item_list">
                                                         <p class="subscribes_p_item_list"
                                                            th:text="${group.getSubscribes()}"></p>
@@ -119,13 +136,13 @@
 
         <div class="col-4">
             <!--Список сообществ пользователя-->
-            <div class="recommend_div">
-                <div class="recommend_div2_no_color">
+            <div class="block_div" style="margin-left: 50px; height: 600px;">
+                <div class="block_div_no_color">
                     <br/>
-                    <p class="recommend_p_no_color">Мои сообщества</p>
+                    <p class="block_p_no_color">Мои сообщества</p>
                 </div>
-                <hr class="line_block"/>
-                <table>
+                <hr class="block_line"/>
+                <table style="margin-top: -10px; margin-left: -2px;">
                     <tbody>
                     <tr th:if="${groups.isEmpty()}">
                         </br>
@@ -136,7 +153,7 @@
                             <form id="groupForm2" action="#"
                                   th:action="@{/group/{id}(id=${group.getId()})}" method="get">
                                 <button type="submit" class="no-button">
-                                    <div class="recommend_div3">
+                                    <div class="div_group_item_list">
                                         <div class="row">
                                             <div class="col-2 col-md-1">
                                                 <img class="figure_img_group_item_list" alt="image"
@@ -146,7 +163,8 @@
                                                 <p class="name_group_item_list" th:text="${group.getName()}"> Имя </p>
                                                 <div class="main_div_item_list">
                                                     <div class="icon_div_item_list">
-                                                        <i class="fa-solid fa-user"></i></div>
+                                                        <i class="fa-solid fa-user"></i>
+                                                    </div>
                                                     <div class="subscribes_div_item_list">
                                                         <p class="subscribes_p_item_list"
                                                            th:text="${group.getSubscribes()}"></p>

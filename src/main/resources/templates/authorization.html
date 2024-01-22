@@ -1,157 +1,184 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>IG</title>
-  <link rel="stylesheet" th:href="@{/authorization.css}" />
-  <link rel="stylesheet" th:href="@{/color.css}" />
-  <link rel="stylesheet" th:href="@{/header.css}"/>
-  <!--Картинки-->
-  <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
+    <title>IG</title>
+    <link rel="stylesheet" th:href="@{/authorization.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main_layout_items.css}"/>
+    <link rel="stylesheet" th:href="@{/item_list_group.css}"/>
+    <link rel="stylesheet" th:href="@{/color.css}"/>
+    <link rel="stylesheet" th:href="@{/header.css}"/>
+    <link rel="stylesheet" th:href="@{/css/search.css}"/>
+    <!--Картинки-->
+    <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
 
-  <!--Шрифты-->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Шрифты-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-nU14brUcp6StFntEOOEBvcJm4huWjB0OcIeQ3fltAfSmuZFrkAif0T+UtNGlKKQv" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css"
+          integrity="sha384-nU14brUcp6StFntEOOEBvcJm4huWjB0OcIeQ3fltAfSmuZFrkAif0T+UtNGlKKQv" crossorigin="anonymous">
 
 </head>
 <body style="background: var(--background-color);">
 <header class="container-fluid">
-  <div class="container">
-    <div class="row">
-      <div class="col-4">
-        <h1><a href="/">IG</a></h1>
-      </div>
-      <nav class="col-8">
-        <ul>
-          <li><a href="/groups">Сообщества</a> </li>
-          <li>
-            <div th:switch="${userLogin}">
-              <div th:case="null">
-                <a href="/log"><i class="fa-solid fa-user"></i>Аккаунт</a>
-                <ul>
-                  <li><a href="/new">Регистрация</a></li>
-                  <li><a href="/log">Авторизация</a></li>
-                </ul>
-              </div>
-              <div th:case="*">
-                <a href="/account" th:text="${userLogin.login}"></a>
-                <ul>
-                  <li><a href="/exit">Выйти</a></li>
-                </ul>
-              </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-1">
+                <h1><a href="/">IG</a></h1>
             </div>
-          </li>
-        </ul>
-      </nav>
+            <div class="col-3">
+                <img src="/image/cat-icon.png" alt="Тут должна сидеть кошка!" height="95px"
+                     style="margin-top: -15px; margin-left: -50px;"/>
+            </div>
+            <div class="col-3">
+            </div>
+            <div class="col-1">
+                <!--<div class="flexbox">
+                    <div class="search">
+                        <div>
+                            <input type="text" placeholder="Поиск..." required>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+            <nav class="col-4">
+                <ul>
+                    <li><a href="/groups">Сообщества</a></li>
+                    <li>
+                        <div th:switch="${userLogin}">
+                            <div th:case="null">
+                                <a href="/log"><i class="fa-solid fa-user"></i>Аккаунт</a>
+                                <ul>
+                                    <li><a href="/new">Регистрация</a></li>
+                                    <li><a href="/log">Авторизация</a></li>
+                                </ul>
+                            </div>
+                            <div th:case="*">
+                                <a href="/account" th:text="${userLogin.login}"></a>
+                                <ul>
+                                    <li><a href="/exit">Выйти</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
-  </div>
 </header>
 
-<div class="container auth_form">
-  <form class="row justify-content-center" id="authForm" method="get">
-    <h2>Авторизация</h2>
-    <div class="mb-3 col-12 col-md-6">
-      <label for="exampleInputEmail1" class="form-label">Email</label>
-      <input required type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="введите ваш email">
-    </div>
-    <div class="w-100"></div>
-    <div class="mb-3 col-12 col-md-6">
-      <label for="password_" class="form-label">Пароль</label>
-      <div class="password">
-        <input required type="password" name="password" class="form-control" id="password_" placeholder="введите ваш пароль" minlength="8"
-               oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов!')" oninput="this.setCustomValidity('')" onchange="onChange()">
-        <a href="#" class="password-control" style="margin-right: 15px;" onclick="return show_hide_password('password_', this, 'eye_');"><i id="eye_" class="fa-solid fa-eye-slash"></i></a>
-      </div>
-      <p id="errorMessage"></p>
-    </div>
-    <div class="w-100"></div>
-    <div class="mb-3 col-12 col-md-6">
-      <button type="submit" class="btn btn-secondary">Войти</button>
-      <a href="/new">Зарегистрироваться</a>
-    </div>
-  </form>
+<div class="container auth_form" style="align-content: center;">
+    <form class="row justify-content-center" id="authForm" method="get">
+        <h2>Авторизация</h2>
+        <div class="mb-3 col-12 col-md-6">
+            <label for="exampleInputEmail1" class="form-label">Email</label>
+            <input required type="email" name="email" class="form-control" id="exampleInputEmail1"
+                   aria-describedby="emailHelp" placeholder="введите ваш email">
+        </div>
+        <div class="w-100"></div>
+        <div class="mb-3 col-12 col-md-6">
+            <label for="password_" class="form-label">Пароль</label>
+            <div class="password">
+                <input required type="password" name="password" class="form-control" id="password_"
+                       placeholder="введите ваш пароль" minlength="8"
+                       oninvalid="this.setCustomValidity('Пароль не может быть короче 8 символов!')"
+                       oninput="this.setCustomValidity('')" onchange="onChange()">
+                <a href="#" class="password-control" style="margin-right: 15px;"
+                   onclick="return show_hide_password('password_', this, 'eye_');"><i id="eye_"
+                                                                                      class="fa-solid fa-eye-slash"></i></a>
+            </div>
+            <p id="errorMessage"></p>
+        </div>
+        <div class="w-100"></div>
+        <div class="mb-3 col-12 col-md-6">
+            <button type="submit" class="btn btn-secondary"
+                    style="background: var(--main-color); color: var(--second-color);">Войти
+            </button>
+            <a href="/new">Зарегистрироваться</a>
+        </div>
+    </form>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function() {
-    $("#authForm").submit(function (event) {
-      event.preventDefault(); // Предотвращаем отправку формы по умолчанию
-      // Ответ от сервера об успешной регистрации
-      // Отправляем письмо на указанный email
-      const formData = {
-        email: $("#exampleInputEmail1").val(),
-        password: $("#password_").val(),
-      };
-      $.ajax({
-        url: "/auth",
-        type: "GET",
-        data: formData,
-        success: function (authResponse) {
-          if (authResponse === "Success") {
-            window.location.href = '/account';
-          }
-          else{
-            document.getElementById('errorMessage').textContent = "Ошибка авторизации. Проверьте введённые данные!";
-          }
-        }
-      });
+    $(document).ready(function () {
+        $("#authForm").submit(function (event) {
+            event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+            // Ответ от сервера об успешной регистрации
+            // Отправляем письмо на указанный email
+            const formData = {
+                email: $("#exampleInputEmail1").val(),
+                password: $("#password_").val(),
+            };
+            $.ajax({
+                url: "/auth",
+                type: "GET",
+                data: formData,
+                success: function (authResponse) {
+                    if (authResponse === "Success") {
+                        window.location.href = '/account';
+                    } else {
+                        document.getElementById('errorMessage').textContent = "Ошибка авторизации. Проверьте введённые данные!";
+                    }
+                }
+            });
+        });
     });
-  });
 </script>
 <script>
-  <!-- Функция, позволяющая посмотреть введенный пароль -->
-  function show_hide_password(pass, target, img){
-    var image = document.getElementById(img);
-    var input = document.getElementById(pass);
-    if (input.getAttribute('type') == 'password') {
-      target.classList.add('view');
-      input.setAttribute('type', 'text');
-      image.className = "fa-solid fa-eye";
-    } else {
-      target.classList.remove('view');
-      input.setAttribute('type', 'password');
-      image.className = "fa-solid fa-eye-slash";
+    <!-- Функция, позволяющая посмотреть введенный пароль -->
+    function show_hide_password(pass, target, img) {
+        var image = document.getElementById(img);
+        var input = document.getElementById(pass);
+        if (input.getAttribute('type') == 'password') {
+            target.classList.add('view');
+            input.setAttribute('type', 'text');
+            image.className = "fa-solid fa-eye";
+        } else {
+            target.classList.remove('view');
+            input.setAttribute('type', 'password');
+            image.className = "fa-solid fa-eye-slash";
+        }
+        return false;
     }
-    return false;
-  }
 </script>
 <script>
-  function getCookie(name) {
-    name = name + "=";
-    var cookies = document.cookie.split(';');
-    for(var i = 0; i <cookies.length; i++) {
-      var cookie = cookies[i];
-      while (cookie.charAt(0)==' ') {
-        cookie = cookie.substring(1);
-      }
-      if (cookie.indexOf(name) == 0) {
-        return cookie.substring(name.length,cookie.length);
-      }
+    function getCookie(name) {
+        name = name + "=";
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i];
+            while (cookie.charAt(0) == ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(name) == 0) {
+                return cookie.substring(name.length, cookie.length);
+            }
+        }
+        return "";
     }
-    return "";
-  }
-  window.onload = function(){
-    document.documentElement.style.setProperty('--main-color', getCookie("mainColor"));
-    document.documentElement.style.setProperty('--second-color', getCookie("secondColor"));
-    document.getElementsByTagName("html")[0].style.visibility = "visible";
-  }
+
+    window.onload = function () {
+        document.documentElement.style.setProperty('--main-color', getCookie("mainColor"));
+        document.documentElement.style.setProperty('--second-color', getCookie("secondColor"));
+        document.getElementsByTagName("html")[0].style.visibility = "visible";
+    }
 </script>
 <footer>
-  <div id="site_footer" style="background: black;">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 col-md-8">
-          <p style="color: white;">© 2023 Мой сайт. Все права защищены.</p>
+    <div id="site_footer" style="background: black;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-8">
+                    <p style="color: white;">© 2023 Мой сайт. Все права защищены.</p>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </footer>
 </html>

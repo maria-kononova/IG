@@ -1,3 +1,14 @@
+.div_group_item_list {
+    background: #ffffff;
+    height: 90px;
+    width: 340px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 20px;
+    padding: 5px;
+}
+
 .figure_img_group_item_list {
     object-fit: cover;
     object-position: center;
@@ -40,4 +51,17 @@
     font-size: 18px;
     margin-top: -5px;
     margin-left: 5px;
+}
+
+.no-button {
+    background: transparent;
+    border: none !important;
+    height: 90px;
+    width: 355px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 20px;
+    padding: 5px;
+    font-size: 0;
 }

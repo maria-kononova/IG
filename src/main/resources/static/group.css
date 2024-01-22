@@ -27,114 +27,6 @@ a {
 }
 
 /* Стили для сообщества */
-.group_div {
-    background: var(--second-color);
-    height: 310px;
-    margin-top: 30px;
-    border-radius: 20px;
-}
-
-.group_div2 {
-    background: var(--main-color);
-    height: 90px;
-    margin-top: 50px;
-    border-radius: 20px;
-    text-align: left;
-}
-
-.margin-top-20 {
-    margin-top: 20px;
-}
-
-.post_div {
-    background: var(--second-color);
-    height: 330px;
-    margin-top: 30px;
-    border-radius: 20px;
-}
-
-.recommend_div {
-    background: var(--second-color);
-    height: 600px;
-    margin-top: 30px;
-    margin-left: 50px;
-    border-radius: 20px;
-}
-
-.recommend_div3 {
-    background: var(--background-color);
-    height: 90px;
-    width: 340px;
-    margin-top: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
-    border-radius: 20px;
-    padding: 5px;
-}
-
-.line_block {
-    border-bottom: 3px solid var(--main-color);
-    width: 100%;
-}
-
-.recommend_div2_no_color {
-    height: 72px;
-    margin-top: 50px;
-    border-radius: 20px;
-    font-size: 26px;
-}
-
-.recommend_p_no_color {
-    margin-top: -10px;
-    color: var(--main-color);
-}
-
-.recommend_div2 {
-    background: var(--main-color);
-    height: 120px;
-    margin-top: 50px;
-    border-radius: 20px;
-}
-
-.recommend_div2 p {
-    margin-top: 5px;
-    font-size: 24px;
-}
-
-.figure_div {
-    object-fit: cover;
-    object-position: center;
-    border-radius: 50%;
-    width: 130px;
-    height: 130px;
-    margin-top: 50px;
-    margin-left: 35px;
-    background: white;
-}
-
-.figure_img {
-    object-fit: cover;
-    object-position: center;
-    border-radius: 50%;
-    background: white;
-    height: 150px;
-    width: 150px;
-    border: 3px solid #fff;
-    transition: background ease-out 200ms;
-}
-
-.figure_img_group_list {
-    object-fit: cover;
-    object-position: center;
-    border-radius: 50%;
-    background: white;
-    height: 80px;
-    width: 80px;
-    border: 3px solid #fff;
-    margin-left: 5px;
-    transition: background ease-out 200ms;
-}
-
 .textNameGroups {
     font-size: 22px;
     text-align: left;
@@ -151,18 +43,6 @@ a {
     height: 140px;
     overflow: auto;
 }
-
-.nameGroups {
-    font-size: 20px;
-    text-align: left;
-    margin-top: 20px;
-}
-
-.dataNews {
-    font-size: 16px;
-    text-align: left;
-}
-
 
 /* Стили для подвала */
 .footer {
@@ -267,16 +147,4 @@ input[type=color]:after {
 
 input[type="file"] {
     display: none;
-}
-.no-button{
-    background: transparent;
-    border: none !important;
-    height: 90px;
-    width: 355px;
-    margin-top: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
-    border-radius: 20px;
-    padding: 5px;
-    font-size:0;
 }

@@ -1,0 +1,18 @@
+/* Стили для сообщества */
+.post_div {
+    background: var(--second-color);
+    height: 330px;
+    margin-top: 30px;
+    border-radius: 20px;
+}
+
+.nameGroups {
+    font-size: 20px;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.dataNews {
+    font-size: 16px;
+    text-align: left;
+}

@@ -8,6 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/item_list_post.css}"/>
     <link rel="stylesheet" th:href="@{/css/color.css}"/>
     <link rel="stylesheet" th:href="@{/css/header.css}"/>
+
     <!--Картинки-->
     <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
 
@@ -95,40 +96,64 @@
             </div>
 
             <!--Пост-->
-            <div class="post_div">
-                <form class="row justify-content-center" id="colorForm" method="post">
-                    <div class="mb-3 col-12 col-md-6">
-                        <input type="file" name="image" id="image1" accept="image/*"/>
-                        <div id="news">
-                            <img class="avatar_img" id="avatar1" alt="image1"/>  <!--th:src="${userLogin.getImg()}"/>-->
+            <div class="block_div" style="padding: 5px 5px 20px; height: auto; margin-bottom: 10px;">
+                <div class="div_post_item_list">
+                    <div class="row">
+                        <div class="col-2 col-md-1">
+                            <img class="figure_img_post_item_list" alt="image" th:src="${group.getAvtar()}"/>
                         </div>
-                        <br/>
+                        <div class="col align-self-center" style="margin-left: -30px;">
+                            <p class="name_post_item_list" th:text="${group.getName()}"></p>
+                            <div class="main_div_post_item_list">
+                                <div class="date_div_post_item_list">
+                                    <p class="date_p_post_item_list" th:text="${group.getDateCreate().getDate()}"></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3 col-12 col-md-6" align="left">
-                        <p class="nameGroups" th:text="${group.getName()}"/>
-                        <p class="dataNews">Дата публикации</p>
-                        <br/>
-                    </div>
-                    <div class="mb-3 col-12 col-md-6" align="left">
-                        <p class="nameGroups">League of Legends</p>
-                        <img class="col-12 col-md-6"
-                             src="https://newcdn.igromania.ru/articles/pics/tmp/images/2024/1/5/3c54d2b3-ec9a-49a1-90f1-e08585752577.webp">
-                        <br/>
-                    </div>
-                </form>
-            </div>
+                    <div class="row">
+                        <div class="col align-self-center" style="margin-left: 0px;">
+                            <p style="text-align: start; margin-left: 5px; margin-right: 30px;">
+                                Студия Harebrained Schemes объявила, что 2024 год станет новой главой в её истории.
+                                Команда известна за создание Shadowrun Trilogy и BATTLETECH. Спустя 5 лет после работы
+                                под эгидой Paradox Interactive разработчики вновь стали независимыми, но оставили
+                                издателю права на ряд своих игр.
 
+                                Прямо сейчас ветераны студии в небольшой команде работают над «совершенно новой» игрой.
+                                В ней существует тесная связь между повествованием и игровыми механиками, а разработчики
+                                не сомневаются в интересе со стороны издателей. Для этого будет сделана демоверсия
+                                новинки, но пока не уточняется, станет ли она общедоступной.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col align-self-center" style="margin-left: 0px;">
+                            <img style="text-align: start; margin-top: -5px; margin-left: 5px; margin-right: 30px; height: 300px; width: 450px;"
+                                 src="https://newcdn.igromania.ru/articles/pics/tmp/images/2024/1/24/6d3eaa4f-2e64-4858-b5be-cb2e21d3d391.webp"/>
+                        </div>
+                    </div>
+                    <!--<div class="row" style="margin-top: 20px;">
+                        <div class="col align-self-center" style="margin-left: 0px;">
+                            <div class="like-container">
+
+
+
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
         </div>
 
         <div class="col-4">
             <!--Список сообществ-->
-            <div class="block_div" style="margin-left: 50px; height: 600px;">
+            <div class="block_div" style="margin-left: 50px; height: 600px; ">
                 <div class="block_div_no_color">
                     <br/>
                     <p class="block_p_no_color">Рекомендации</p>
                 </div>
                 <hr class="block_line"/>
-                <table style="margin-top: -10px; margin-left: -2px;">
+                <table style="margin-top: -17px; margin-left: -2px;" class="scroll">
                     <tbody>
                     <tr th:if="${groups.isEmpty()}">
                         </br>
@@ -147,12 +172,12 @@
                                             </div>
                                             <div class="col align-self-center">
                                                 <p class="name_group_item_list" th:text="${group.getName()}"> Имя </p>
-                                                <div class="main_div_item_list">
-                                                    <div class="icon_div_item_list">
+                                                <div class="main_div_group_item_list">
+                                                    <div class="icon_div_group_item_list">
                                                         <i class="fa-solid fa-user"></i>
                                                     </div>
-                                                    <div class="subscribes_div_item_list">
-                                                        <p class="subscribes_p_item_list"
+                                                    <div class="subscribes_div_group_item_list">
+                                                        <p class="subscribes_p_group_item_list"
                                                            th:text="${group.getSubscribes()}"></p>
                                                     </div>
                                                 </div>

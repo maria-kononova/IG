@@ -28,29 +28,30 @@
     text-align: left;
 }
 
-.main_div_item_list {
+.main_div_group_item_list {
     display: flex;
     align-content: center;
     margin-left: 60px;
     margin-top: -5px;
 }
 
-.icon_div_item_list {
+.icon_div_group_item_list {
     width: 5%;
     align-content: end;
     margin-top: -3px;
     margin-right: 3px;
 }
 
-.subscribes_div_item_list {
+.subscribes_div_group_item_list {
     width: 15%;
     align-content: start;
 }
 
-.subscribes_p_item_list {
+.subscribes_p_group_item_list {
     font-size: 18px;
     margin-top: -5px;
     margin-left: 5px;
+    text-align: start;
 }
 
 .no-button {
@@ -64,4 +65,22 @@
     border-radius: 20px;
     padding: 5px;
     font-size: 0;
+}
+
+/* Прокрутка списка сообществ */
+.scroll {
+    height: 500px;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+::-webkit-scrollbar {
+    width: 1px;
+}
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 1px rgba(0,0,0,0);
+}
+::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 1px rgba(0,0,0,0);
 }

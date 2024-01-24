@@ -18,3 +18,24 @@ a {
     text-decoration: none;
     color: inherit;
 }
+
+/* Потом удалить! а вообще это пример прокрутки страницы с элементом,
+который остается на месте*/
+.wrap {
+    background-color: #52ff83ab;
+    width: 90%;
+    height: 2000px;
+    margin: 30px;
+}
+
+.elem {
+    background: #6052ff;
+    width: 150px;
+    height: 150px;
+    color: #fcfcfc;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    position: fixed;
+
+}

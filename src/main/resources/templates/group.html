@@ -9,6 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/color.css}"/>
     <link rel="stylesheet" th:href="@{/css/header.css}"/>
     <link rel="stylesheet" th:href="@{/css/button.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 
     <!--Картинки-->
     <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
@@ -75,9 +76,9 @@
 <body style="background: var(--background-color);">
 <div class="container text-center">
     <div class="row row-cols-auto">
-        <div class="col-8">
+        <div class="col-8 scroll" style="height: 678px;">
             <!--Шапка сообщества-->
-            <div class="block_div" style="height: 310px;">
+            <div class="block_div" style="height: auto;">
                 <div class="block_div_color box">
                     <main>
                         <br/>
@@ -123,7 +124,7 @@
                     </div>
                     <div class="row">
                         <div class="col align-self-center" style="margin-left: 0px;">
-                            <p style="text-align: start; margin-left: 5px; margin-right: 30px;">
+                            <p style="text-align: start; margin-left: 5px; margin-right: 30px; width: 780px; height: auto; max-height:120px; overflow-y: auto;">
                                 Студия Harebrained Schemes объявила, что 2024 год станет новой главой в её истории.
                                 Команда известна за создание Shadowrun Trilogy и BATTLETECH. Спустя 5 лет после работы
                                 под эгидой Paradox Interactive разработчики вновь стали независимыми, но оставили
@@ -163,7 +164,7 @@
                     <p class="block_p_no_color">Рекомендации</p>
                 </div>
                 <hr class="block_line"/>
-                <table style="margin-top: -17px; margin-left: -2px;" class="scroll">
+                <table style="margin-top: -17px; margin-left: -2px; height: 500px;" class="scroll">
                     <tbody>
                     <tr th:if="${groups.isEmpty()}">
                         </br>

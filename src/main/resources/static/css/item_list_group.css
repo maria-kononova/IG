@@ -68,11 +68,12 @@
 }
 
 /* Прокрутка списка сообществ */
+/*
 .scroll {
     height: 500px;
     display: block;
-    overflow-x: auto;
-    white-space: nowrap;
+    overflow-y: auto;
+    white-space: normal;
 }
 
 ::-webkit-scrollbar {
@@ -82,5 +83,12 @@
     box-shadow: inset 0 0 1px rgba(0,0,0,0);
 }
 ::-webkit-scrollbar-thumb {
-    box-shadow: inset 0 0 1px rgba(0,0,0,0);
+    box-shadow: inset 0 0 1px rgba(0,0,0,0.9);
 }
+
+.scroll1 {
+    height: 658px;
+    display: block;
+    overflow-y: auto;
+    white-space: normal;
+}*/

@@ -4,6 +4,7 @@ import com.example.ig.entity.Group;
 import com.example.ig.entity.GroupUser;
 import com.example.ig.entity.Subscriptions;
 import com.example.ig.repository.GroupRepository;
+import com.example.ig.repository.PostRepository;
 import com.example.ig.repository.SubscriptionsRepository;
 import com.example.ig.repository.UserRepository;
 import jakarta.servlet.http.Cookie;
@@ -28,12 +29,14 @@ public class GroupController {
     private final GroupRepository groupRepository;
     private final UserRepository userRepository;
     private final SubscriptionsRepository subscriptionsRepository;
+    private final PostRepository postRepository;
 
     @Autowired
-    public GroupController(GroupRepository groupRepository, UserRepository userRepository, SubscriptionsRepository subscriptionsRepository) {
+    public GroupController(GroupRepository groupRepository, UserRepository userRepository, SubscriptionsRepository subscriptionsRepository, PostRepository postRepository) {
         this.groupRepository = groupRepository;
         this.userRepository = userRepository;
         this.subscriptionsRepository = subscriptionsRepository;
+        this.postRepository = postRepository;
     }
     public Long getUserFromCookie(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
@@ -58,16 +61,20 @@ public class GroupController {
         model.addAttribute("userLogin", user);
         model.addAttribute("group", group);
         model.addAttribute("sub", isSubscribes(id));
+        model.addAttribute("posts", postRepository.getAllPostsOfGroup(group.getId()));
         return "group";
     }
     @GetMapping("/groups")
-    public String groupPage( Model model, HttpServletRequest request, HttpServletResponse response) {
+    public String groupPage(Model model, HttpServletRequest request, HttpServletResponse response) {
         Long userId = getUserFromCookie(request, response);
-        if (userId != null) user = userRepository.getById(userId);
+        List<Group> myGroup = new ArrayList<>();
+        if (userId != null) {
+            user = userRepository.getById(userId);
+            model.addAttribute("userLogin", user);
+            myGroup = getMyGroup(subscriptionsRepository.getAllGroupsOfUser(user.getId()));
+        }
+        model.addAttribute("myGroups", myGroup);
         model.addAttribute("groups", groupRepository.findAll());
-        model.addAttribute("userLogin", user);
-        model.addAttribute("groups", groupRepository.findAll());
-        model.addAttribute("myGroups", getMyGroup(subscriptionsRepository.getAllGroupsOfUser(user.getId())));
         return "groups";
     }
 

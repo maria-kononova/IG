@@ -165,7 +165,7 @@ public class UserController {
 
     @PostMapping("/changeImg")
     @ResponseBody
-    public String changeImg(Model model, @RequestParam String url) throws IOException {
+    public String changeImg(Model model, @RequestParam String url){
         //copyDirectory(new File(getUrl(url)), file);
         user.setImg(url);
         userRepository.save(user);

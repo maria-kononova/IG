@@ -50,82 +50,14 @@ label {
     display: block;
     position: relative;
 }
-
-input {
-    padding: 5px 15px;
-    font-size: 16px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-input[type=color] {
-    padding: 0;
-    border: 0;
-    height: 40px;
-}
-
-input[type=color]:after {
-    content: attr(data-value);
-    position: absolute;
-    bottom: 10px;
-    text-align: center;
-    color: #fffff5;
-    display: block;
-    width: 100%;
-}
-
-.color-icon {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    color: #666;
-}
-
-#primary_color {
-    border: 3px solid #fff;
-    border-radius: 50%;
-    height: 60px;
-    width: 60px;
-    outline: none;
-    -webkit-appearance: none;
-}
-
-#primary_color::-webkit-color-swatch-wrapper {
-    padding: 0;
-}
-
-#primary_color::-webkit-color-swatch {
-    border: none;
-    border-radius: 50%;
-}
-
-#second_color {
-    border: 3px solid #fff;
-    border-radius: 50%;
-    height: 60px;
-    width: 60px;
-    outline: none;
-    -webkit-appearance: none;
-}
-
-#second_color::-webkit-color-swatch-wrapper {
-    padding: 0;
-}
-
-#second_color::-webkit-color-swatch {
-    border: none;
-    border-radius: 50%;
-}
-
 #avatar {
     object-fit: cover;
     object-position: center;
     border-radius: 50%;
     margin-left: 35px;
-    background: white;
     height: 150px;
     width: 150px;
-    border: 3px solid #fff;
+    border: 3px solid var(--background-color);
     transition: background ease-out 200ms;
 }
 

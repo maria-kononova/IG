@@ -97,8 +97,6 @@ input[type=color]:after {
 }
 
 #avatar {
-    object-fit: cover;
-    object-position: center;
     border-radius: 50%;
     margin-left: 35px;
     background: var(--background-color);
@@ -109,7 +107,7 @@ input[type=color]:after {
 }
 
 #preview {
-    position: relative;
+    position: absolute;
 }
 
 input[type="file"] {

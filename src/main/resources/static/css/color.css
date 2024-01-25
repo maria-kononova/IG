@@ -9,7 +9,8 @@
 }
 
 html { visibility:hidden;
-background: var(--background-color);}
+background: var(--background-color);
+    overflow-y:scroll;}
 
 .p-main-color {
     color: var(--main-color);

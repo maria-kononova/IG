@@ -26,7 +26,18 @@ a {
     height: 100px;
     display: block;
     overflow-y: auto;
+    overflow-x: hidden;
     white-space: normal;
+}
+
+.scroll::-webkit-scrollbar {
+    width: 1px;
+}
+.scroll::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 1px rgba(0,0,0,0);
+}
+.scroll::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 1px rgba(0,0,0,0);
 }
 
 ::-webkit-scrollbar {
@@ -36,5 +47,5 @@ a {
     box-shadow: inset 0 0 1px rgba(0,0,0,0);
 }
 ::-webkit-scrollbar-thumb {
-    box-shadow: inset 0 0 1px rgba(0,0,0,0);
+    box-shadow: inset 0 0 1px rgba(0,0,0,0.9);
 }

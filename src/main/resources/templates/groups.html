@@ -144,11 +144,11 @@
                 <hr class="block_line"/>
                 <table style="margin-top: -17px; margin-left: -2px;" class="scroll">
                     <tbody>
-                    <tr th:if="${groups.isEmpty()}">
+                    <tr th:if="${myGroups.isEmpty()}">
                         </br>
                         <p style="justify-content: center;"> Нет сообществ </p>
                     </tr>
-                    <tr th:each="group : ${groups}">
+                    <tr th:each="group : ${myGroups}">
                         <td>
                             <form id="groupForm2" action="#"
                                   th:action="@{/group/{id}(id=${group.getId()})}" method="get">

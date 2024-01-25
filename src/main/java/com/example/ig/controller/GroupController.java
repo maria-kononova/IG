@@ -1,6 +1,8 @@
 package com.example.ig.controller;
 
+import com.example.ig.entity.Group;
 import com.example.ig.repository.GroupRepository;
+import com.example.ig.repository.SubscriptionsRepository;
 import com.example.ig.repository.UserRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,17 +13,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.example.ig.IgApplication.user;
 
 @Controller
 public class GroupController {
     private final GroupRepository groupRepository;
     private final UserRepository userRepository;
+    private final SubscriptionsRepository subscriptionsRepository;
 
     @Autowired
-    public GroupController(GroupRepository groupRepository, UserRepository userRepository) {
+    public GroupController(GroupRepository groupRepository, UserRepository userRepository, SubscriptionsRepository subscriptionsRepository) {
         this.groupRepository = groupRepository;
         this.userRepository = userRepository;
+        this.subscriptionsRepository = subscriptionsRepository;
     }
     public Long getUserFromCookie(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
@@ -53,7 +60,15 @@ public class GroupController {
         model.addAttribute("groups", groupRepository.findAll());
         model.addAttribute("userLogin", user);
         model.addAttribute("groups", groupRepository.findAll());
+        model.addAttribute("myGroups", getMyGroup(subscriptionsRepository.getAllGroupsOfUser(user.getId())));
         return "groups";
     }
 
+    public List<Group> getMyGroup(List<Long> myGroupsLong){
+        List<Group> myGroups = new ArrayList<>();
+        for(long idGroup : myGroupsLong){
+            myGroups.add(groupRepository.getById(idGroup));
+        }
+        return myGroups;
+    }
 }

@@ -1,6 +1,8 @@
 package com.example.ig.controller;
 
 import com.example.ig.entity.Group;
+import com.example.ig.entity.GroupUser;
+import com.example.ig.entity.Subscriptions;
 import com.example.ig.repository.GroupRepository;
 import com.example.ig.repository.SubscriptionsRepository;
 import com.example.ig.repository.UserRepository;
@@ -12,10 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.ig.IgApplication.group;
 import static com.example.ig.IgApplication.user;
 
 @Controller
@@ -47,10 +52,12 @@ public class GroupController {
     @GetMapping("/group/{id}")
     public String groupPage(@PathVariable("id") long id, Model model, HttpServletRequest request, HttpServletResponse response){
         Long userId = getUserFromCookie(request, response);
+        group = groupRepository.getById(id);
         if (userId != null) user = userRepository.getById(userId);
         model.addAttribute("groups", groupRepository.findAll());
         model.addAttribute("userLogin", user);
-        model.addAttribute("group", groupRepository.getById(id));
+        model.addAttribute("group", group);
+        model.addAttribute("sub", isSubscribes(id));
         return "group";
     }
     @GetMapping("/groups")
@@ -64,6 +71,27 @@ public class GroupController {
         return "groups";
     }
 
+    @PostMapping("/sub")
+    @ResponseBody
+    public String subscribe(Model model){
+        GroupUser groupUser = new GroupUser(user.getId(), group.getId());
+        Subscriptions subscriptions = new Subscriptions(groupUser);
+        subscriptionsRepository.save(subscriptions);
+        model.addAttribute("sub", true);
+        return "Success";
+    }
+
+    @PostMapping("/unsub")
+    @ResponseBody
+    public String unsubscribe(Model model){
+        GroupUser groupUser = new GroupUser(user.getId(), group.getId());
+        Subscriptions subscriptions = new Subscriptions(groupUser);
+        subscriptionsRepository.delete(subscriptions);
+        model.addAttribute("sub", false);
+        return "Success";
+    }
+
+
     public List<Group> getMyGroup(List<Long> myGroupsLong){
         List<Group> myGroups = new ArrayList<>();
         for(long idGroup : myGroupsLong){
@@ -71,4 +99,10 @@ public class GroupController {
         }
         return myGroups;
     }
+
+    public Boolean isSubscribes(long idGroupForCheck){
+        System.out.println(subscriptionsRepository.getAllGroupsOfUser(user.getId()).contains(idGroupForCheck));
+        return subscriptionsRepository.getAllGroupsOfUser(user.getId()).contains(idGroupForCheck);
+    }
+
 }

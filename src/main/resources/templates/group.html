@@ -8,6 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/item_list_post.css}"/>
     <link rel="stylesheet" th:href="@{/css/color.css}"/>
     <link rel="stylesheet" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" th:href="@{/css/button.css}"/>
 
     <!--Картинки-->
     <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
@@ -77,7 +78,7 @@
         <div class="col-8">
             <!--Шапка сообщества-->
             <div class="block_div" style="height: 310px;">
-                <div class="block_div_color">
+                <div class="block_div_color box">
                     <main>
                         <br/>
                         <input type="file" name="image" id="image" accept="image/*"/>
@@ -85,6 +86,15 @@
                             <img class="avatar_img" id="avatar" alt="image" th:src="${group.getAvtar()}"/>
                         </div>
                     </main>
+                    <div id="subButton">
+                        <div th:if="${sub==true}">
+                            <button class="btn btn-primary bet_time" onclick="unsubscribe();">✓ Вы подписаны</button>
+                        </div>
+                        <div th:if="${sub==false}">
+                            <button class="btn btn-primary bet_time" onclick="subscribe();">Подписаться</button>
+                        </div>
+                    </div>
+
                 </div>
 
                 <form class="row justify-content-center" id="accountForm" action="#" method="post"> <!--th:action=""-->
@@ -199,6 +209,33 @@
 </body>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    function subscribe() {
+        event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+        $.ajax({
+            url: "/sub",
+            type: "POST",
+            success: function (response) {
+                if (response === "Success") {
+                    $("#subButton").load(" #subButton > *");
+                }
+            }
+        });
+    }
+
+    function unsubscribe() {
+        event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+        $.ajax({
+            url: "/unsub",
+            type: "POST",
+            success: function (response) {
+                if (response === "Success") {
+                    $("#subButton").load(" #subButton > *");
+                }
+            }
+        });
+    }
+</script>
 <script>
     $("input.color").each(function () {
         let colorButton = document.getElementById("primary_color");

@@ -56,11 +56,13 @@ public class GroupController {
     public String groupPage(@PathVariable("id") long id, Model model, HttpServletRequest request, HttpServletResponse response){
         Long userId = getUserFromCookie(request, response);
         group = groupRepository.getById(id);
-        if (userId != null) user = userRepository.getById(userId);
+        if (userId != null) {
+            user = userRepository.getById(userId);
+            model.addAttribute("userLogin", user);
+            model.addAttribute("sub", isSubscribes(id));
+        }
         model.addAttribute("groups", groupRepository.findAll());
-        model.addAttribute("userLogin", user);
         model.addAttribute("group", group);
-        model.addAttribute("sub", isSubscribes(id));
         model.addAttribute("posts", postRepository.getAllPostsOfGroup(group.getId()));
         return "group";
     }

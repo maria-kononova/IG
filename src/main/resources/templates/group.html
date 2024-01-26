@@ -35,7 +35,7 @@
             </div>
             <div class="col-3">
                 <img src="/image/cat-icon.png" alt="Тут должна сидеть кошка!" height="95px"
-                     style="margin-top: -15px; margin-left: -50px;"/>
+                     style="margin-top: -18px; margin-left: -50px;"/>
             </div>
             <div class="col-3">
             </div>
@@ -108,7 +108,7 @@
                     </div>
                 </form>
             </div>
-            <table style="height: 100%;" class="scroll">
+            <table style="height: 100%; width: 600px; margin-left: 260px;" class="scroll">
                 <tbody>
                 <tr th:each="post : ${posts}">
                     <td>
@@ -122,41 +122,22 @@
                                     </div>
                                     <div class="col align-self-center" style="margin-left: -30px;">
                                         <p class="name_post_item_list" th:text="${group.getName()}"></p>
-                                        <div class="main_div_post_item_list">
-                                            <div class="date_div_post_item_list">
-                                                <p class="date_p_post_item_list" th:text="${post.getDatePublication()}"></p>
-                                            </div>
-                                        </div>
+                                        <p class="date_p_post_item_list" th:text="${post.getDatePublication()}"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col align-self-center" style="margin-left: 0px; align-content: center">
+                                        <p style="text-align: start; margin-left: 0px; margin-right: 0px; width: 525px; height: auto; max-height:120px; overflow-y: auto;"
+                                           th:text="${post.getDescription()}"></p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col align-self-center" style="margin-left: 0px;">
-                                        <p style="text-align: start; margin-left: 5px; margin-right: 30px; width: auto; height: auto; max-height:120px; overflow-y: auto;">
-                                            Студия Harebrained Schemes объявила, что 2024 год станет новой главой в её
-                                            истории.
-                                            Команда известна за создание Shadowrun Trilogy и BATTLETECH. Спустя 5 лет
-                                            после работы
-                                            под эгидой Paradox Interactive разработчики вновь стали независимыми, но
-                                            оставили
-                                            издателю права на ряд своих игр.
-
-                                            Прямо сейчас ветераны студии в небольшой команде работают над «совершенно
-                                            новой» игрой.
-                                            В ней существует тесная связь между повествованием и игровыми механиками, а
-                                            разработчики
-                                            не сомневаются в интересе со стороны издателей. Для этого будет сделана
-                                            демоверсия
-                                            новинки, но пока не уточняется, станет ли она общедоступной.
-                                        </p>
+                                        <img style="align-content: start; margin-left: -50px; margin-top: 0px; margin-right: 0px; height: 310px; width: 525px;"
+                                             th:src="${post.getImg()}"/>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col align-self-center" style="margin-left: 0px;">
-                                        <img style="text-align: start; margin-top: -5px; margin-left: 5px; margin-right: 30px; height: 300px; width: 450px;"
-                                             src="https://newcdn.igromania.ru/articles/pics/tmp/images/2024/1/24/6d3eaa4f-2e64-4858-b5be-cb2e21d3d391.webp"/>
-                                    </div>
-                                </div>
-                                <!--<div class="row" style="margin-top: 20px;">
+                                <!--<div class="row" style="margin-top: 10px;">
                                     <div class="col align-self-center" style="margin-left: 0px;">
                                         <div class="like-container">
 
@@ -176,12 +157,12 @@
         <div class="col-4">
             <!--Список сообществ-->
             <div class="block_div" style="margin-top: 50px; margin-left: 50px; height: 500px; position: fixed;">
-                <div class="block_div_no_color" style="margin-top: -15px;">
+                <div class="block_div_no_color" style="margin-top: 0px;">
                     <br/>
                     <p class="block_p_no_color p-main-color">Рекомендации</p>
                 </div>
                 <hr class="block_line"/>
-                <table style="margin-top: -17px; margin-left: -2px; height: 500px;" class="scroll">
+                <table style="margin-top: -17px; margin-left: -2px; height: 400px;" class="scroll">
                     <tbody>
                     <tr th:if="${groups.isEmpty()}">
                         </br>

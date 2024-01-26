@@ -34,7 +34,7 @@ a {
     width: 600px;
     height: auto;
     max-height: 140px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .wrapper {
     position: relative;

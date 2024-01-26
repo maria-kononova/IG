@@ -8,6 +8,8 @@
     <link rel="stylesheet" th:href="@{/css/color.css}"/>
     <link rel="stylesheet" th:href="@{/css/header.css}"/>
     <link rel="stylesheet" th:href="@{/css/search.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+
     <!--Картинки-->
     <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
 
@@ -32,7 +34,7 @@
             </div>
             <div class="col-3">
                 <img src="/image/cat-icon.png" alt="Тут должна сидеть кошка!" height="95px"
-                     style="margin-top: -15px; margin-left: -50px;"/>
+                     style="margin-top: -18px; margin-left: -50px;"/>
             </div>
             <div class="col-3">
             </div>
@@ -70,13 +72,13 @@
         </div>
     </div>
 </header>
-<body style="background: var(--background-color);">
+<body class="scroll-container" style="background: var(--background-color);">
 <br/>
 <br/>
 <br/>
 <div class="container text-center">
     <div class="row row-cols-auto">
-        <div class="col-8">
+        <div class="col-8" style="height: auto;">
             <!--Поиск-->
             <div class="block_div" style="height: 600px;">
                 <div class="block_div_no_color">
@@ -97,7 +99,7 @@
                     </div>
                 </div>
                 <hr class="block_line"/>
-                <table style="margin-top: -17px; margin-left: -2px;" class="scroll">
+                <table style="margin-top: -17px; margin-left: -2px; height: auto; max-height: 500px;" class="scroll">
                     <tbody>
                     <tr th:if="${groups.isEmpty()}">
                         </br>
@@ -139,52 +141,52 @@
 
         <div class="col-4">
             <!--Список сообществ пользователя-->
-            <div class="block_div" style="margin-left: 50px; height: 600px;">
-                <div class="block_div_no_color">
+            <div class="block_div" style="margin-top: 50px; margin-left: 50px; width: 365px; height: 500px; position: fixed;">
+                <div class="block_div_no_color" style="margin-top: 0px;">
                     <br/>
                     <p class="block_p_no_color p-main-color">Мои сообщества</p>
                 </div>
                 <hr class="block_line"/>
-                <table style="margin-top: -17px; margin-left: -2px;" class="scroll">
+                <table style="margin-top: -17px; margin-left: -2px; height: 400px;" class="scroll">
                     <tbody>
                     <tr th:if="${userLogin==null}">
                         </br>
                         <p style="justify-content: center;">Вы не зарегистрированы</p>
                     </tr>
                     <tr th:if="${userLogin!=null}">
-                    <tr th:if="${myGroups.isEmpty()}">
-                        </br>
-                        <p style="justify-content: center;"> Нет сообществ </p>
-                    </tr>
-                    <tr th:each="group : ${myGroups}">
-                        <td>
-                            <form id="groupForm2" action="#"
-                                  th:action="@{/group/{id}(id=${group.getId()})}" method="get">
-                                <button type="submit" class="no-button">
-                                    <div class="div_group_item_list">
-                                        <div class="row">
-                                            <div class="col-2 col-md-1">
-                                                <img class="figure_img_group_item_list" alt="image"
-                                                     th:src="${group.getAvtar()}"/>
-                                            </div>
-                                            <div class="col align-self-center">
-                                                <p class="name_group_item_list" th:text="${group.getName()}"> Имя </p>
-                                                <div class="main_div_group_item_list">
-                                                    <div class="icon_div_group_item_list">
-                                                        <i class="fa-solid fa-user"></i>
-                                                    </div>
-                                                    <div class="subscribes_div_group_item_list">
-                                                        <p class="subscribes_p_group_item_list"
-                                                           th:text="${group.getSubscribes()}"></p>
+                        <tr th:if="${myGroups.isEmpty()}">
+                            </br>
+                            <p style="justify-content: center;"> Нет сообществ </p>
+                        </tr>
+                        <tr th:each="group : ${myGroups}">
+                            <td>
+                                <form id="groupForm2" action="#" th:action="@{/group/{id}(id=${group.getId()})}"
+                                      method="get">
+                                    <button type="submit" class="no-button">
+                                        <div class="div_group_item_list">
+                                            <div class="row">
+                                                <div class="col-2 col-md-1">
+                                                    <img class="figure_img_group_item_list" alt="image"
+                                                         th:src="${group.getAvtar()}"/>
+                                                </div>
+                                                <div class="col align-self-center">
+                                                    <p class="name_group_item_list" th:text="${group.getName()}"> Имя </p>
+                                                    <div class="main_div_group_item_list">
+                                                        <div class="icon_div_group_item_list">
+                                                            <i class="fa-solid fa-user"></i>
+                                                        </div>
+                                                        <div class="subscribes_div_group_item_list">
+                                                            <p class="subscribes_p_group_item_list"
+                                                               th:text="${group.getSubscribes()}"></p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
                     </tr>
                     </tbody>
                 </table>

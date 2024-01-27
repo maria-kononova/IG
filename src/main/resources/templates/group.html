@@ -10,8 +10,10 @@
     <link rel="stylesheet" th:href="@{/css/header.css}"/>
     <link rel="stylesheet" th:href="@{/css/button.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/button_up_page.css}"/>
     <script type="text/javascript" th:src="@{/js/getThemeFromCookie.js}"></script>
     <script type="text/javascript" th:src="@{/js/dateTimeEdit.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/js/button_up_page.js}"></script>-->
 
     <!--Картинки-->
     <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
@@ -203,12 +205,70 @@
             </div>
         </div>
     </div>
+
+    <div class="btn-up btn-up_hide"></div>
 </div>
 
 
 </body>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    <!--  Кнопка "наверх"  -->
+    const btnUp = {
+        el: document.querySelector('.btn-up'),
+        scrolling: false,
+        show() {
+            if (this.el.classList.contains('btn-up_hide') && !this.el.classList.contains('btn-up_hiding')) {
+                this.el.classList.remove('btn-up_hide');
+                this.el.classList.add('btn-up_hiding');
+                window.setTimeout(() => {
+                    this.el.classList.remove('btn-up_hiding');
+                }, 300);
+            }
+        },
+        hide() {
+            if (!this.el.classList.contains('btn-up_hide') && !this.el.classList.contains('btn-up_hiding')) {
+                this.el.classList.add('btn-up_hiding');
+                window.setTimeout(() => {
+                    this.el.classList.add('btn-up_hide');
+                    this.el.classList.remove('btn-up_hiding');
+                }, 300);
+            }
+        },
+        addEventListener() {
+            // при прокрутке окна (window)
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY || document.documentElement.scrollTop;
+                if (this.scrolling && scrollY > 0) {
+                    return;
+                }
+                this.scrolling = false;
+                // если пользователь прокрутил страницу более чем на 200px
+                if (scrollY > 200) {
+                    // сделаем кнопку .btn-up видимой
+                    this.show();
+                } else {
+                    // иначе скроем кнопку .btn-up
+                    this.hide();
+                }
+            });
+            // при нажатии на кнопку .btn-up
+            document.querySelector('.btn-up').onclick = () => {
+                this.scrolling = true;
+                this.hide();
+                // переместиться в верхнюю часть страницы
+                window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }
+
+    btnUp.addEventListener();
+</script>
 <script>
     function subscribe() {
         event.preventDefault(); // Предотвращаем отправку формы по умолчанию

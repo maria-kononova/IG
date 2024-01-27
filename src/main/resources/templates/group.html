@@ -111,6 +111,16 @@
                     </div>
                 </form>
             </div>
+            <div class="col-4">
+                <!--Что-то-->
+                <div class="block_div" id="addBlock" style="margin-top: 30px; height: auto; width: 230px; position: absolute;">
+                    <div class="block_div_no_color" style="margin-top: 0px;">
+                        <br/>
+                        <p class="block_p_no_color p-main-color">Что-то</p>
+                    </div>
+                    <hr class="block_line"/>
+                </div>
+            </div>
             <table style="height: 100%; width: 600px; margin-left: 260px;" class="scroll">
                 <tbody>
                 <tr th:each="post : ${posts}">
@@ -218,6 +228,23 @@
 </body>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    var ad = $('#addBlock');
+    var min_scroll = 338; // Set your minimum scroll amount here
+    $(window).scroll(
+        function() {
+            var t = $(window).scrollTop();
+            if (t > min_scroll) {
+                // define your scroll CSS here
+                ad.css({marginTop: -280});
+                ad.css({position: "fixed"});
+            } else {
+                ad.css({marginTop: 30});
+                ad.css({position: "absolute"});
+            }
+        }
+    );
+</script>
 <script>
     <!--  Кнопка "наверх"  -->
     const btnUp = {

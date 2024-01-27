@@ -1,5 +1,5 @@
 .div_group_item_list {
-    background: #ffffff;
+    background: var(--background-color);
     height: 90px;
     width: 340px;
     margin-top: 5px;
@@ -15,6 +15,7 @@
     border-radius: 50%;
     height: 80px;
     width: 80px;
+    background-color: white;
     border: 3px solid var(--background-color);
     margin-left: 5px;
     transition: background ease-out 200ms;
@@ -25,6 +26,7 @@
     margin-top: 10px;
     margin-left: 60px;
     text-align: left;
+    color: var(--text-color);
 }
 
 .main_div_group_item_list {
@@ -51,6 +53,7 @@
     margin-top: -5px;
     margin-left: 5px;
     text-align: start;
+    color: var(--text-color);
 }
 
 .no-button {

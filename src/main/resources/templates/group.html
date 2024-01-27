@@ -10,6 +10,8 @@
     <link rel="stylesheet" th:href="@{/css/header.css}"/>
     <link rel="stylesheet" th:href="@{/css/button.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <script type="text/javascript" th:src="@{/js/getThemeFromCookie.js}"></script>
+    <script type="text/javascript" th:src="@{/js/dateTimeEdit.js}"></script>
 
     <!--Картинки-->
     <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
@@ -55,10 +57,10 @@
                         <div th:switch="${userLogin}">
                             <div th:case="null">
                                 <a href="/log"><i class="fa-solid fa-user"></i>Аккаунт</a>
-                                <ul>
+                               <!-- <ul>
                                     <li><a href="/new">Регистрация</a></li>
                                     <li><a href="/log">Авторизация</a></li>
-                                </ul>
+                                </ul>-->
                             </div>
                             <div th:case="*">
                                 <a href="/account" th:text="${userLogin.login}"></a>
@@ -82,23 +84,22 @@
         <div class="col-8" style="height: auto;">
             <!--Шапка сообщества-->
             <div class="block_div" style="height: auto;">
-                <div class="block_div_color box">
-                    <main>
-                        <br/>
-                        <input type="file" name="image" id="image" accept="image/*"/>
-                        <div id="preview">
-                            <img class="avatar_img" id="avatar" alt="image" th:src="${group.getAvtar()}"/>
-                        </div>
-                    </main>
+                <div class="block_div_color">
                     <div id="subButton">
                         <div th:if="${sub==true}">
                             <button class="btn btn-primary bet_time" onclick="unsubscribe();">✓ Вы подписаны</button>
                         </div>
                         <div th:if="${sub==false}">
-                            <button class="btn btn-primary bet_time" onclick="subscribe();">Подписаться</button>
+                            <button class="btn btn-primary bet_time" onclick="showMessage();">Подписаться</button>
                         </div>
                     </div>
-
+                    <main>
+                        <br/>
+                        <input type="file" name="image" id="image" accept="image/*"/>
+                        <div>
+                            <img class="avatar_img" id="avatar" alt="image" th:src="${group.getAvtar()}"/>
+                        </div>
+                    </main>
                 </div>
 
                 <form class="row justify-content-center" id="accountForm" action="#" method="post"> <!--th:action=""-->
@@ -321,35 +322,5 @@
             });
         });
     });
-</script>
-<script>
-    function getCookie(name) {
-        name = name + "=";
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(name) == 0) {
-                return cookie.substring(name.length, cookie.length);
-            }
-        }
-        return "";
-    }
-
-    window.onload = function () {
-        document.documentElement.style.setProperty('--main-color', getCookie("mainColor"));
-        document.documentElement.style.setProperty('--second-color', getCookie("secondColor"));
-        if (getCookie("theme") === "white") {
-            document.documentElement.style.setProperty('--background-color', "#fff");
-            document.documentElement.style.setProperty('--text-color', "#000");
-        } else {
-            document.documentElement.style.setProperty('--background-color', "#28292c");
-            document.documentElement.style.setProperty('--text-color', "#fff");
-        }
-        document.getElementsByTagName("html")[0].style.visibility = "visible";
-    }
-</script>
 </script>
 </html>

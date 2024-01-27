@@ -92,7 +92,7 @@
                             <button class="btn btn-primary bet_time" onclick="unsubscribe();">✓ Вы подписаны</button>
                         </div>
                         <div th:if="${sub==false}">
-                            <button class="btn btn-primary bet_time" onclick="showMessage();">Подписаться</button>
+                            <button class="btn btn-primary bet_time" onclick="subscribe();">Подписаться</button>
                         </div>
                     </div>
                     <main>
@@ -125,7 +125,12 @@
                                     </div>
                                     <div class="col align-self-center" style="margin-left: -30px;">
                                         <p class="name_post_item_list" th:text="${group.getName()}"></p>
-                                        <p class="date_p_post_item_list" th:text="${post.getDatePublication()}"></p>
+                                       <div>
+                                           <p class="date_p_post_item_list"></p>
+                                           <script th:inline="javascript">
+                                               showMessage([[${post.getDatePublication()}]]);
+                                           </script>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">

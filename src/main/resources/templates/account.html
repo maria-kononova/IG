@@ -55,10 +55,10 @@
                         <div th:switch="${userLogin}">
                             <div th:case="null">
                                 <a href="/log"><i class="fa-solid fa-user"></i>Аккаунт</a>
-                                <ul>
+                                <!--<ul>
                                     <li><a href="/new">Регистрация</a></li>
                                     <li><a href="/log">Авторизация</a></li>
-                                </ul>
+                                </ul>-->
                             </div>
                             <div th:case="*">
                                 <a href="/account" th:text="${userLogin.login}"></a>
@@ -86,7 +86,7 @@
                     <main>
                         <br/>
                         <input type="file" name="image" id="image" accept="image/*"/>
-                        <div id="preview">
+                        <div>
                             <img class="avatar_img" id="avatar" alt="image" th:src="${userLogin.getImg()}"/>
                         </div>
                     </main>

@@ -9,6 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/header.css}"/>
     <link rel="stylesheet" th:href="@{/css/search.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <script type="text/javascript" th:src="@{/js/getThemeFromCookie.js}"></script>
 
     <!--Картинки-->
     <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
@@ -54,10 +55,10 @@
                         <div th:switch="${userLogin}">
                             <div th:case="null">
                                 <a href="/log"><i class="fa-solid fa-user"></i>Аккаунт</a>
-                                <ul>
+                                <!--<ul>
                                     <li><a href="/new">Регистрация</a></li>
                                     <li><a href="/log">Авторизация</a></li>
-                                </ul>
+                                </ul>-->
                             </div>
                             <div th:case="*">
                                 <a href="/account" th:text="${userLogin.login}"></a>
@@ -99,7 +100,7 @@
                     </div>
                 </div>
                 <hr class="block_line"/>
-                <table style="margin-top: -17px; margin-left: -2px; height: auto; max-height: 500px;" class="scroll">
+                <table style="margin-top: -17px; margin-left: -2px; height: 100%; max-height: 500px;" class="scroll">
                     <tbody>
                     <tr th:if="${groups.isEmpty()}">
                         </br>
@@ -197,33 +198,4 @@
 </body>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script>
-    function getCookie(name) {
-        name = name + "=";
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(name) == 0) {
-                return cookie.substring(name.length, cookie.length);
-            }
-        }
-        return "";
-    }
-
-    window.onload = function () {
-        document.documentElement.style.setProperty('--main-color', getCookie("mainColor"));
-        document.documentElement.style.setProperty('--second-color', getCookie("secondColor"));
-        if (getCookie("theme") === "white") {
-            document.documentElement.style.setProperty('--background-color', "#fff");
-            document.documentElement.style.setProperty('--text-color', "#000");
-        } else {
-            document.documentElement.style.setProperty('--background-color', "#28292c");
-            document.documentElement.style.setProperty('--text-color', "#fff");
-        }
-        document.getElementsByTagName("html")[0].style.visibility = "visible";
-    }
-</script>
 </html>

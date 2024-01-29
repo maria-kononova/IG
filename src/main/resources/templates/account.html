@@ -222,8 +222,8 @@
                     <div class="row">
                         <div class="mb-3 col-4 col-md-2">
                             <div class="toggle-button-cover">
-                                <div class="button r" id="button-2"  style="margin-top: 14px; margin-left: 65px;">
-                                    <input type="checkbox" class="checkbox" />
+                                <div class="button r" id="button-2"  style="margin-top: 5px; margin-left: 50px;">
+                                    <input type="checkbox" class="checkbox" id="toggle_checkbox_text" />
                                     <div class="knobs"></div>
                                     <div class="layer"></div>
                                 </div>
@@ -264,15 +264,25 @@
     $("#toggle_checkbox").on('change', function () {
         //black
         if ($(this).is(':checked')) {
-            document.documentElement.style.setProperty('--background-color', "#28292c");
-            document.documentElement.style.setProperty('--text-color', "#fff");
+            document.documentElement.style.setProperty('--background-color', "#000");
             setCookie("theme", "black", 10);
         }
         //white
         else {
             document.documentElement.style.setProperty('--background-color', "#fff");
-            document.documentElement.style.setProperty('--text-color', "#000");
             setCookie("theme", "white", 10);
+        }
+    });
+    $("#toggle_checkbox_text").on('change', function () {
+        //black
+        if ($(this).is(':checked')) {
+            document.documentElement.style.setProperty('--text-color', "#000");
+            setCookie("text", "black", 10);
+        }
+        //white
+        else {
+            document.documentElement.style.setProperty('--text-color', "#fff");
+            setCookie("text", "white", 10);
         }
     });
 </script>

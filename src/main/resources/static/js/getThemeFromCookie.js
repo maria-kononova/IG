@@ -19,14 +19,30 @@ function getCookie(name) {
 window.onload = function () {
     document.documentElement.style.setProperty('--main-color', getCookie("mainColor"));
     document.documentElement.style.setProperty('--second-color', getCookie("secondColor"));
+
     if (getCookie("theme") === "white") {
         document.documentElement.style.setProperty('--background-color', "#fff");
-        document.documentElement.style.setProperty('--text-color', "#000");
-        if(statePageIsAccount) document.getElementById('toggle_checkbox').checked = false;
+        if(statePageIsAccount){
+            document.getElementById('toggle_checkbox').checked = false;
+        }
     } else {
         document.documentElement.style.setProperty('--background-color', "#28292c");
+        if(statePageIsAccount) {
+            document.getElementById('toggle_checkbox').checked = true;
+        }
+    }
+
+    if (getCookie("text") === "white"){
         document.documentElement.style.setProperty('--text-color', "#fff");
-        if(statePageIsAccount) document.getElementById('toggle_checkbox').checked = true;
+        if(statePageIsAccount){
+            document.getElementById('toggle_checkbox_text').checked = false;
+        }
+    }
+    else{
+        document.documentElement.style.setProperty('--text-color', "#000");
+        if(statePageIsAccount) {
+            document.getElementById('toggle_checkbox_text').checked = true;
+        }
     }
     if(statePageIsAccount){
         document.getElementById('primary_color').value = getCookie("mainColor");

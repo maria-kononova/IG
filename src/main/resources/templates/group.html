@@ -106,8 +106,8 @@
 
                 <form class="row justify-content-center" id="accountForm" action="#" method="post"> <!--th:action=""-->
                     <div class="mb-3 col-12 col-md-6" align="left">
-                        <p id="nameGroups" class="textNameGroups" th:text="${group.getName()}"/>
-                        <p id="descGroups" class="textDescGroups" th:text="${group.getDescription()}"/>
+                        <p id="nameGroups" class="textNameGroups p-text-color" th:text="${group.getName()}"/>
+                        <p id="descGroups" class="textDescGroups p-text-color" th:text="${group.getDescription()}"/>
                     </div>
                 </form>
             </div>
@@ -134,9 +134,9 @@
                                              th:src="${group.getAvtar()}"/>
                                     </div>
                                     <div class="col align-self-center" style="margin-left: -30px;">
-                                        <p class="name_post_item_list" th:text="${group.getName()}"></p>
+                                        <p class="name_post_item_list p-text-color" th:text="${group.getName()}"></p>
                                        <div>
-                                           <p class="date_p_post_item_list"></p>
+                                           <p class="date_p_post_item_list p-text-color"></p>
                                            <script th:inline="javascript">
                                                showMessage([[${post.getDatePublication()}]]);
                                            </script>
@@ -145,7 +145,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col align-self-center" style="margin-left: 0px; align-content: center">
-                                        <p style="text-align: start; margin-left: 0px; margin-right: 0px; width: 525px; height: auto; max-height:120px; overflow-y: auto;"
+                                        <p class="p-text-color"  style="text-align: start; margin-left: 0px; margin-right: 0px; width: 525px; height: auto; max-height:120px; overflow-y: auto;"
                                            th:text="${post.getDescription()}"></p>
                                     </div>
                                 </div>

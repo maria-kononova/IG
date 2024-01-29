@@ -80,7 +80,7 @@
     <form class="row justify-content-center" id="registrationForm" method="post">
         <h2 class="p-text-color">Регистрация</h2>
         <div class="mb-3 col-12 col-md-6">
-            <label for="login" class="form-label">Логин</label>
+            <label for="login" class="form-label p-text-color">Логин</label>
             <input required type="text" name="login" class="form-control" id="login" placeholder="Введите ваш логин"
                    minlength="4"
                    oninvalid="this.setCustomValidity('Имя пользователя должно быть больше 4 символов')"
@@ -88,7 +88,7 @@
         </div>
         <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-6">
-            <label for="password1" class="form-label">Пароль</label>
+            <label for="password1" class="form-label p-text-color">Пароль</label>
             <div class="password">
                 <input required type="password" name="password" class="form-control" id="password1"
                        placeholder="Введите пароль" minlength="8"
@@ -101,7 +101,7 @@
         </div>
         <div class="w-100"></div>
         <div class="mb-3 col-10 col-md-6">
-            <label for="password2" class="form-label">Повторите пароль</label>
+            <label for="password2" class="form-label p-text-color">Повторите пароль</label>
             <div class="password">
                 <input required type="password" name="confirm" class="form-control" id="password2"
                        placeholder="Повторите пароль" minlength="8"
@@ -113,7 +113,7 @@
         </div>
         <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-6">
-            <label for="email" class="form-label">Почта</label>
+            <label for="email" class="form-label p-text-color">Почта</label>
             <div class="row g-3">
                 <div class="col-md-9">
                     <input required type="email" id="email" name="email" class="form-control"
@@ -133,7 +133,7 @@
     <form class="row justify-content-center" id="checkMailForm" method="post">
         <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-6">
-            <label for="code" class="form-label">Код подтверждения</label>
+            <label for="code" class="form-label p-text-color">Код подтверждения</label>
             <input required type="text" class="form-control" id="code" placeholder="Ввведите код подтверждения"
                    minlength="6" maxlength="6"
                    oninvalid="this.setCustomValidity('Проверьте код подтверждения. Он состоит из 6 символов')"

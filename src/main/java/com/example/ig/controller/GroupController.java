@@ -83,6 +83,8 @@ public class GroupController {
         GroupUser groupUser = new GroupUser(user.getId(), group.getId());
         Subscriptions subscriptions = new Subscriptions(groupUser);
         subscriptionsRepository.save(subscriptions);
+        group.setSubscribes(group.getSubscribes()+1);
+        groupRepository.save(group);
         model.addAttribute("sub", true);
         return "Success";
     }
@@ -91,8 +93,10 @@ public class GroupController {
     @ResponseBody
     public String unsubscribe(Model model){
         GroupUser groupUser = new GroupUser(user.getId(), group.getId());
+        group.setSubscribes(group.getSubscribes()-1);
         Subscriptions subscriptions = new Subscriptions(groupUser);
         subscriptionsRepository.delete(subscriptions);
+        groupRepository.save(group);
         model.addAttribute("sub", false);
         return "Success";
     }

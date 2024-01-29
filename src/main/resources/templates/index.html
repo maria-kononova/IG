@@ -13,6 +13,7 @@
     <link rel="stylesheet" th:href="@{/css/button_up_page.css}"/>
     <link rel="stylesheet" th:href="@{/css/search.css}"/>
     <script type="text/javascript" th:src="@{/js/getThemeFromCookie.js}"></script>
+    <script type="text/javascript" th:src="@{/js/dateTimeEdit.js}"></script>
     <!--Картинки-->
     <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
 
@@ -84,7 +85,8 @@
     <div class="row row-cols-auto">
         <div class="col-2">
             <!--Что-то-->
-            <div class="block_div" style="margin-top: 50px; margin-left: 0px; width: auto; height: 500px; position: fixed;">
+            <div class="block_div"
+                 style="margin-top: 50px; margin-left: 0px; width: auto; height: 500px; position: fixed;">
                 <div class="block_div_no_color" style="margin-top: 0px;">
                     <br/>
                     <p class="block_p_no_color p-main-color">Что-то</p>
@@ -100,7 +102,8 @@
         </div>
 
         <div class="col-6" style="height: auto;">
-            <div class="block_div" style="margin-top: 50px; margin-left: 50px; height: 100px; width: 600px; position: fixed;">
+            <div class="block_div"
+                 style="margin-top: 50px; margin-left: 50px; height: 100px; width: 600px; position: fixed;">
                 <div class="block_div_no_color" style="margin-top: 0px;">
                     <br/>
                     <p class="block_p_no_color p-main-color">Что-то</p>
@@ -108,65 +111,73 @@
                 <hr class="block_line"/>
 
             </div>
-            <table style="margin-top: 130px; height: 100%; width: 600px; margin-left: 50px; overflow-y: hidden;" class="scroll">
+            <table style="margin-top: 130px; height: 100%; width: 600px; margin-left: 50px; overflow-y: hidden;"
+                   class="scroll">
                 <tbody>
                 <tr th:each="post : ${posts}">
                     <td>
-                        <!--Пост-->
-                        <div class="block_div" style="padding: 5px 5px 20px; height: auto; margin-bottom: 10px;">
-                            <div class="div_post_item_list">
-                                <div class="row">
-                                    <div class="col-2 col-md-1">
-                                        <img class="figure_img_post_item_list" alt="image"
-                                             th:src="${groups[0].getAvtar()}"/>
-                                    </div>
-                                    <div class="col align-self-center" style="margin-left: -30px;">
-                                        <p class="name_post_item_list p-text-color"
-                                           th:text="${groups[0].getName()}"></p>
-                                        <div>
-                                            <p class="date_p_post_item_list p-text-color"></p>
-                                            <script th:inline="javascript">
-                                                showMessage([[${post.getDatePublication()}]]);
-                                            </script>
+                        <div th:each="group : ${groups}">
+                            <div th:if="${group.getId()} == ${post.getIdGroup()}">
+                                <!--Пост-->
+                                <div class="block_div"
+                                     style="padding: 5px 5px 20px; height: auto; margin-bottom: 10px;">
+                                    <div class="div_post_item_list">
+                                        <div class="row">
+                                            <div class="col-2 col-md-1">
+                                                <img class="figure_img_post_item_list" alt="image"
+                                                     th:src="${group.getAvtar()}"/>
+                                            </div>
+                                            <div class="col align-self-center" style="margin-left: -30px;">
+                                                <p class="name_post_item_list p-text-color"
+                                                   th:text="${group.getName()}"></p>
+                                                <div>
+                                                    <p class="date_p_post_item_list p-text-color"></p>
+                                                    <script th:inline="javascript">
+                                                        showMessage([[${post.getDatePublication()}]]);
+                                                    </script>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col align-self-center" style="margin-left: 0px; align-content: center">
-                                        <p class="p-text-color"
-                                           style="text-align: start; margin-left: 0px; margin-right: 0px; width: 525px; height: auto; max-height:120px; overflow-y: auto;"
-                                           th:text="${post.getDescription()}"></p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col align-self-center" style="margin-left: 0px;">
-                                        <img style="align-content: start; margin-left: -50px; margin-top: 0px; margin-right: 0px; height: 310px; width: 525px;"
-                                             th:src="${post.getImg()}"/>
-                                    </div>
-                                </div>
-                                <div class="row" style="margin-top: 15px;">
-                                    <div class="col align-self-center"
-                                         style="margin-left: 0px; display: flex; justify-content: space-between;">
-                                        <div class="like-container">
-                                            <button class="btn btn-primary c-button" style="margin-left: 0px;"
-                                                    onclick="PopUpShow();">
-                                                <i class="fa-regular fa-heart fa-bounce"
-                                                   style="fill: var(--second-color);"></i>
-                                                50
-                                            </button>
+                                        <div class="row">
+                                            <div class="col align-self-center"
+                                                 style="margin-left: 0px; align-content: center">
+                                                <p class="p-text-color"
+                                                   style="text-align: start; margin-left: 0px; margin-right: 0px; width: 525px; height: auto; max-height:120px; overflow-y: auto;"
+                                                   th:text="${post.getDescription()}"></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col align-self-center" style="margin-left: 0px;">
+                                                <img style="align-content: start; margin-left: -50px; margin-top: 0px; margin-right: 0px; height: 310px; width: 525px;"
+                                                     th:src="${post.getImg()}"/>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 15px;">
+                                            <div class="col align-self-center"
+                                                 style="margin-left: 0px; display: flex; justify-content: space-between;">
+                                                <div class="like-container">
+                                                    <button class="btn btn-primary c-button" style="margin-left: 0px;"
+                                                            onclick="PopUpShow();">
+                                                        <i class="fa-regular fa-heart fa-bounce"
+                                                           style="fill: var(--second-color);"></i>
+                                                        50
+                                                    </button>
 
-                                            <button class="btn btn-primary c-button" style="margin-left: 10px;"
-                                                    onclick="PopUpShow();">
-                                                <i class="fa-regular fa-comment fa-beat-fade"
-                                                   style="fill: var(--second-color);"></i>
-                                                10
-                                            </button>
+                                                    <button class="btn btn-primary c-button" style="margin-left: 10px;"
+                                                            onclick="PopUpShow();">
+                                                        <i class="fa-regular fa-comment fa-beat-fade"
+                                                           style="fill: var(--second-color);"></i>
+                                                        10
+                                                    </button>
 
-                                            <button class="btn btn-primary c-button" style="margin-left: 10px;"
-                                                    onclick="PopUpShow();">
-                                                <i class="fa-regular fa-eye" style="fill: var(--second-color);"></i>
-                                                100
-                                            </button>
+                                                    <button class="btn btn-primary c-button" style="margin-left: 10px;"
+                                                            onclick="PopUpShow();">
+                                                        <i class="fa-regular fa-eye"
+                                                           style="fill: var(--second-color);"></i>
+                                                        100
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

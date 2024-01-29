@@ -81,6 +81,8 @@ public class UserController {
                 }
             }
         }
+        model.addAttribute("posts", postRepository.findAll());
+        model.addAttribute("groups", groupRepository.findAll());
         return "index";
     }
 

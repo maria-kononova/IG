@@ -2,9 +2,15 @@
 <html>
 <head>
     <title>IG</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/group.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main_layout_items.css}"/>
+    <link rel="stylesheet" th:href="@{/css/item_list_group.css}"/>
+    <link rel="stylesheet" th:href="@{/css/item_list_post.css}"/>
     <link rel="stylesheet" th:href="@{/css/color.css}"/>
     <link rel="stylesheet" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" th:href="@{/css/button.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/button_up_page.css}"/>
     <link rel="stylesheet" th:href="@{/css/search.css}"/>
     <script type="text/javascript" th:src="@{/js/getThemeFromCookie.js}"></script>
     <!--Картинки-->
@@ -74,8 +80,229 @@
 <br/>
 <br/>
 <br/>
+<div class="container text-center">
+    <div class="row row-cols-auto">
+        <div class="col-2">
+            <!--Что-то-->
+            <div class="block_div" style="margin-top: 50px; margin-left: 0px; width: auto; height: 500px; position: fixed;">
+                <div class="block_div_no_color" style="margin-top: 0px;">
+                    <br/>
+                    <p class="block_p_no_color p-main-color">Что-то</p>
+                </div>
+                <hr class="block_line"/>
+                <div style="margin-top: -2px; margin-left: -2px; height: 400px; margin-right: 10px;">
+                    <button class="btn btn-primary c-button" style="margin-left: 10px;" onclick="PopUpShow();">
+                        <i class="fa-solid fa-plus" style="fill: var(--second-color);"></i>
+                        Предложить пост
+                    </button>
+                </div>
+            </div>
+        </div>
 
+        <div class="col-6" style="height: auto;">
+            <div class="block_div" style="margin-top: 50px; margin-left: 50px; height: 100px; width: 600px; position: fixed;">
+                <div class="block_div_no_color" style="margin-top: 0px;">
+                    <br/>
+                    <p class="block_p_no_color p-main-color">Что-то</p>
+                </div>
+                <hr class="block_line"/>
+
+            </div>
+            <table style="margin-top: 130px; height: 100%; width: 600px; margin-left: 50px; overflow-y: hidden;" class="scroll">
+                <tbody>
+                <tr th:each="post : ${posts}">
+                    <td>
+                        <!--Пост-->
+                        <div class="block_div" style="padding: 5px 5px 20px; height: auto; margin-bottom: 10px;">
+                            <div class="div_post_item_list">
+                                <div class="row">
+                                    <div class="col-2 col-md-1">
+                                        <img class="figure_img_post_item_list" alt="image"
+                                             th:src="${groups[0].getAvtar()}"/>
+                                    </div>
+                                    <div class="col align-self-center" style="margin-left: -30px;">
+                                        <p class="name_post_item_list p-text-color"
+                                           th:text="${groups[0].getName()}"></p>
+                                        <div>
+                                            <p class="date_p_post_item_list p-text-color"></p>
+                                            <script th:inline="javascript">
+                                                showMessage([[${post.getDatePublication()}]]);
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col align-self-center" style="margin-left: 0px; align-content: center">
+                                        <p class="p-text-color"
+                                           style="text-align: start; margin-left: 0px; margin-right: 0px; width: 525px; height: auto; max-height:120px; overflow-y: auto;"
+                                           th:text="${post.getDescription()}"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col align-self-center" style="margin-left: 0px;">
+                                        <img style="align-content: start; margin-left: -50px; margin-top: 0px; margin-right: 0px; height: 310px; width: 525px;"
+                                             th:src="${post.getImg()}"/>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 15px;">
+                                    <div class="col align-self-center"
+                                         style="margin-left: 0px; display: flex; justify-content: space-between;">
+                                        <div class="like-container">
+                                            <button class="btn btn-primary c-button" style="margin-left: 0px;"
+                                                    onclick="PopUpShow();">
+                                                <i class="fa-regular fa-heart fa-bounce"
+                                                   style="fill: var(--second-color);"></i>
+                                                50
+                                            </button>
+
+                                            <button class="btn btn-primary c-button" style="margin-left: 10px;"
+                                                    onclick="PopUpShow();">
+                                                <i class="fa-regular fa-comment fa-beat-fade"
+                                                   style="fill: var(--second-color);"></i>
+                                                10
+                                            </button>
+
+                                            <button class="btn btn-primary c-button" style="margin-left: 10px;"
+                                                    onclick="PopUpShow();">
+                                                <i class="fa-regular fa-eye" style="fill: var(--second-color);"></i>
+                                                100
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-4">
+            <!--Список сообществ-->
+            <div class="block_div" style="margin-top: 50px; margin-left: 30px; height: 500px; position: fixed;">
+                <div class="block_div_no_color" style="margin-top: 0px;">
+                    <br/>
+                    <p class="block_p_no_color p-main-color">Рекомендации</p>
+                </div>
+                <hr class="block_line"/>
+                <table style="margin-top: -15px; margin-left: -2px; height: 400px; margin-right: 10px;" class="scroll">
+                    <tbody>
+                    <tr th:if="${groups.isEmpty()}">
+                        </br>
+                        <p style="justify-content: center;"> Нет сообществ </p>
+                    </tr>
+                    <tr th:each="group : ${groups}">
+                        <td>
+                            <form id="groupForm" action="#" th:action="@{/group/{id}(id=${group.getId()})}"
+                                  method="get">
+                                <button type="submit" class="no-button">
+                                    <div class="div_group_item_list">
+                                        <div class="row">
+                                            <div class="col-2 col-md-1">
+                                                <img class="figure_img_group_item_list" alt="image"
+                                                     th:src="${group.getAvtar()}"/>
+                                            </div>
+                                            <div class="col align-self-center">
+                                                <p class="name_group_item_list" th:text="${group.getName()}"> Имя </p>
+                                                <div class="main_div_group_item_list">
+                                                    <div class="icon_div_group_item_list">
+                                                        <i class="fa-solid fa-user"></i>
+                                                    </div>
+                                                    <div class="subscribes_div_group_item_list">
+                                                        <p class="subscribes_p_group_item_list"
+                                                           th:text="${group.getSubscribes()}"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-up btn-up_hide"></div>
+</div>
 
 
 </body>
+<script>
+    var ad = $('#addBlock');
+    var min_scroll = 20; // Set your minimum scroll amount here
+    $(window).scroll(
+        function () {
+            var t = $(window).scrollTop();
+            if (t > min_scroll) {
+                // define your scroll CSS here
+                ad.css({marginTop: -280});
+                ad.css({position: "fixed"});
+            } else {
+                ad.css({marginTop: 30});
+                ad.css({position: "absolute"});
+            }
+        }
+    );
+</script>
+<script>
+    <!--  Кнопка "наверх"  -->
+    const btnUp = {
+        el: document.querySelector('.btn-up'),
+        scrolling: false,
+        show() {
+            if (this.el.classList.contains('btn-up_hide') && !this.el.classList.contains('btn-up_hiding')) {
+                this.el.classList.remove('btn-up_hide');
+                this.el.classList.add('btn-up_hiding');
+                window.setTimeout(() => {
+                    this.el.classList.remove('btn-up_hiding');
+                }, 300);
+            }
+        },
+        hide() {
+            if (!this.el.classList.contains('btn-up_hide') && !this.el.classList.contains('btn-up_hiding')) {
+                this.el.classList.add('btn-up_hiding');
+                window.setTimeout(() => {
+                    this.el.classList.add('btn-up_hide');
+                    this.el.classList.remove('btn-up_hiding');
+                }, 300);
+            }
+        },
+        addEventListener() {
+            // при прокрутке окна (window)
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY || document.documentElement.scrollTop;
+                if (this.scrolling && scrollY > 0) {
+                    return;
+                }
+                this.scrolling = false;
+                // если пользователь прокрутил страницу более чем на 200px
+                if (scrollY > 200) {
+                    // сделаем кнопку .btn-up видимой
+                    this.show();
+                } else {
+                    // иначе скроем кнопку .btn-up
+                    this.hide();
+                }
+            });
+            // при нажатии на кнопку .btn-up
+            document.querySelector('.btn-up').onclick = () => {
+                this.scrolling = true;
+                this.hide();
+                // переместиться в верхнюю часть страницы
+                window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }
+
+    btnUp.addEventListener();
+</script>
 </html>

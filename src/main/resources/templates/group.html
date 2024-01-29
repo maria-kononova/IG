@@ -119,6 +119,12 @@
                         <p class="block_p_no_color p-main-color">Что-то</p>
                     </div>
                     <hr class="block_line"/>
+                    <div style="margin-top: -2px; margin-left: -2px; height: 400px; margin-right: 10px;">
+                        <button class="btn btn-primary c-button" style="margin-left: 10px;" onclick="PopUpShow();">
+                            <i class="fa-solid fa-plus" style="fill: var(--second-color);"></i>
+                            Предложить пост
+                        </button>
+                    </div>
                 </div>
             </div>
             <table style="height: 100%; width: 600px; margin-left: 260px; overflow-y: hidden;" class="scroll">
@@ -155,15 +161,26 @@
                                              th:src="${post.getImg()}"/>
                                     </div>
                                 </div>
-                                <!--<div class="row" style="margin-top: 10px;">
-                                    <div class="col align-self-center" style="margin-left: 0px;">
+                                <div class="row" style="margin-top: 15px;">
+                                    <div class="col align-self-center" style="margin-left: 0px; display: flex; justify-content: space-between;">
                                         <div class="like-container">
+                                            <button class="btn btn-primary c-button" style="margin-left: 0px;" onclick="PopUpShow();">
+                                                <i class="fa-regular fa-heart fa-bounce" style="fill: var(--second-color);"></i>
+                                                50
+                                            </button>
 
+                                            <button class="btn btn-primary c-button" style="margin-left: 10px;" onclick="PopUpShow();">
+                                                <i class="fa-regular fa-comment fa-beat-fade" style="fill: var(--second-color);"></i>
+                                                10
+                                            </button>
 
-
+                                            <button class="btn btn-primary c-button" style="margin-left: 10px;" onclick="PopUpShow();">
+                                                <i class="fa-regular fa-eye" style="fill: var(--second-color);"></i>
+                                                100
+                                            </button>
                                         </div>
                                     </div>
-                                </div>-->
+                                </div>
                             </div>
                         </div>
                     </td>

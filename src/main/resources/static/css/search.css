@@ -32,7 +32,8 @@
     width: 4px;
     height: 20px;
     position: absolute;
-    top: 30px;
+    margin-left: 10px;
+    top: 35px;
     right: 2px;
     transform: rotate(135deg);
 }
@@ -43,6 +44,7 @@
     background: transparent;
     width: 35px;
     height: 35px;
+    margin-left: 10px;
     padding: 5px;
     border: solid 3px var(--text-color);;
     outline: none;
@@ -62,5 +64,5 @@
 
 .search > div > input:focus,
 .search > div > input:not(:placeholder-shown) {
-    width: 250px;
+    width: 200px;
 }

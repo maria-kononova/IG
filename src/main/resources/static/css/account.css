@@ -199,7 +199,7 @@ label {
 }
 
 #toggle_checkbox:checked + label {
-    background-color: #000;
+    background-color: #28292c;
 }
 
 #toggle_checkbox:checked + label #star {
@@ -218,7 +218,7 @@ label {
 }
 
 #toggle_checkbox:checked + label #moon:before {
-    background-color: #000;
+    background-color: #28292c;
 }
 
 
@@ -267,7 +267,7 @@ label {
     position: absolute;
     right: 0;
     bottom: 0;
-    color: #000;
+    color: #28292c;
     font-size: 12px;
     line-height: 1;
     padding: 5px;
@@ -357,7 +357,7 @@ label {
 #button-2 .knobs:after {
     right: -50px;
     left: auto;
-    color: #000;
+    color: #28292c;
     background-color: var(--main-color);
 }
 
@@ -370,5 +370,5 @@ label {
 }
 
 #button-2 .checkbox:checked ~ .layer {
-    background-color: #000;
+    background-color: #28292c;
 }

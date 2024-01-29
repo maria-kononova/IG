@@ -2,28 +2,16 @@ package com.example.ig.controller;
 
 import com.example.ig.entity.User;
 import com.example.ig.repository.GroupRepository;
+import com.example.ig.repository.PostRepository;
 import com.example.ig.repository.UserRepository;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
 import java.io.*;
-import java.net.CookieStore;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static com.example.ig.IgApplication.BASE_URL;
 import static com.example.ig.IgApplication.user;
@@ -33,12 +21,14 @@ public class UserController {
     Model model;
     private final UserRepository userRepository;
     private final GroupRepository groupRepository;
+    private final PostRepository postRepository;
     private static final String FILE_IMAGE = "src/main/resources/image/";
     //авбдыаы
     @Autowired
-    public UserController(UserRepository userRepository, GroupRepository groupRepository) {
+    public UserController(UserRepository userRepository, GroupRepository groupRepository, PostRepository postRepository) {
         this.userRepository = userRepository;
         this.groupRepository = groupRepository;
+        this.postRepository = postRepository;
     }
 
     public Long getUserFromCookie(HttpServletRequest request, HttpServletResponse response) {
@@ -66,6 +56,8 @@ public class UserController {
             this.model = model;
         }
         model.addAttribute("userLogin",user);
+        model.addAttribute("posts", postRepository.findAll());
+        model.addAttribute("groups", groupRepository.findAll());
         return"index";
     }
 

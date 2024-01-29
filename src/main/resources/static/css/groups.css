@@ -5,6 +5,7 @@
     margin:0px auto;
     padding:10px;
     font-size:30px;
+    color: #fff;
 }
 .b-popup{
     width:100%;
@@ -23,4 +24,10 @@
     margin-left: 50px;
     margin-top:10px;
     margin-right:10px;
+}
+
+.i_style {
+    fill: var(--main-color);
+    width: 30px;
+    height: 30px;
 }

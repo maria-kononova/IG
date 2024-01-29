@@ -13,10 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +94,23 @@ public class GroupController {
         Subscriptions subscriptions = new Subscriptions(groupUser);
         subscriptionsRepository.delete(subscriptions);
         model.addAttribute("sub", false);
+        return "Success";
+    }
+
+    @PostMapping("/searchGroup")
+    @ResponseBody
+    public String searchGroup(Model model, @RequestParam String query){
+        List<Group> groupsQuery = new ArrayList<>();
+        for(Group gr : groupRepository.findAll()){
+            if(gr.getName().toLowerCase().contains(query)){
+                groupsQuery.add(gr);
+                System.out.println(gr.getName());
+            }
+        }
+        System.out.println("ok");
+        //if(query.equals("")) { groupsQuery = groupRepository.findAll();}
+        model.addAttribute("groups", groupsQuery);
+        System.out.println(model.getAttribute("groups"));
         return "Success";
     }
 

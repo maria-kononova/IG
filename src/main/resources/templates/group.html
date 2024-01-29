@@ -119,6 +119,12 @@
                         <p class="block_p_no_color p-main-color">Что-то</p>
                     </div>
                     <hr class="block_line"/>
+                    <div style="margin-top: -2px; margin-left: -2px; height: 400px; margin-right: 10px;">
+                        <button class="btn btn-primary c-button" style="margin-left: 10px;" onclick="PopUpShow();">
+                            <i class="fa-solid fa-plus" style="fill: var(--second-color);"></i>
+                            Создать пост
+                        </button>
+                    </div>
                 </div>
             </div>
             <table style="height: 100%; width: 600px; margin-left: 260px; overflow-y: hidden;" class="scroll">
@@ -223,11 +229,47 @@
 
     <div class="btn-up btn-up_hide"></div>
 </div>
-
+<div class="b-container" style="display: none;">
+</div>
+<div class="b-popup" id="popup2">
+    <div class="b-popup-content">
+        <div class="col-5" style="height: auto;">
+            <!--Создание поста-->
+            <div class="block_div" style="height: 650px; margin-left: 25px; width: 520px;">
+                <div class="block_div_no_color">
+                    <div class="row">
+                        <div class="col-7">
+                            <p class="p-main-color">Создание поста </p>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-primary bet_time" onclick="PopUpHide()"> X </button>
+                        </div>
+                    </div>
+                </div>
+                <hr class="block_line"/>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+<script>
+    $(document).ready(function(){
+        //Скрыть PopUp при загрузке страницы
+        PopUpHide();
+    });
+    //Функция отображения PopUp
+    function PopUpShow(){
+        $("#popup2").show();
+    }
+    //Функция скрытия PopUp
+    function PopUpHide(){
+        $("#popup2").hide();
+    }
+</script>
 <script>
     var ad = $('#addBlock');
     var min_scroll = 312; // Set your minimum scroll amount here
@@ -329,40 +371,6 @@
     }
 </script>
 <script>
-    $("input.color").each(function () {
-        let colorButton = document.getElementById("primary_color");
-        let colorDiv = document.getElementById("textColor");
-        colorButton.oninput = function () {
-            colorDiv.value = colorButton.value;
-            document.documentElement.style.setProperty('--main-color', colorButton.value);
-        }
-    });
-    var colorDiv = document.getElementById('textColor');
-    colorDiv.addEventListener('input', function () {
-        if (/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(colorDiv.value)) {
-            let colorButton = document.getElementById("primary_color");
-            colorButton.value = colorDiv.value;
-            document.documentElement.style.setProperty('--main-color', colorDiv.value);
-        }
-    });
-    $("input.color").each(function () {
-        let colorButton2 = document.getElementById("second_color");
-        let colorDiv2 = document.getElementById("textSecondColor");
-        colorButton2.oninput = function () {
-            colorDiv2.value = colorButton2.value;
-            document.documentElement.style.setProperty('--second-color', colorButton2.value);
-        }
-    });
-    var colorDiv2 = document.getElementById('textSecondColor');
-    colorDiv2.addEventListener('input', function () {
-        if (/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(colorDiv2.value)) {
-            let colorButton2 = document.getElementById("second_color");
-            colorButton2.value = colorDiv2.value;
-            document.documentElement.style.setProperty('--second-color', colorDiv2.value);
-        }
-    });
-</script>
-<script>
     const FILE_INPUT = document.querySelector("input[type=file]");
     const AVATAR = document.getElementById("avatar");
     AVATAR.addEventListener("click", () => FILE_INPUT.click());
@@ -387,32 +395,5 @@
     });
     document.addEventListener('DOMContentLoaded', function () {
     }, false);
-</script>
-<script>
-    $(document).ready(function () {
-        $("#passwordUpdateForm").submit(function (event) {
-            event.preventDefault(); // Предотвращаем отправку формы по умолчанию
-            // Ответ от сервера об успешной регистрации
-            // Отправляем письмо на указанный email
-            const formData = {
-                oldPassword: $("#oldPassAcc").val(),
-                newPassword: $("#newPassAcc").val(),
-            };
-            $.ajax({
-                url: "/updatePassword",
-                type: "POST",
-                data: formData,
-                success: function (response) {
-                    if (response === "Success") {
-                        window.location.href = '/account';
-                    } else if (response === "Match") {
-                        document.getElementById('passwordUpdate').textContent = "Новый пароль совпадает со старым!";
-                    } else {
-                        document.getElementById('passwordUpdate').textContent = "Старый пароль введён не верно!";
-                    }
-                }
-            });
-        });
-    });
 </script>
 </html>

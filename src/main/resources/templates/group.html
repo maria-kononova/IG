@@ -190,7 +190,7 @@
             </table>
         </div>
 
-        <div class="col-4">
+        <div class="col-4" id="recGroup">
             <!--Список сообществ-->
             <div class="block_div" style="margin-top: 50px; margin-left: 30px; height: 500px; position: fixed;">
                 <div class="block_div_no_color" style="margin-top: 0px;">
@@ -364,6 +364,7 @@
             success: function (response) {
                 if (response === "Success") {
                     $("#subButton").load(" #subButton > *");
+                    $("#recGroup").load(" #recGroup > *");
                 }
             }
         });
@@ -377,6 +378,7 @@
             success: function (response) {
                 if (response === "Success") {
                     $("#subButton").load(" #subButton > *");
+                    $("#recGroup").load(" #recGroup > *");
                 }
             }
         });

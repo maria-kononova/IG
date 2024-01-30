@@ -99,7 +99,7 @@
             </div>
         </div>
 
-        <div class="col-5" style="height: auto;">
+        <div class="col-5" style="height: auto;" id="groupList">
             <!--Поиск-->
             <div class="block_div" style="height: 600px; margin-left: 25px; width: 505px;">
                 <div class="block_div_no_color">
@@ -123,7 +123,6 @@
                     <table style="margin-top: -15px; margin-left: -2px; height: auto; max-height: 500px; margin-right: 10px; display: flex; justify-content: center;"
                            class="scroll">
                         <tbody>
-                        <div id="groupList">
                         <tr th:if="${groups.isEmpty()}">
                             </br>
                             <p style="justify-content: center;"> Нет сообществ </p>
@@ -158,13 +157,12 @@
                                 </form>
                             </td>
                         </tr>
-                        </div>
                         </tbody>
                     </table>
             </div>
         </div>
 
-        <div class="col-4" id="searchClose">
+        <div class="col-4">
             <!--Список сообществ пользователя-->
             <div class="block_div"
                  style="margin-top: 50px; margin-left: 30px; width: 385px; height: 500px; position: fixed;">
@@ -257,8 +255,7 @@
             data: formData,
             success: function (response) {
                 if (response === "Success") {
-                    $('#groupList').load(document.URL +  ' #groupList');
-                    document.getElementById("groupList").reload();
+                    $("#groupList").load(" #groupList > *");
                 }
             }
         });

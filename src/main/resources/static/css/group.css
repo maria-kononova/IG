@@ -71,28 +71,3 @@ input[type="file"] {
 .box {
     position:relative;
 }
-.bet_time {
-    float: right;
-    margin-top:10px;
-    margin-right:10px;
-}
-
-.b-container{
-    width:500px;
-    height:550px;
-    margin:0px auto;
-    padding:10px;
-    font-size:30px;
-}
-.b-popup{
-    width:100%;
-    min-height:100%;
-    background-color: rgba(0,0,0,0.5);
-    overflow:hidden;
-    position:fixed;
-    top:0px;
-}
-.b-popup .b-popup-content{
-    margin-left:520px;
-    margin-top: 110px;
-}

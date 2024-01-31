@@ -9,3 +9,10 @@
     background: var(--second-color) !important;
     color: var(--main-color) !important;
 }
+
+.bet_time {
+    float: right;
+    margin-left: 50px;
+    margin-top:10px;
+    margin-right:10px;
+}

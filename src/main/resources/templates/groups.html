@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>IG</title>
+    <link rel="stylesheet" th:href="@{/css/account.css}"/>
     <link rel="stylesheet" th:href="@{/css/groups.css}"/>
     <link rel="stylesheet" th:href="@{/css/main_layout_items.css}"/>
     <link rel="stylesheet" th:href="@{/css/item_list_group.css}"/>
@@ -10,6 +11,7 @@
     <link rel="stylesheet" th:href="@{/css/search.css}"/>
     <link rel="stylesheet" th:href="@{/css/button.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/form_popup.css}"/>
     <script type="text/javascript" th:src="@{/js/getThemeFromCookie.js}"></script>
 
     <!--Картинки-->
@@ -163,8 +165,7 @@
 
         <div class="col-4">
             <!--Список сообществ пользователя-->
-            <div class="block_div"
-                 style="margin-top: 50px; margin-left: 30px; width: 385px; height: 500px; position: fixed;">
+            <div class="block_div" style="margin-top: 50px; margin-left: 30px; width: 385px; height: 500px; position: fixed;">
                 <div class="block_div_no_color" style="margin-top: 0px;">
                     <br/>
                     <p class="block_p_no_color p-main-color">Подписки</p>
@@ -221,21 +222,43 @@
 </div>
 <div class="b-popup" id="popup1">
     <div class="b-popup-content">
-        <div class="col-5" style="height: auto;">
-            <!--Создание сообщества-->
-            <div class="block_div" style="height: 650px; margin-left: 25px; width: 520px;">
-                <div class="block_div_no_color">
-                    <div class="row">
-                        <div class="col-7">
-                            <p class="p-main-color">Создание сообщества </p>
-                        </div>
-                        <div class="col-2">
-                            <button class="btn btn-primary bet_time" onclick="PopUpHide()"> X </button>
-                        </div>
+        <div class="block_div" style="margin-left: 27px; width: 505px; height: 600px;">
+            <div class="block_div_no_color">
+                <div class="row">
+                    <div class="col-10">
+                        <p class="p-main-color" style="white-space: nowrap; margin-top: 30px; margin-left: 80px;">Создание сообщества</p>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-primary bet_time" style="margin-top: 30px; margin-left: 100px;" onclick="PopUpHide()"> X </button>
                     </div>
                 </div>
-                <hr class="block_line"/>
             </div>
+            <hr class="block_line"/>
+            <main style="margin-left: -25px; margin-top: -10px;">
+                <br/>
+                <input type="file" name="image" id="image" accept="image/*"/>
+                <div>
+                    <img class="group_img" id="avatar" alt="image" th:src="${userLogin.getImg()}"/>
+                </div>
+            </main>
+            <form class="row justify-content-center" id="accountForm" action="#" method="post" style="margin-left: 60px; margin-top: -140px;"> <!--th:action=""-->
+                <div class="mb-3 col-12 col-md-6">
+                    <input required type="text" name="name" class="form-control margin-top-20" id="nameGroupsInput"
+                           aria-describedby="nameHelp" placeholder="Название сообщества"
+                           style="width: 300px;"
+                           minlength="1" oninvalid="this.setCustomValidity('Пустое поле не допустимо')"
+                           oninput="this.setCustomValidity('')"/>
+                </div>
+                <div class="w-100"></div>
+                <div class="mb-3 col-12 col-md-6">
+                    <textarea required type="text" name="desc" class="form-control" id="descGroupsInput"
+                           placeholder="Описание сообщества" style="width: 300px; white-space: normal; height: 105px; overflow-y: auto;"></textarea>
+                </div>
+                <div class="w-100"></div>
+                <div class="mb-3 col-12 col-md-6">
+                    <button type="submit" class="btn btn-primary" style="margin-left: 75px;">Сохранить</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

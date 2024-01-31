@@ -1,0 +1,53 @@
+.b-container{
+    width:500px;
+    height:550px;
+    margin:0px auto;
+    padding:10px;
+    font-size:30px;
+    color: #fff;
+}
+.b-popup{
+    width:100%;
+    min-height:100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow:hidden;
+    position:fixed;
+    top:0px;
+}
+.b-popup .b-popup-content{
+    margin-left: 420px;
+    margin-top: 120px;
+}
+
+/* Картинка сообщества */
+.group_img {
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    background: white;
+    height: 150px;
+    width: 150px;
+    border: 3px solid #fff;
+    transition: background ease-out 200ms;
+    margin-top: -25px;
+    margin-left: -25px;
+}
+
+/* Стили для сообщества */
+.textNameGroups {
+    font-size: 22px;
+    text-align: left;
+    margin-top: 20px;
+    width: 600px;
+    height: 25px;
+}
+
+.textDescGroups {
+    font-size: 18px;
+    text-align: left;
+    margin-top: 0px;
+    width: 600px;
+    height: auto;
+    max-height: 140px;
+    overflow-y: auto;
+}

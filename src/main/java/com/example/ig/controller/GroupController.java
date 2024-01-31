@@ -3,10 +3,7 @@ package com.example.ig.controller;
 import com.example.ig.entity.Group;
 import com.example.ig.entity.GroupUser;
 import com.example.ig.entity.Subscriptions;
-import com.example.ig.repository.GroupRepository;
-import com.example.ig.repository.PostRepository;
-import com.example.ig.repository.SubscriptionsRepository;
-import com.example.ig.repository.UserRepository;
+import com.example.ig.repository.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,13 +24,15 @@ public class GroupController {
     private final UserRepository userRepository;
     private final SubscriptionsRepository subscriptionsRepository;
     private final PostRepository postRepository;
+    private final LikesRepository likesRepository;
 
     @Autowired
-    public GroupController(GroupRepository groupRepository, UserRepository userRepository, SubscriptionsRepository subscriptionsRepository, PostRepository postRepository) {
+    public GroupController(GroupRepository groupRepository, UserRepository userRepository, SubscriptionsRepository subscriptionsRepository, PostRepository postRepository, LikesRepository likesRepository) {
         this.groupRepository = groupRepository;
         this.userRepository = userRepository;
         this.subscriptionsRepository = subscriptionsRepository;
         this.postRepository = postRepository;
+        this.likesRepository = likesRepository;
     }
     public Long getUserFromCookie(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
@@ -61,6 +60,7 @@ public class GroupController {
         model.addAttribute("groups", groupRepository.findAll());
         model.addAttribute("group", group);
         model.addAttribute("posts", postRepository.getAllPostsOfGroup(group.getId()));
+        model.addAttribute("likes", likesRepository.findAll());
         return "group";
     }
     @GetMapping("/groups")

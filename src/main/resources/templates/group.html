@@ -14,6 +14,7 @@
     <link rel="stylesheet" th:href="@{/css/form_popup.css}"/>
     <script type="text/javascript" th:src="@{/js/getThemeFromCookie.js}"></script>
     <script type="text/javascript" th:src="@{/js/dateTimeEdit.js}"></script>
+    <script type="text/javascript" th:src="@{/js/like.js}"></script>
     <!--<script type="text/javascript" th:src="@{/js/button_up_page.js}"></script>-->
 
     <!--Картинки-->
@@ -163,21 +164,30 @@
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top: 15px;">
-                                    <div class="col align-self-center" style="margin-left: 0px; display: flex; justify-content: space-between;">
-                                        <div class="like-container">
-                                            <button class="btn btn-primary c-button" style="margin-left: 0px;" onclick="PopUpShow();">
-                                                <i class="fa-regular fa-heart fa-bounce" style="fill: var(--second-color);"></i>
-                                                50
+                                    <div class="col align-self-center" style="margin-left: 0px; justify-content: space-between;">
+                                        <div class="like-container row">
+                                            <button class="btn btn-primary" th:onclick="'like(\'' + ${post.getId()} + '\');'" style="margin-left: 0px; width: 80px; height: 40px;">
+                                                <i class="fa-regular fa-heart fa-bounce"  style="fill: var(--second-color); pointer-events: none;cursor: default;"></i>
+                                                <div th:each="like : ${likes}" style="display: none;">
+                                                    <div th:if="${like.getPostUserId().getUserId()==userLogin.getId()}">
+                                                        <div th:if="${like.getPostUserId().getPostId() == post.getId()}">
+                                                            <script th:inline="javascript">
+                                                                matchLike();
+                                                            </script>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <label class="label" style="width: fit-content; pointer-events: none;cursor: default;" th:text=" ${post.getLikes()}"></label>
                                             </button>
 
-                                            <button class="btn btn-primary c-button" style="margin-left: 10px;" onclick="PopUpShow();">
+                                            <button class="btn btn-primary c-button" th:onclick="'comments(\'' + ${post.getId()} + '\');'" style="margin-left: 10px; width: 75px; height: 40px;">
                                                 <i class="fa-regular fa-comment fa-beat-fade" style="fill: var(--second-color);"></i>
-                                                10
+                                                <label  style="width: fit-content;" th:text="100"></label>
                                             </button>
 
-                                            <button class="btn btn-primary c-button" style="margin-left: 10px;" onclick="PopUpShow();">
+                                            <button class="btn btn-primary c-button" th:onclick="'view(\'' + ${post.getId()} + '\');'" style="margin-left: 10px; width: fit-content; height: 40px;">
                                                 <i class="fa-regular fa-eye" style="fill: var(--second-color);"></i>
-                                                100
+                                                <label style="width: fit-content;" th:text=" ${post.getViews()}"></label>
                                             </button>
                                         </div>
                                     </div>
@@ -269,6 +279,16 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+<script>
+    function comments(postId){
+
+        alert(postId);
+    }
+    function view(postId){
+
+        alert(postId);
+    }
+</script>
 <script>
     $(document).ready(function(){
         //Скрыть PopUp при загрузке страницы

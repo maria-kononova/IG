@@ -39,8 +39,9 @@
 .icon_div_group_item_list {
     width: 5%;
     align-content: end;
-    margin-top: -3px;
+    margin-top: 0px;
     margin-right: 3px;
+    margin-left: 2px;
 }
 
 .subscribes_div_group_item_list {

@@ -102,25 +102,29 @@
         </div>
 
         <div class="col-6" style="height: auto;">
-            <div class="block_div"
-                 style="margin-top: 50px; margin-left: 50px; height: 100px; width: 600px; position: fixed;">
-                <div class="block_div_no_color" style="margin-top: 0px;">
-                    <br/>
-                    <p class="block_p_no_color p-main-color">Что-то</p>
+            <div style="margin-top: 50px; margin-left: 50px; height: 100px; width: 600px;">
+                <div class="block_div" style="margin-top: 0px; height: 75px; width: 600px;">
+                    <div>
+                        <button class="btn btn-primary c-button" style="width: 150px; margin-left: 0px; margin-top: 15px;" onclick="PopUpShow();">
+                            Новости
+                        </button>
+                        <button class="btn btn-primary c-button" style="width: 150px; margin-left: 10px; margin-top: 15px;" onclick="PopUpShow();">
+                            Рекомендации
+                        </button>
+                    </div>
+                    <hr class="block_line" style="margin-top: 10px; width: 590px; margin-left: 5px;"/>
                 </div>
-                <hr class="block_line"/>
 
             </div>
-            <table style="margin-top: 130px; height: 100%; width: 600px; margin-left: 50px; overflow-y: hidden;"
-                   class="scroll">
+            <table style="margin-top: -40px; height: 650px; width: 600px; margin-left: 50px;"
+                   >
                 <tbody>
                 <tr th:each="post : ${posts}">
                     <td>
                         <div th:each="group : ${groups}">
                             <div th:if="${group.getId()} == ${post.getIdGroup()}">
                                 <!--Пост-->
-                                <div class="block_div"
-                                     style="padding: 5px 5px 20px; height: auto; margin-bottom: 10px;">
+                                <div class="block_div" style="padding: 5px 5px 20px; height: auto; margin-bottom: 5px;">
                                     <div class="div_post_item_list">
                                         <div class="row">
                                             <div class="col-2 col-md-1">
@@ -218,7 +222,7 @@
                                                 <p class="name_group_item_list" th:text="${group.getName()}"> Имя </p>
                                                 <div class="main_div_group_item_list">
                                                     <div class="icon_div_group_item_list">
-                                                        <i class="fa-solid fa-user"></i>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
                                                     </div>
                                                     <div class="subscribes_div_group_item_list">
                                                         <p class="subscribes_p_group_item_list"

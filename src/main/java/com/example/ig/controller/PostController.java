@@ -37,7 +37,7 @@ public class PostController {
         Post post = postRepository.getById(Long.valueOf(postId));
         post.setLikes(post.getLikes() + 1);
         postRepository.save(post);
-        model.addAttribute("posts", postRepository.getAllPostsOfGroup(group.getId()));
+        //model.addAttribute("posts", postRepository.getAllPostsOfGroup(group.getId()));
         return "Success";
     }
 
@@ -50,7 +50,7 @@ public class PostController {
         Post post = postRepository.getById(Long.valueOf(postId));
         post.setLikes(post.getLikes() - 1);
         postRepository.save(post);
-        model.addAttribute("posts", postRepository.getAllPostsOfGroup(group.getId()));
+        //model.addAttribute("posts", postRepository.getAllPostsOfGroup(group.getId()));
         return "Success";
     }
 

@@ -260,34 +260,8 @@
     <div class="btn-up btn-up_hide"></div>
 </div>
 </body>
-<script>
-    function like(postId){
-        var caller = event.target;
-        const i  = caller.getElementsByTagName("i");
-        var url = "/like";
-        var n = 1;
-        var classname = "fa-solid fa-heart";
-        if(i[0].className==="fa-solid fa-heart"){
-            url = "/unlike";
-            n = -1;
-            classname = "fa-regular fa-heart fa-bounce";
-        }
-        const formData = {
-            postId: postId,
-        };
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: formData,
-            success: function (response) {
-                if (response === "Success") {
-                    caller.getElementsByClassName('label').item(0).textContent = Number(caller.getElementsByClassName('label').item(0).textContent) + n;
-                    i[0].className = classname;
-                }
-            }
-        });
-    }
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     var ad = $('#addBlock');
     var min_scroll = 20; // Set your minimum scroll amount here

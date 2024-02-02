@@ -277,7 +277,6 @@
         reader.onloadend = () => {
             AVATAR.setAttribute("aria-label", file.name);
             AVATAR.src = `${reader.result}`;
-
         };
     });
     document.addEventListener('DOMContentLoaded', function () {
@@ -299,6 +298,7 @@
                     data: formData2,
                     success: function (response) {
                         if (response !== "Success") {
+                            PopUpHide();
                             window.location.href = response;
                         }
                     }

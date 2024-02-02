@@ -17,7 +17,6 @@ import java.util.Date;
 @Table(name="\"Group\"")
 public class Group {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
     private String description;
@@ -26,4 +25,5 @@ public class Group {
     private Date dateCreate;
     private int subscribes;
     private long idAdmin;
+
 }

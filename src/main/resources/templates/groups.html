@@ -13,6 +13,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/form_popup.css}"/>
     <script type="text/javascript" th:src="@{/js/getThemeFromCookie.js}"></script>
+    <script type="text/javascript" th:src="@{/js/avatar.js}"></script>
 
     <!--Картинки-->
     <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
@@ -221,8 +222,8 @@
 <div class="b-container" style="display: none;">
 </div>
 <div class="b-popup" id="popup1">
-    <div class="b-popup-content">
-        <div class="block_div" style="margin-left: 27px; width: 505px; height: 600px;">
+    <div class="center-screen" style="margin-top: -20px; margin-left: -40px;">
+        <div class="block_div" style="width: 505px; height: 600px;">
             <div class="block_div_no_color">
                 <div class="row">
                     <div class="col-10">
@@ -238,10 +239,10 @@
                 <br/>
                 <input type="file" name="image" id="image" accept="image/*"/>
                 <div>
-                    <img class="group_img" id="avatar" alt="image" th:src="${userLogin.getImg()}"/>
+                    <img class="group_img" id="avatar" alt="image" src="https://ds127-kursk-r38.gosweb.gosuslugi.ru/netcat_files/21/10/1677862132_topdevka_com_p_erotika_anastasiya_karpenko_golaya_34.jpg"/>
                 </div>
             </main>
-            <form class="row justify-content-center" id="accountForm" action="#" method="post" style="margin-left: 60px; margin-top: -140px;"> <!--th:action=""-->
+            <form class="row justify-content-center" id="groupCreateForm" method="get" action="#" style="margin-left: 60px; margin-top: -140px;"> <!--th:action=""-->
                 <div class="mb-3 col-12 col-md-6">
                     <input required type="text" name="name" class="form-control margin-top-20" id="nameGroupsInput"
                            aria-describedby="nameHelp" placeholder="Название сообщества"
@@ -263,8 +264,50 @@
     </div>
 </div>
 </body>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    const FILE_INPUT = document.querySelector("input[type=file]");
+    const AVATAR = document.getElementById("avatar");
+    AVATAR.addEventListener("click", () => FILE_INPUT.click());
+    FILE_INPUT.addEventListener("change", event => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            AVATAR.setAttribute("aria-label", file.name);
+            AVATAR.src = `${reader.result}`;
+
+        };
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+    }, false);
+</script>
+<script>
+    $(document).ready(function () {
+        $("#groupCreateForm").submit(function (event) {
+            event.preventDefault();
+            if (AVATAR.src !== "https://ds127-kursk-r38.gosweb.gosuslugi.ru/netcat_files/21/10/1677862132_topdevka_com_p_erotika_anastasiya_karpenko_golaya_34.jpg") {
+                const formData2 = {
+                    imgGroup: $("#avatar").attr("src"),
+                    nameGroup: $("#nameGroupsInput").val(),
+                    desGroup: $("#descGroupsInput").val(),
+                };
+                $.ajax({
+                    url: "/createGroup",
+                    type: "GET",
+                    data: formData2,
+                    success: function (response) {
+                        if (response !== "Success") {
+                            window.location.href = response;
+                        }
+                    }
+                });
+            }
+            else alert("no");
+        });
+    });
+</script>
 <script>
     const search = document.getElementById("search");
     search.addEventListener('input', function (event) {
@@ -283,7 +326,6 @@
         });
     });
 </script>
-<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
 <script>
     $(document).ready(function(){
         //Скрыть PopUp при загрузке страницы

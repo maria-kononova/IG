@@ -1,7 +1,10 @@
 package com.example.ig.controller;
 
+import com.example.ig.entity.Likes;
+import com.example.ig.entity.Post;
 import com.example.ig.entity.User;
 import com.example.ig.repository.GroupRepository;
+import com.example.ig.repository.LikesRepository;
 import com.example.ig.repository.PostRepository;
 import com.example.ig.repository.UserRepository;
 import jakarta.servlet.http.*;
@@ -12,9 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import static com.example.ig.IgApplication.BASE_URL;
-import static com.example.ig.IgApplication.user;
+import static com.example.ig.IgApplication.*;
 
 @Controller
 public class UserController {
@@ -22,13 +26,29 @@ public class UserController {
     private final UserRepository userRepository;
     private final GroupRepository groupRepository;
     private final PostRepository postRepository;
+    private final LikesRepository likesRepository;
     private static final String FILE_IMAGE = "src/main/resources/image/";
     //авбдыаы
     @Autowired
-    public UserController(UserRepository userRepository, GroupRepository groupRepository, PostRepository postRepository) {
+    public UserController(UserRepository userRepository, GroupRepository groupRepository, PostRepository postRepository, LikesRepository likesRepository) {
         this.userRepository = userRepository;
         this.groupRepository = groupRepository;
         this.postRepository = postRepository;
+        this.likesRepository = likesRepository;
+    }
+    @GetMapping("/")
+    public String homePage(Model model, HttpServletRequest request, HttpServletResponse response) {
+        if (user == null) {
+            Long userId = getUserFromCookie(request, response);
+            if (userId != null) user = userRepository.getById(userId);
+        } else {
+            model.addAttribute("users", userRepository.findAll());
+        }
+        model.addAttribute("userLogin",user);
+        model.addAttribute("posts", postRepository.findAll());
+        model.addAttribute("groups", groupRepository.findAll());
+        model.addAttribute("likes", likesRepository.findAll());
+        return "index";
     }
 
     public Long getUserFromCookie(HttpServletRequest request, HttpServletResponse response) {
@@ -44,21 +64,6 @@ public class UserController {
             }
         }
         return null;
-    }
-
-    @GetMapping("/")
-    public String homePage(Model model, HttpServletRequest request, HttpServletResponse response) {
-        if (user == null) {
-            Long userId = getUserFromCookie(request, response);
-            if (userId != null) user = userRepository.getById(userId);
-        } else {
-            model.addAttribute("users", userRepository.findAll());
-            this.model = model;
-        }
-        model.addAttribute("userLogin",user);
-        model.addAttribute("posts", postRepository.findAll());
-        model.addAttribute("groups", groupRepository.findAll());
-        return"index";
     }
 
     @GetMapping("/news")

@@ -1,8 +1,6 @@
 package com.example.ig.controller;
 
-import com.example.ig.entity.Group;
-import com.example.ig.entity.GroupUser;
-import com.example.ig.entity.Subscriptions;
+import com.example.ig.entity.*;
 import com.example.ig.repository.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.example.ig.IgApplication.group;
@@ -60,8 +60,19 @@ public class GroupController {
         model.addAttribute("groups", groupRepository.findAll());
         model.addAttribute("group", group);
         model.addAttribute("posts", postRepository.getAllPostsOfGroup(group.getId()));
-        model.addAttribute("likes", likesRepository.findAll());
+        model.addAttribute("likes", sortLikesByGroupId());
         return "group";
+    }
+    public List<Likes> sortLikesByGroupId() {
+        List<Likes> likes = new ArrayList<>();
+        for (Post post : postRepository.getAllPostsOfGroup(group.getId())) {
+            for (Likes like : likesRepository.findAll()) {
+                if (post.getId() == like.getPostUserId().getPostId() && user.getId() == like.getPostUserId().getUserId()) {
+                    likes.add(like);
+                }
+            }
+        }
+        return likes;
     }
     @GetMapping("/groups")
     public String groupPage(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -99,6 +110,24 @@ public class GroupController {
         groupRepository.save(group);
         model.addAttribute("sub", false);
         return "Success";
+    }
+
+    @GetMapping("/createGroup")
+    @ResponseBody
+    public String createGroup(@RequestParam String imgGroup, @RequestParam String nameGroup, @RequestParam String desGroup){
+        long id = getMaxId() + 1;
+        Group newGroup = new Group(id, nameGroup, desGroup, imgGroup, "1",  new Date(), 0, user.getId());
+        groupRepository.save(newGroup);
+        group = groupRepository.getById(newGroup.getId());
+        return "http://localhost:8080/group/" + group.getId() + "?";
+    }
+
+    public long getMaxId(){
+        long max = 0;
+        for(Group group1 : groupRepository.findAll()){
+            if(group1.getId() > max) max = group1.getId();
+        }
+        return max;
     }
 
     @PostMapping("/searchGroup")

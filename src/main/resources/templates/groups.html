@@ -258,6 +258,7 @@
                 <div class="w-100"></div>
                 <div class="mb-3 col-12 col-md-6">
                     <button type="submit" class="btn btn-primary" style="margin-left: 75px;">Сохранить</button>
+                    <p id="errorMessage" class="p-text-color"></p>
                 </div>
             </form>
         </div>
@@ -304,7 +305,7 @@
                     }
                 });
             }
-            else alert("no");
+            else document.getElementById('errorMessage').textContent = "Необходимо загрузить фотографию сообщества";
         });
     });
 </script>

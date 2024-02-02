@@ -18,7 +18,6 @@ function like(postId){
         data: formData,
         success: function (response) {
             if (response === "Success") {
-                alert("ok");
                 caller.getElementsByClassName('label').item(0).textContent = Number(caller.getElementsByClassName('label').item(0).textContent) + n;
                 i[0].className = classname;
             }

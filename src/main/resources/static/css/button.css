@@ -1,13 +1,13 @@
 .btn-primary {
     border: 2px solid var(--main-color) !important;
-    background: var(--main-color) !important;
-    color: var(--second-color) !important;
+    background: var(--second-color) !important;
+    color: var(--main-color) !important;
 }
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:visited {
-    background: var(--second-color) !important;
-    color: var(--main-color) !important;
+    background: var(--main-color) !important;
+    color: var(--second-color) !important;
 }
 
 .bet_time {

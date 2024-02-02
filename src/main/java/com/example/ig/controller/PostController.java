@@ -50,19 +50,8 @@ public class PostController {
         Post post = postRepository.getById(Long.valueOf(postId));
         post.setLikes(post.getLikes() - 1);
         postRepository.save(post);
-        model.addAttribute("posts", sortLikesByGroupId());
+        model.addAttribute("posts", postRepository.getAllPostsOfGroup(group.getId()));
         return "Success";
     }
 
-    public List<Likes> sortLikesByGroupId() {
-        List<Likes> likes = new ArrayList<>();
-        for (Post post : postRepository.getAllPostsOfGroup(group.getId())) {
-            for (Likes like : likesRepository.findAll()) {
-                if (post.getId() == like.getPostUserId().getPostId() && user.getId() == like.getPostUserId().getUserId()) {
-                    likes.add(like);
-                }
-            }
-        }
-        return likes;
-    }
 }

@@ -286,26 +286,47 @@
         </div>
     </div>
 </div>
-
+<div class="b-container" style="display: none;">
+</div>
+<!--Пост развёрнутый-->
+<div class="b-popup" id="postDetails">
+    <div class="center-screen" style="margin-top: -20px; margin-left: -40px;">
+        <div class="block_div" style="width: 505px; height: 600px;">
+            <div class="block_div_no_color">
+                <div class="row">
+                    <div class="col-10">
+                        <p class="p-main-color" style="white-space: nowrap; margin-top: 30px; margin-left: 80px;">Пост</p>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-primary bet_time" style="margin-top: 30px; margin-left: 100px;" onclick="commentsOff()"> X </button>
+                    </div>
+                </div>
+            </div>
+            <hr class="block_line"/>
+        </div>
+    </div>
+</div>
 </body>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
 <script>
-    function comments(postId){
-
-        alert(postId);
-    }
-    function view(postId){
-
-        alert(postId);
-    }
-</script>
-<script>
     $(document).ready(function(){
         //Скрыть PopUp при загрузке страницы
         PopUpHide();
+        commentsOff();
     });
+    function comments(postId){
+
+        $("#postDetails").show();
+    }
+    function commentsOff(){
+
+        $("#postDetails").hide();
+    }
+    function view(postId){
+        alert(postId);
+    }
     //Функция отображения PopUp
     function PopUpShow(){
         $("#popup2").show();

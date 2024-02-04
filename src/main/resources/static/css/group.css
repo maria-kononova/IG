@@ -71,4 +71,10 @@ input[type="file"] {
 .box {
     position:relative;
 }
+.center-screen {
+    position: absolute;
+    top:  50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
 

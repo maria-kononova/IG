@@ -31,27 +31,33 @@ public class PostController {
     @PostMapping("/like")
     @ResponseBody
     public String like(Model model, @RequestParam String postId) {
-        LikeUser likeUser = new LikeUser(user.getId(), Long.valueOf(postId));
-        Likes likes = new Likes(likeUser);
-        likesRepository.save(likes);
-        Post post = postRepository.getById(Long.valueOf(postId));
-        post.setLikes(post.getLikes() + 1);
-        postRepository.save(post);
-        //model.addAttribute("posts", postRepository.getAllPostsOfGroup(group.getId()));
-        return "Success";
+        if(user!=null) {
+            LikeUser likeUser = new LikeUser(user.getId(), Long.valueOf(postId));
+            Likes likes = new Likes(likeUser);
+            likesRepository.save(likes);
+            Post post = postRepository.getById(Long.valueOf(postId));
+            post.setLikes(post.getLikes() + 1);
+            postRepository.save(post);
+            //model.addAttribute("posts", postRepository.getAllPostsOfGroup(group.getId()));
+            return "Success";
+        }
+        return "noSuccess";
     }
 
     @PostMapping("/unlike")
     @ResponseBody
     public String unlike(Model model, @RequestParam String postId) {
-        LikeUser likeUser = new LikeUser(user.getId(), Long.valueOf(postId));
-        Likes likes = new Likes(likeUser);
-        likesRepository.delete(likes);
-        Post post = postRepository.getById(Long.valueOf(postId));
-        post.setLikes(post.getLikes() - 1);
-        postRepository.save(post);
-        //model.addAttribute("posts", postRepository.getAllPostsOfGroup(group.getId()));
-        return "Success";
+        if(user!=null) {
+            LikeUser likeUser = new LikeUser(user.getId(), Long.valueOf(postId));
+            Likes likes = new Likes(likeUser);
+            likesRepository.delete(likes);
+            Post post = postRepository.getById(Long.valueOf(postId));
+            post.setLikes(post.getLikes() - 1);
+            postRepository.save(post);
+            //model.addAttribute("posts", postRepository.getAllPostsOfGroup(group.getId()));
+            return "Success";
+        }
+        return "noSuccess";
     }
 
 }

@@ -137,7 +137,8 @@
                                         <img class="figure_img_post_item_list" alt="image"
                                              th:src="${group.getAvtar()}"/>
                                     </div>
-                                    <div class="col align-self-center" style="margin-left: -30px;" th:if="${post.getIdGroup() == group.getId()}">
+                                    <div class="col align-self-center" style="margin-left: -30px;"
+                                         th:if="${post.getIdGroup() == group.getId()}">
                                         <p class="name_post_item_list p-text-color"
                                            th:text="${group.getName()}"></p>
                                         <div>
@@ -171,12 +172,14 @@
                                                 <content>
                                                     <i class="fa-regular fa-heart fa-bounce"
                                                        style="fill: var(--second-color); pointer-events: none;cursor: default;"></i>
-                                                    <div th:each="like : ${likes}" style="display: none;">
-                                                        <div th:if="${like.getPostUserId().getUserId()==userLogin.getId()}">
-                                                            <div th:if="${like.getPostUserId().getPostId() == post.getId()}">
-                                                                <script th:inline="javascript">
-                                                                    matchLike();
-                                                                </script>
+                                                    <div th:if="${userLogin!=null}" style="display: none;">
+                                                        <div th:each="like : ${likes}">
+                                                            <div th:if="${like.getPostUserId().getUserId()==userLogin.getId()}">
+                                                                <div th:if="${like.getPostUserId().getPostId() == post.getId()}">
+                                                                    <script th:inline="javascript">
+                                                                        matchLike();
+                                                                    </script>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

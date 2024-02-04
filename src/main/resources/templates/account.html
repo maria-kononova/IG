@@ -10,7 +10,9 @@
     <link rel="stylesheet" th:href="@{/css/search.css}"/>
     <link rel="stylesheet" th:href="@{/css/button.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toast.css}"/>
     <script type="text/javascript" th:src="@{/js/getThemeFromCookie.js}"></script>
+    <script type="text/javascript" th:src="@{/js/toast.js}"></script>
     <!--Картинки-->
     <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
 
@@ -85,10 +87,13 @@
                 <div class="block_div_color">
                     <main>
                         <br/>
-                        <input type="file" name="image" id="image" accept="image/*"/>
-                        <div>
-                            <img class="avatar_img" id="avatar" alt="image" th:src="${userLogin.getImg()}"/>
-                        </div>
+                        <form method="post" id="formAvatar" th:action="@{/file/upload}" enctype="multipart/form-data">
+                            <input type="file" name="file" id="image"  class="form-control-file">
+                            <div>
+                                <img class="avatar_img" id="avatar" alt="image" th:src="${userLogin.getImg()}"/>
+                            </div>
+                            <button id="btnFormAvatar" type="submit" style="display: none;" class="btn btn-primary">Upload File</button>
+                        </form>
                     </main>
                 </div>
 
@@ -222,8 +227,8 @@
                     <div class="row">
                         <div class="mb-3 col-4 col-md-2">
                             <div class="toggle-button-cover">
-                                <div class="button r" id="button-2"  style="margin-top: 5px; margin-left: 50px;">
-                                    <input type="checkbox" class="checkbox" id="toggle_checkbox_text" />
+                                <div class="button r" id="button-2" style="margin-top: 5px; margin-left: 50px;">
+                                    <input type="checkbox" class="checkbox" id="toggle_checkbox_text"/>
                                     <div class="knobs"></div>
                                     <div class="layer"></div>
                                 </div>
@@ -254,6 +259,19 @@
         </div>
     </div>
 </div>
+<!--<div>
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <form method="post" th:action="@{/file/upload}" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="file" class="form-control-file">
+                </div>
+                <button type="submit" class="btn btn-primary">Upload File</button>
+            </form>
+        </div>
+    </div>
+</div>-->
+
 
 
 </body>
@@ -340,30 +358,24 @@
     });
 </script>
 <script>
-    const FILE_INPUT = document.querySelector("input[type=file]");
     const AVATAR = document.getElementById("avatar");
-    AVATAR.addEventListener("click", () => FILE_INPUT.click());
-    FILE_INPUT.addEventListener("change", event => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            AVATAR.setAttribute("aria-label", file.name);
-            AVATAR.src = `${reader.result}`;
-            const formData = {
-                url: reader.result
-            };
+    AVATAR.addEventListener("click", event => {
+        const inputImage =  document.getElementById("image");
+        inputImage.click();
+    });
+    document.getElementById('image').addEventListener('change', function(e) {
+        if (e.target.files[0]) {
+            const btnFormAvatar = document.getElementById("btnFormAvatar");
+            alert(document.getElementById("image").content);
             $.ajax({
                 url: "/changeImg",
                 type: "POST",
-                data: formData,
                 success: function (authResponse) {
                 }
             });
-        };
+            btnFormAvatar.click();
+        }
     });
-    document.addEventListener('DOMContentLoaded', function () {
-    }, false);
 </script>
 <script>
     $(document).ready(function () {

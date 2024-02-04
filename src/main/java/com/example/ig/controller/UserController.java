@@ -1,5 +1,6 @@
 package com.example.ig.controller;
 
+import com.example.ig.entity.FileDto;
 import com.example.ig.entity.Likes;
 import com.example.ig.entity.Post;
 import com.example.ig.entity.User;
@@ -8,13 +9,20 @@ import com.example.ig.repository.LikesRepository;
 import com.example.ig.repository.PostRepository;
 import com.example.ig.repository.UserRepository;
 import jakarta.servlet.http.*;
+import org.apache.tomcat.jni.FileInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.*;
+import java.net.URI;
+import java.net.http.HttpRequest;
+import java.rmi.ServerException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +36,7 @@ public class UserController {
     private final PostRepository postRepository;
     private final LikesRepository likesRepository;
     private static final String FILE_IMAGE = "src/main/resources/image/";
+
     //авбдыаы
     @Autowired
     public UserController(UserRepository userRepository, GroupRepository groupRepository, PostRepository postRepository, LikesRepository likesRepository) {
@@ -164,9 +173,8 @@ public class UserController {
 
     @PostMapping("/changeImg")
     @ResponseBody
-    public String changeImg(Model model, @RequestParam String url){
-        //copyDirectory(new File(getUrl(url)), file);
-        user.setImg(url);
+    public String changeImg(Model model){
+        user.setImg("http://localhost:8080/file/avatar" + user.getId() + ".jpg");
         userRepository.save(user);
         model.addAttribute("userLogin", user);
         return "account";
@@ -247,7 +255,7 @@ public class UserController {
         return "account";
     }
 
-    public String getUrl(String... path) {
+    public static String getUrl(String... path) {
         return UriComponentsBuilder.fromHttpUrl(BASE_URL)
                 .pathSegment(path)
                 .build().toUriString();

@@ -187,7 +187,7 @@
                                         <div class="like-container row">
                                             <button class="btn btn-primary"
                                                     th:onclick="'like(\'' + ${post.getId()} + '\');'"
-                                                    style="margin-left: 0px; width: 80px; height: 40px;">
+                                                    style="margin-left: 13px; width: 80px; height: 40px;">
                                                 <i class="fa-regular fa-heart fa-bounce"
                                                    style="fill: var(--second-color); pointer-events: none;cursor: default;"></i>
                                                 <div th:each="like : ${likes}" style="display: none;">
@@ -352,7 +352,7 @@
                                 <!--th:src="${post.getImg()}"/>-->
                             </div>
                         </div>
-                        <div class="row" style="margin-top: 15px;">
+                        <div class="row" style="margin-top: 20px;">
                             <div class="col align-self-center"
                                  style="margin-left: 0px; justify-content: space-between;">
                                 <div class="like-container row">
@@ -397,6 +397,108 @@
                             </div>
 
 
+                            <hr class="block_line" style="margin-left: 0px; width: 538px; margin-top: 20px; margin-bottom: -5px;"/>
+
+
+                            <div class="row" style="margin-top: 0px;">
+                                <!--Комментарий уровень 1-->
+                                <div class="col-2" style="margin-top: 15px;">
+                                    <img class="figure_img_comment_item_list" alt="image"
+                                         src="https://cojo.ru/wp-content/uploads/2022/12/avatarki-dlia-vatsapa-25.webp"/>
+                                    <!--th:src="${group.getAvtar()}"/>-->
+                                </div>
+                                <div class="col-10 align-self-center" style="margin-left: -90px; align-content: start;">
+                                    <p class="name_user_comment_item_list p-text-color">Smrrr</p>
+                                    <!--th:text="${group.getName()}"></p>-->
+                                    <div>
+                                        <p class="description_comment_item_list p-text-color">Хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе</p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col align-self-center" style="width: 200px; white-space: nowrap;">
+                                            <p class="date_p_comment_item_list p-text-color">26 янв в 11:40</p>
+                                            <!--Функция для вывода даты!!!!!!!!!!!!!!!!!!!!!!-->
+
+                                        </div>
+
+                                        <div class="col align-self-center" style=" width: 45px; margin-top: -33px; margin-left: -10px;">
+                                            <a href="" class="p-text-color" style="font-size: 12px; margin-top: -15px; color: var(--main-color);">Ответить</a>
+                                        </div>
+
+                                        <div class="col align-self-center" style="width: 50px; margin-top: -35px; margin-left: -95px; white-space: nowrap">
+                                            <i class="fa-regular fa-heart" style="color: var(--main-color); margin-top: 5px;"></i>
+                                            <label style="width: fit-content; font-size: 12px; margin-top: -23px; color: var(--main-color);" th:text="5"></label>
+                                        </div>
+                                    </div>
+                                    <hr class="block_line" style="margin-left: 75px; width: 450px; margin-top: -15px;"/>
+
+
+                                    <div class="row" style="margin-top: -10px; margin-left: 60px;">
+                                        <!--Комментарий уровень 2-->
+                                        <div class="col-2" style="margin-top: 15px;">
+                                            <img class="figure_img_comment_item_list" alt="image"
+                                                 src="https://cojo.ru/wp-content/uploads/2022/12/avatarki-dlia-vatsapa-25.webp"/>
+                                            <!--th:src="${group.getAvtar()}"/>-->
+                                        </div>
+                                        <div class="col-10 align-self-center" style="margin-left: -60px; align-content: start;">
+                                            <p class="name_user_comment_item_list p-text-color">Smrrr 1</p>
+                                            <!--th:text="${group.getName()}"></p>-->
+                                            <div>
+                                                <p class="description_comment_item_list p-text-color" style="width: 370px;">Хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе</p>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col align-self-center" style="width: 200px; white-space: nowrap;">
+                                                    <p class="date_p_comment_item_list p-text-color">26 янв в 11:40</p>
+                                                    <!--Функция для вывода даты!!!!!!!!!!!!!!!!!!!!!!-->
+
+                                                </div>
+
+                                                <div class="col align-self-center" style=" width: 45px; margin-top: -33px; margin-left: -5px;">
+                                                    <a href="" class="p-text-color" style="font-size: 12px; margin-top: -15px; color: var(--main-color);">Ответить</a>
+                                                </div>
+
+                                                <div class="col align-self-center" style="width: 50px; margin-top: -35px; margin-left: 40px; white-space: nowrap">
+                                                    <i class="fa-regular fa-heart" style="color: var(--main-color); margin-top: 5px;"></i>
+                                                    <label style="width: fit-content; font-size: 12px; margin-top: -23px; color: var(--main-color);" th:text="5"></label>
+                                                </div>
+                                            </div>
+                                            <hr class="block_line" style="margin-left: 75px; width: 372px; margin-top: -15px;"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-top: -10px; margin-left: 60px;">
+                                        <!--Комментарий 2 уровень 2-->
+                                        <div class="col-2" style="margin-top: 15px;">
+                                            <img class="figure_img_comment_item_list" alt="image"
+                                                 src="https://cojo.ru/wp-content/uploads/2022/12/avatarki-dlia-vatsapa-25.webp"/>
+                                            <!--th:src="${group.getAvtar()}"/>-->
+                                        </div>
+                                        <div class="col-10 align-self-center" style="margin-left: -60px; align-content: start;">
+                                            <p class="name_user_comment_item_list p-text-color">Smrrr 2</p>
+                                            <!--th:text="${group.getName()}"></p>-->
+                                            <div>
+                                                <p class="description_comment_item_list p-text-color" style="width: 370px;">Не хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе </p>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col align-self-center" style="width: 200px; white-space: nowrap;">
+                                                    <p class="date_p_comment_item_list p-text-color">26 янв в 11:40</p>
+                                                    <!--Функция для вывода даты!!!!!!!!!!!!!!!!!!!!!!-->
+
+                                                </div>
+
+                                                <div class="col align-self-center" style=" width: 45px; margin-top: -33px; margin-left: -5px;">
+                                                    <a href="" class="p-text-color" style="font-size: 12px; margin-top: -15px; color: var(--main-color);">Ответить</a>
+                                                </div>
+
+                                                <div class="col align-self-center" style="width: 50px; margin-top: -35px; margin-left: 40px; white-space: nowrap">
+                                                    <i class="fa-regular fa-heart" style="color: var(--main-color); margin-top: 5px;"></i>
+                                                    <label style="width: fit-content; font-size: 12px; margin-top: -23px; color: var(--main-color);" th:text="5"></label>
+                                                </div>
+                                            </div>
+                                            <hr class="block_line" style="margin-left: 75px; width: 372px; margin-top: -15px;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>

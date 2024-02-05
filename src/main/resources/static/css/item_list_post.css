@@ -54,4 +54,43 @@
     color: rgba(0, 0, 0, 0.5);
 }
 
-/* Кнопка лайка */
+/* Комментарии */
+.figure_img_comment_item_list {
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    background-color: white;
+    border: 3px solid var(--background-color);
+    margin-left: 5px;
+    transition: background ease-out 200ms;
+}
+
+.name_user_comment_item_list {
+    font-size: 15px;
+    margin-top: 15px;
+    margin-bottom: 0px;
+    margin-left: 75px;
+    text-align: left;
+    text-decoration-style: double;
+    color: rgba(0, 0, 0, 1);
+}
+
+.description_comment_item_list {
+    font-size: 14px;
+    width: 455px;
+    white-space: normal;
+    margin-top: 0px;
+    margin-left: 75px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.date_p_comment_item_list {
+    font-size: 12px;
+    margin-top: -15px;
+    margin-left: 75px;
+    text-align: start;
+    color: rgba(0, 0, 0, 0.2);
+}

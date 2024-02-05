@@ -110,7 +110,7 @@
                             <div class="flexbox">
                                 <div class="search" style="margin: 20px;">
                                     <div>
-                                        <input id="search" type="text" placeholder="Поиск..." required>
+                                        <input id="search" type="text" placeholder="Поиск...">
                                     </div>
                                 </div>
                             </div>
@@ -237,10 +237,17 @@
             <hr class="block_line"/>
             <main style="margin-left: -25px; margin-top: -10px;">
                 <br/>
-                <input type="file" name="image" id="image" accept="image/*"/>
+                <form method="post" id="formAvatar" th:action="@{/file/upload/group}" enctype="multipart/form-data">
+                    <input type="file" name="file" id="image"  class="form-control-file">
+                    <div>
+                        <img class="avatar_img" id="avatar" alt="image" src="https://images.squarespace-cdn.com/content/v1/5da8bac9f6d96b1bf0e5cb69/1605218099656-BR0JG492R2B375WU0QLE/Green+and+Purple+Minimal+Icons+Icon+Set+%283%29.png?format=1500w"/>
+                    </div>
+                    <button id="btnFormAvatar" type="submit" style="display: none;" class="btn btn-primary">Upload File</button>
+                </form>
+                <!--<input type="file" name="image" id="image" accept="image/*"/>
                 <div>
                     <img class="group_img" id="avatar" alt="image" src="https://images.squarespace-cdn.com/content/v1/5da8bac9f6d96b1bf0e5cb69/1605218099656-BR0JG492R2B375WU0QLE/Green+and+Purple+Minimal+Icons+Icon+Set+%283%29.png?format=1500w"/>
-                </div>
+                </div>-->
             </main>
             <form class="row justify-content-center" id="groupCreateForm" method="get" action="#" style="margin-left: 60px; margin-top: -140px;"> <!--th:action=""-->
                 <div class="mb-3 col-12 col-md-6">
@@ -268,20 +275,22 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    const FILE_INPUT = document.querySelector("input[type=file]");
+    let file;
     const AVATAR = document.getElementById("avatar");
-    AVATAR.addEventListener("click", () => FILE_INPUT.click());
-    FILE_INPUT.addEventListener("change", event => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            AVATAR.setAttribute("aria-label", file.name);
-            AVATAR.src = `${reader.result}`;
-        };
+    AVATAR.addEventListener("click", event => {
+        const inputImage =  document.getElementById("image");
+        inputImage.click();
     });
-    document.addEventListener('DOMContentLoaded', function () {
-    }, false);
+    document.getElementById('image').addEventListener('change', function(e) {
+        if (e.target.files[0]) {
+            file = event.target.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+                AVATAR.src = `${reader.result}`;
+            };
+        }
+    });
 </script>
 <script>
     $(document).ready(function () {
@@ -299,8 +308,11 @@
                     data: formData2,
                     success: function (response) {
                         if (response !== "Success") {
+                            alert("ok");
                             PopUpHide();
-                            window.location.href = response;
+                            document.getElementById('image').val = file;
+                            const btnFormAvatar = document.getElementById("btnFormAvatar");
+                            btnFormAvatar.click();
                         }
                     }
                 });
@@ -312,6 +324,7 @@
 <script>
     const search = document.getElementById("search");
     search.addEventListener('input', function (event) {
+        alert("ok");
         const formData = {
             query: this.value,
         };

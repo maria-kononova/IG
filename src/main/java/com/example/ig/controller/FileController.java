@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
+import static com.example.ig.IgApplication.group;
+import static com.example.ig.IgApplication.user;
 import static org.springframework.web.servlet.HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE;
 
 @Slf4j
@@ -28,9 +30,15 @@ public class FileController {
     public ResponseEntity<Object> getFiles() {
         return ResponseEntity.ok(minioService.getListObjects());
     }
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public String upload(FileDto request) {
-        minioService.uploadFile(request);
+    @RequestMapping(value = "/upload/group", method = RequestMethod.POST)
+    public String uploadGroup(FileDto request) {
+        System.out.println(request);
+        minioService.uploadFile(request, "Group", "group" + group.getId());
+        return "redirect:" + UserController.getUrl("group/" + group.getId() + "?");
+    }
+    @RequestMapping(value = "/upload/avatar", method = RequestMethod.POST)
+    public String uploadAvatar(FileDto request) {
+        minioService.uploadFile(request, "Avatar", "avatar" + user.getId());
         return "redirect:" + UserController.getUrl("account");
     }
 
@@ -41,12 +49,20 @@ public class FileController {
         return "redirect:"+ referer;
     }
 
-    @GetMapping(value = "/**")
-    public ResponseEntity<Object> getFile(HttpServletRequest request) throws IOException {
+    @GetMapping(value = "/avatar/**")
+    public ResponseEntity<Object> getFileFromAvatar(HttpServletRequest request) throws IOException {
         String pattern = (String) request.getAttribute(BEST_MATCHING_PATTERN_ATTRIBUTE);
         String filename = new AntPathMatcher().extractPathWithinPattern(pattern, request.getServletPath());
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(IOUtils.toByteArray(minioService.getObject(filename)));
+                .body(IOUtils.toByteArray(minioService.getObject(filename, "Avatar")));
+    }
+    @GetMapping(value = "/group/**")
+    public ResponseEntity<Object> getFileFromGroup(HttpServletRequest request) throws IOException {
+        String pattern = (String) request.getAttribute(BEST_MATCHING_PATTERN_ATTRIBUTE);
+        String filename = new AntPathMatcher().extractPathWithinPattern(pattern, request.getServletPath());
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(IOUtils.toByteArray(minioService.getObject(filename, "Group")));
     }
 }

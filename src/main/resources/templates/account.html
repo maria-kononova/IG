@@ -87,7 +87,7 @@
                 <div class="block_div_color">
                     <main>
                         <br/>
-                        <form method="post" id="formAvatar" th:action="@{/file/upload}" enctype="multipart/form-data">
+                        <form method="post" id="formAvatar" th:action="@{/file/upload/avatar}" enctype="multipart/form-data">
                             <input type="file" name="file" id="image"  class="form-control-file">
                             <div>
                                 <img class="avatar_img" id="avatar" alt="image" th:src="${userLogin.getImg()}"/>

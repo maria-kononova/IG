@@ -46,16 +46,16 @@ public class MinioService {
         return objects;
     }
 
-    private String getPreSignedUrl(String filename) {
-        return "http://localhost:8080/file/".concat(filename);
+    private String getPreSignedUrl(String folderAndFilename) {
+        return "http://localhost:8080/file/".concat(folderAndFilename);
     }
 
-    public FileDto uploadFile(FileDto request) {
+    public FileDto uploadFile(FileDto request, String folder, String name) {
         System.out.println(request);
         try {
             minioClient.putObject(PutObjectArgs.builder()
                     .bucket(bucketName)
-                    .object("avatar" + user.getId() + ".jpg")
+                    .object(name + ".jpg")
                     .stream(request.getFile().getInputStream(), request.getFile().getSize(), -1)
                     .build());
         } catch (Exception e) {
@@ -65,12 +65,12 @@ public class MinioService {
                 .title(request.getTitle())
                 .description(request.getDescription())
                 .size(request.getFile().getSize())
-                .url(getPreSignedUrl(request.getFile().getOriginalFilename()))
+                .url(getPreSignedUrl(folder + "/" + request.getFile().getOriginalFilename()))
                 .filename(request.getFile().getOriginalFilename())
                 .build();
     }
 
-    public InputStream getObject(String filename) {
+    public InputStream getObject(String filename, String folder) {
         InputStream stream;
         try {
             stream = minioClient.getObject(GetObjectArgs.builder()

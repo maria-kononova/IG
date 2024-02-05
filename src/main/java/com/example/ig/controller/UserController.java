@@ -174,7 +174,7 @@ public class UserController {
     @PostMapping("/changeImg")
     @ResponseBody
     public String changeImg(Model model){
-        user.setImg("http://localhost:8080/file/avatar" + user.getId() + ".jpg");
+        user.setImg("http://localhost:8080/file/avatar/avatar" + user.getId() + ".jpg");
         userRepository.save(user);
         model.addAttribute("userLogin", user);
         return "account";

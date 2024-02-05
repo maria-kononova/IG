@@ -116,7 +116,7 @@ public class GroupController {
     @ResponseBody
     public String createGroup(@RequestParam String imgGroup, @RequestParam String nameGroup, @RequestParam String desGroup){
         long id = getMaxId() + 1;
-        Group newGroup = new Group(id, nameGroup, desGroup, imgGroup, "1",  new Date(), 0, user.getId());
+        Group newGroup = new Group(id, nameGroup, desGroup, "http://localhost:8080/file/group/group" + id + ".jpg", "1",  new Date(), 0, user.getId());
         groupRepository.save(newGroup);
         group = groupRepository.getById(newGroup.getId());
         return "http://localhost:8080/group/" + group.getId() + "?";
@@ -140,10 +140,8 @@ public class GroupController {
                 System.out.println(gr.getName());
             }
         }
-        System.out.println("ok");
         //if(query.equals("")) { groupsQuery = groupRepository.findAll();}
         model.addAttribute("groups", groupsQuery);
-        System.out.println(model.getAttribute("groups"));
         return "Success";
     }
 

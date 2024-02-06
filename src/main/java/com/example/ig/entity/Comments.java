@@ -19,17 +19,10 @@ public class Comments {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @ManyToOne
-    @JoinColumn(name = "idPost")
-    private Post idPost;
-    @OneToOne
-    @JoinColumn(name = "idUser")
-    private User idUser;
-    @OneToOne
-    @JoinColumn(name = "idComments")
-    private Comments idComments;
+    private long idPost;
+    private long idUser;
+    private long idComments;
     private String text;
     private int likes;
     private Date date;
-    private Time time;
 }

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,14 +24,16 @@ public class GroupController {
     private final SubscriptionsRepository subscriptionsRepository;
     private final PostRepository postRepository;
     private final LikesRepository likesRepository;
+    private final CommentsRepository commentsRepository;
 
     @Autowired
-    public GroupController(GroupRepository groupRepository, UserRepository userRepository, SubscriptionsRepository subscriptionsRepository, PostRepository postRepository, LikesRepository likesRepository) {
+    public GroupController(GroupRepository groupRepository, UserRepository userRepository, SubscriptionsRepository subscriptionsRepository, PostRepository postRepository, LikesRepository likesRepository, CommentsRepository commentsRepository) {
         this.groupRepository = groupRepository;
         this.userRepository = userRepository;
         this.subscriptionsRepository = subscriptionsRepository;
         this.postRepository = postRepository;
         this.likesRepository = likesRepository;
+        this.commentsRepository = commentsRepository;
     }
     public Long getUserFromCookie(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
@@ -57,10 +58,12 @@ public class GroupController {
             model.addAttribute("userLogin", user);
             model.addAttribute("sub", isSubscribes(id));
         }
+        model.addAttribute("users", userRepository.findAll());
         model.addAttribute("groups", groupRepository.findAll());
         model.addAttribute("group", group);
         model.addAttribute("posts", postRepository.getAllPostsOfGroup(group.getId()));
         model.addAttribute("likes", sortLikesByGroupId());
+        model.addAttribute("comments", commentsRepository.findAll());
         return "group";
     }
     public List<Likes> sortLikesByGroupId() {

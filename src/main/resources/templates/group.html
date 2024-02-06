@@ -146,13 +146,17 @@
                     </div>
                 </div>
             </div>
-            <table style="height: 100%; width: 600px; margin-left: 260px; overflow-y: hidden;" class="scroll">
+            <table id="post" style="height: 100%; width: 600px; margin-left: 260px; overflow-y: hidden;" class="scroll">
                 <tbody>
                 <tr th:each="post : ${posts}">
                     <td>
                         <!--Пост-->
-                        <div class="block_div" style="padding: 5px 5px 20px; height: auto; margin-bottom: 5px;">
+                        <div class="block_div"
+                             style="padding: 5px 5px 20px; height: auto; margin-bottom: 5px;">
                             <div class="div_post_item_list">
+                                <div class="idPost" style="display: none;">
+                                    <p th:text="${post.getId()}"></p>
+                                </div>
                                 <div class="row">
                                     <div class="col-2 col-md-1">
                                         <img class="figure_img_post_item_list" alt="image"
@@ -163,7 +167,7 @@
                                         <div>
                                             <p class="date_p_post_item_list p-text-color"></p>
                                             <script th:inline="javascript">
-                                                showMessage([[${post.getDatePublication()}]]);
+                                                getDateFormatForPost([[${post.getDatePublication()}]]);
                                             </script>
                                         </div>
                                     </div>
@@ -175,9 +179,10 @@
                                            th:text="${post.getDescription()}"></p>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col align-self-center" style="margin-left: 0px;">
-                                        <img style="align-content: start; margin-left: -50px; margin-top: 0px; margin-right: 0px; height: 310px; width: 525px;"
+                                <div class="row image">
+                                    <div>
+                                        <img align="middle"
+                                             style=" border-radius: 5px; display: block;height: 310px; width: 525px;"
                                              th:src="${post.getImg()}"/>
                                     </div>
                                 </div>
@@ -188,20 +193,24 @@
                                             <button class="btn btn-primary"
                                                     th:onclick="'like(\'' + ${post.getId()} + '\');'"
                                                     style="margin-left: 13px; width: 80px; height: 40px;">
-                                                <i class="fa-regular fa-heart fa-bounce"
-                                                   style="fill: var(--second-color); pointer-events: none;cursor: default;"></i>
-                                                <div th:each="like : ${likes}" style="display: none;">
-                                                    <div th:if="${like.getPostUserId().getUserId()==userLogin.getId()}">
-                                                        <div th:if="${like.getPostUserId().getPostId() == post.getId()}">
-                                                            <script th:inline="javascript">
-                                                                matchLike();
-                                                            </script>
+                                                <content>
+                                                    <i class="fa-regular fa-heart fa-bounce"
+                                                       style="fill: var(--second-color); pointer-events: none;cursor: default;"></i>
+                                                    <div th:if="${userLogin!=null}" style="display: none;">
+                                                        <div th:each="like : ${likes}">
+                                                            <div th:if="${like.getPostUserId().getUserId()==userLogin.getId()}">
+                                                                <div th:if="${like.getPostUserId().getPostId() == post.getId()}">
+                                                                    <script th:inline="javascript">
+                                                                        matchLike();
+                                                                    </script>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <label class="label"
-                                                       style="width: fit-content; pointer-events: none;cursor: default;"
-                                                       th:text=" ${post.getLikes()}"></label>
+                                                    <label class="label"
+                                                           style="width: fit-content; pointer-events: none;cursor: default;"
+                                                           th:text=" ${post.getLikes()}"></label>
+                                                </content>
                                             </button>
 
                                             <button class="btn btn-primary c-button"
@@ -219,6 +228,122 @@
                                                 <label style="width: fit-content;"
                                                        th:text=" ${post.getViews()}"></label>
                                             </button>
+                                        </div>
+                                    </div>
+                                    <div class="commentsList" style="display: none;">
+                                        <hr class="block_line"
+                                            style="margin-left: 0px; width: 530px; margin-top: 20px; margin-bottom: -5px;"/>
+                                        <div th:each="comment : ${comments}">
+                                            <div th:if="${comment == null}">
+                                                <p>Нет комментариев</p>
+                                            </div>
+                                            <div th:if="${comment != null}">
+                                                <div th:if="${comment.getIdPost() == post.getId()}">
+                                                    <div th:each="userC : ${users}">
+                                                        <div th:if="${comment.getIdUser() == userC.getId()}">
+                                                            <div class="row" style="margin-top: 0px;">
+                                                                <!--Комментарий уровень 1-->
+                                                                <div class="row"
+                                                                     th:if="${comment.getIdComments() == 0}">
+                                                                    <div class="col-2" style="margin-top: 15px;">
+                                                                        <img class="figure_img_comment_item_list"
+                                                                             alt="image" th:src="${userC.getImg()}"/>
+                                                                    </div>
+                                                                    <div class="col-10 align-self-center"
+                                                                         style="margin-left: -90px; align-content: start;">
+                                                                        <p class="name_user_comment_item_list p-text-color"
+                                                                           th:text="${userC.getLogin()}"></p>
+                                                                        <div>
+                                                                            <p class="description_comment_item_list p-text-color"
+                                                                               th:text="${comment.getText()}"></p>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col align-self-center"
+                                                                                 style="width: 250px; white-space: nowrap;">
+                                                                                <p class="date_p_comment_item_list p-text-color"></p>
+                                                                                <script th:inline="javascript">
+                                                                                    getDateFormatForComments([[${comment.getDate()}]]);
+                                                                                </script>
+                                                                            </div>
+
+                                                                            <div class="col align-self-center"
+                                                                                 style=" width: 45px; margin-top: -33px; margin-left: 5px;">
+                                                                                <a href="" class="p-text-color"
+                                                                                   style="font-size: 12px; margin-top: -15px; color: var(--main-color);">Ответить</a>
+                                                                            </div>
+
+                                                                            <div class="col align-self-center"
+                                                                                 style="width: 50px; margin-top: -35px; margin-left: 5px; white-space: nowrap">
+                                                                                <i class="fa-regular fa-heart"
+                                                                                   style="color: var(--main-color); margin-top: 5px;"></i>
+                                                                                <label style="width: fit-content; font-size: 12px; margin-top: -23px; color: var(--main-color);"
+                                                                                       th:text="${comment.getLikes()}"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div th:each="subComment : ${comments}">
+                                                                    <div th:if="${subComment.getIdComments() == comment.getId()}">
+                                                                        <hr class="block_line"
+                                                                            style="margin-left: 75px; width: 450px; margin-top: -10px;"/>
+                                                                        <div th:each="userSC : ${users}">
+                                                                            <div th:if="${comment.getIdUser() == userSC.getId()}">
+                                                                                <div class="row"
+                                                                                     style="margin-top: -20px; margin-left: 60px;">
+                                                                                    <!--Комментарий уровень 2-->
+                                                                                    <div class="col-2"
+                                                                                         style="margin-top: 15px;">
+                                                                                        <img class="figure_img_comment_item_list"
+                                                                                             alt="image" th:src="${userSC.getImg()}"/>
+                                                                                    </div>
+                                                                                    <div class="col-10 align-self-center"
+                                                                                         style="margin-left: -80px; align-content: start;">
+                                                                                        <p class="name_user_comment_item_list p-text-color" th:text="${userSC.getLogin()}"></p>
+                                                                                        <div>
+                                                                                            <p class="description_comment_item_list p-text-color"
+                                                                                               style="width: 370px;" th:text="${subComment.getText()}"></p>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col align-self-center"
+                                                                                                 style="width: 200px; white-space: nowrap;">
+                                                                                                <p class="date_p_comment_item_list p-text-color"></p>
+                                                                                                <script th:inline="javascript">
+                                                                                                    getDateFormatForComments([[${subComment.getDate()}]]);
+                                                                                                </script>
+                                                                                            </div>
+
+                                                                                            <div class="col align-self-center"
+                                                                                                 style=" width: 45px; margin-top: -33px; margin-left: 5px;">
+                                                                                                <a href=""
+                                                                                                   class="p-text-color"
+                                                                                                   style="font-size: 12px; margin-top: -15px; color: var(--main-color);">Ответить</a>
+                                                                                            </div>
+
+                                                                                            <div class="col align-self-center"
+                                                                                                 style="width: 50px; margin-top: -35px; margin-left: 40px; white-space: nowrap">
+                                                                                                <i class="fa-regular fa-heart"
+                                                                                                   style="color: var(--main-color); margin-top: 5px;"></i>
+                                                                                                <label style="width: fit-content; font-size: 12px; margin-top: -23px; color: var(--main-color);"
+                                                                                                       th:text="${subComment.getLikes()}"></label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <hr class="block_line"
+                                                                                            style="margin-left: 75px; width: 372px; margin-top: -10px;"/>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div th:if="${comment.getIdComments() == 0}">
+                                                                <hr class="block_line"
+                                                                    style="margin-left: 75px; width: 450px; margin-top: -10px;"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -311,195 +436,91 @@
 <div class="b-container" style="display: none;">
 </div>
 <!--Пост развёрнутый-->
-<div class="b-popup" id="postDetails">
+<!--<div class="b-popup" id="postDetails">
     <div class="center-screen" style="margin-top: -20px; margin-left: -40px;">
         <div class="block_div" style="width: 600px; height: 600px;">
             <div class="block_div" style="padding: 5px 5px 20px; height: auto; margin-bottom: 5px;">
-                <div class="div_post_item_list" style="margin-left: 10px;">
+                <div class="div_post_item_list2" style="margin-left: 10px; margin-top: 20px;">
                     <div class="scroll" style="height: 600px; margin-left: 15px; margin-right: 10px;">
-                        <div class="row">
-                            <div class="col-2 col-md-1">
-                                <img class="figure_img_post_item_list" alt="image"
-                                     src="https://i.pinimg.com/originals/d7/a5/1d/d7a51dc87377465175258827ef40e9c9.jpg"/>
-                                <!--th:src="${group.getAvtar()}"/>-->
+                        <div class="col align-self-center btnClosePostDetails"
+                             style="position: absolute; top: 35px; right: 20px;">
+                            <button class="btn btn-primary bet_time"
+                                    style="margin-top: 15px; margin-left: 50px;" onclick="commentsOff()"> X
+                            </button>
+                        </div>
+                        <div id="divPostDetails">
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="position: absolute; bottom: 20px; ">
+                    &lt;!&ndash;Отправка комментария&ndash;&gt;
+                    <div class="block_div" style="width: 538px; height: 40px; margin-left: 20px; margin-top: -20px;">
+                        <div class="row" style="margin-top: -25px; margin-bottom: -20px;">
+                            <hr class="block_line" style="margin-left: 7px; width: 526px;"/>
+                        </div>
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-2" style="margin-top: 0px;">
+                                <img class="figure_img_comment_item_list" alt="image"
+                                     src="https://cojo.ru/wp-content/uploads/2022/12/avatarki-dlia-vatsapa-25.webp"/>
+                                &lt;!&ndash;th:src="${group.getAvtar()}"/>&ndash;&gt;
                             </div>
-                            <div class="col align-self-center" style="margin-left: -30px;">
-                                <p class="name_post_item_list p-text-color">Genshin Impact</p>
-                                <!--th:text="${group.getName()}"></p>-->
-                                <div>
-                                    <p class="date_p_post_item_list p-text-color">26 янв в 11:40</p>
-                                    <!--Функция для вывода даты!!!!!!!!!!!!!!!!!!!!!!-->
-                                </div>
+                            <div class="col-9" style="margin-top: 15px; margin-left: -15px;">
+                                <input required type="text" name="name" class="form-control margin-top-20" id="nameGroupsInput"
+                                       aria-describedby="nameHelp" placeholder="Комментарий..."
+                                       style="width: 400px;"
+                                       minlength="1" oninvalid="this.setCustomValidity('Пустое поле не допустимо')"
+                                       oninput="this.setCustomValidity('')"/>
                             </div>
-                            <div class="col align-self-center" style="position: absolute; top: 40px; right: 0px;">
-                                <button class="btn btn-primary bet_time" style="margin-top: 15px; margin-left: 50px;" onclick="commentsOff()"> X </button>
+                            <div class="col-1" style="margin-top: 20px; margin-left: 5px;">
+                                <i class="fa-regular fa-paper-plane" style="color: var(&#45;&#45;main-color); font-size: 30px;"></i>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col align-self-center" style="margin-left: 0px; align-content: center">
-                                <p class="p-text-color"
-                                   style="text-align: start; margin-left: 0px; margin-right: 0px; width: 525px; height: auto; max-height:120px; overflow-y: auto;"
-                                >Привет, Путешественники! Сегодня мы познакомим вас с Сянь Юнь. Это Просветлённый Адепт,
-                                    которого называют титулом Хранитель Облаков. Никто не сравнится с ней в искусстве
-                                    механики.</p>
-                                <!--th:text="${post.getDescription()}"></p>-->
-                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>-->
+
+
+<!--Пост развёрнутый-->
+<div class="b-popup" id="postDetails">
+    <div class="center-screen" style="margin-top: -20px; margin-left: -40px;">
+        <div class="block_div" style="width: 600px; height: 700px;">
+            <div class="block_div" style="padding: 5px 5px 20px; height: auto; width: auto; margin-bottom: 5px;">
+                <div class="div_post_item_list2" style="margin-left: 10px;">
+                    <div class="scroll" style="height: 600px; margin-left: 15px; margin-right: 10px;">
+                        <div class="col align-self-center btnClosePostDetails"
+                             style="position: absolute; top: 35px; right: 20px;">
+                            <button class="btn btn-primary bet_time"
+                                    style="margin-top: 15px; margin-left: 50px;" onclick="commentsOff()"> X
+                            </button>
                         </div>
-                        <div class="row">
-                            <div class="col align-self-center" style="margin-left: 0px;">
-                                <img style="align-content: start; margin-left: 0px; margin-top: 0px; margin-right: 0px; height: 310px; width: 525px;"
-                                     src="https://sun9-45.userapi.com/impg/Jwurr7BpdAVcztGEK923exe5UmbHnzMYndcT9A/0Ik1uEKayjM.jpg?size=1200x675&quality=96&sign=80c08cb9d51158e8f4e8e25f3871f033&type=album"/>
-                                <!--th:src="${post.getImg()}"/>-->
-                            </div>
+                        <div id="divPostDetails">
                         </div>
-                        <div class="row" style="margin-top: 20px;">
-                            <div class="col align-self-center"
-                                 style="margin-left: 0px; justify-content: space-between;">
-                                <div class="like-container row">
-                                    <!--<button class="btn btn-primary" th:onclick="'like(\'' + ${post.getId()} + '\');'" style="margin-left: 0px; width: 80px; height: 40px;">
-                                        <i class="fa-regular fa-heart fa-bounce"  style="fill: var(&#45;&#45;second-color); pointer-events: none;cursor: default;"></i>
-                                        <div th:each="like : ${likes}" style="display: none;">
-                                            <div th:if="${like.getPostUserId().getUserId()==userLogin.getId()}">
-                                                <div th:if="${like.getPostUserId().getPostId() == post.getId()}">
-                                                    <script th:inline="javascript">
-                                                        matchLike();
-                                                    </script>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <label class="label" style="width: fit-content; pointer-events: none;cursor: default;" th:text=" ${post.getLikes()}"></label>
-                                    </button>-->
-
-                                    <button class="btn btn-primary c-button"
-                                            style="margin-left: 13px; width: 75px; height: 40px;">
-                                        <!--th:onclick="'comments(\'' + ${post.getId()} + '\');'" -->
-                                        <i class="fa-regular fa-heart fa-bounce"
-                                           style="fill: var(--second-color);"></i>
-                                        <label style="width: fit-content;" th:text="5"></label>
-                                    </button>
-
-                                    <button class="btn btn-primary c-button"
-                                            style="margin-left: 10px; width: 75px; height: 40px;">
-                                        <!--th:onclick="'comments(\'' + ${post.getId()} + '\');'" -->
-                                        <i class="fa-regular fa-comment fa-beat-fade"
-                                           style="fill: var(--second-color);"></i>
-                                        <label style="width: fit-content;" th:text="100"></label>
-                                    </button>
-
-                                    <button class="btn btn-primary c-button"
-                                            style="margin-left: 10px; width: fit-content; height: 40px;">
-                                        <!--th:onclick="'view(\'' + ${post.getId()} + '\');'" -->
-                                        <i class="fa-regular fa-eye" style="fill: var(--second-color);"></i>
-                                        <label style="width: fit-content;">4</label>
-                                        <!--th:text=" ${post.getViews()}"></label>-->
-                                    </button>
+                    </div>
+                    <div class="row" style="position: absolute; bottom: 10px; ">
+                        <!--Отправка комментария-->
+                        <div class="block_div" style="width: 538px; height: 40px; margin-left: 20px; margin-top: -20px;">
+                            <div class="row" style="margin-top: -25px; margin-bottom: -20px;">
+                                <hr class="block_line" style="margin-left: 7px; width: 526px; margin-top: 5px"/>
+                            </div>
+                            <div class="row" style="margin-top: 5px;">
+                                <div class="col-2" style="margin-top: 0px;">
+                                    <img class="figure_img_comment_item_list" alt="image" th:src="${userLogin.getImg()}"/>
+                                </div>
+                                <div class="col-9" style="margin-top: 10px; margin-left: -15px;">
+                                    <input required type="text" name="name" class="form-control margin-top-20" id="nameGroupsInput"
+                                           aria-describedby="nameHelp" placeholder="Комментарий..."
+                                           style="width: 400px;"
+                                           minlength="1" oninvalid="this.setCustomValidity('Пустое поле не допустимо')"
+                                           oninput="this.setCustomValidity('')"/>
+                                </div>
+                                <div class="col-1" style="margin-top: 10px; margin-left: 5px;">
+                                    <i class="fa-regular fa-paper-plane" style="color: var(--main-color); font-size: 30px;"></i>
                                 </div>
                             </div>
-
-
-                            <hr class="block_line" style="margin-left: 0px; width: 538px; margin-top: 20px; margin-bottom: -5px;"/>
-
-
-                            <div class="row" style="margin-top: 0px;">
-                                <!--Комментарий уровень 1-->
-                                <div class="col-2" style="margin-top: 15px;">
-                                    <img class="figure_img_comment_item_list" alt="image"
-                                         src="https://cojo.ru/wp-content/uploads/2022/12/avatarki-dlia-vatsapa-25.webp"/>
-                                    <!--th:src="${group.getAvtar()}"/>-->
-                                </div>
-                                <div class="col-10 align-self-center" style="margin-left: -90px; align-content: start;">
-                                    <p class="name_user_comment_item_list p-text-color">Smrrr</p>
-                                    <!--th:text="${group.getName()}"></p>-->
-                                    <div>
-                                        <p class="description_comment_item_list p-text-color">Хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе</p>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col align-self-center" style="width: 200px; white-space: nowrap;">
-                                            <p class="date_p_comment_item_list p-text-color">26 янв в 11:40</p>
-                                            <!--Функция для вывода даты!!!!!!!!!!!!!!!!!!!!!!-->
-
-                                        </div>
-
-                                        <div class="col align-self-center" style=" width: 45px; margin-top: -33px; margin-left: -10px;">
-                                            <a href="" class="p-text-color" style="font-size: 12px; margin-top: -15px; color: var(--main-color);">Ответить</a>
-                                        </div>
-
-                                        <div class="col align-self-center" style="width: 50px; margin-top: -35px; margin-left: -95px; white-space: nowrap">
-                                            <i class="fa-regular fa-heart" style="color: var(--main-color); margin-top: 5px;"></i>
-                                            <label style="width: fit-content; font-size: 12px; margin-top: -23px; color: var(--main-color);" th:text="5"></label>
-                                        </div>
-                                    </div>
-                                    <hr class="block_line" style="margin-left: 75px; width: 450px; margin-top: -15px;"/>
-
-
-                                    <div class="row" style="margin-top: -10px; margin-left: 60px;">
-                                        <!--Комментарий уровень 2-->
-                                        <div class="col-2" style="margin-top: 15px;">
-                                            <img class="figure_img_comment_item_list" alt="image"
-                                                 src="https://cojo.ru/wp-content/uploads/2022/12/avatarki-dlia-vatsapa-25.webp"/>
-                                            <!--th:src="${group.getAvtar()}"/>-->
-                                        </div>
-                                        <div class="col-10 align-self-center" style="margin-left: -60px; align-content: start;">
-                                            <p class="name_user_comment_item_list p-text-color">Smrrr 1</p>
-                                            <!--th:text="${group.getName()}"></p>-->
-                                            <div>
-                                                <p class="description_comment_item_list p-text-color" style="width: 370px;">Хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе</p>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col align-self-center" style="width: 200px; white-space: nowrap;">
-                                                    <p class="date_p_comment_item_list p-text-color">26 янв в 11:40</p>
-                                                    <!--Функция для вывода даты!!!!!!!!!!!!!!!!!!!!!!-->
-
-                                                </div>
-
-                                                <div class="col align-self-center" style=" width: 45px; margin-top: -33px; margin-left: -5px;">
-                                                    <a href="" class="p-text-color" style="font-size: 12px; margin-top: -15px; color: var(--main-color);">Ответить</a>
-                                                </div>
-
-                                                <div class="col align-self-center" style="width: 50px; margin-top: -35px; margin-left: 40px; white-space: nowrap">
-                                                    <i class="fa-regular fa-heart" style="color: var(--main-color); margin-top: 5px;"></i>
-                                                    <label style="width: fit-content; font-size: 12px; margin-top: -23px; color: var(--main-color);" th:text="5"></label>
-                                                </div>
-                                            </div>
-                                            <hr class="block_line" style="margin-left: 75px; width: 372px; margin-top: -15px;"/>
-                                        </div>
-                                    </div>
-
-                                    <div class="row" style="margin-top: -10px; margin-left: 60px;">
-                                        <!--Комментарий 2 уровень 2-->
-                                        <div class="col-2" style="margin-top: 15px;">
-                                            <img class="figure_img_comment_item_list" alt="image"
-                                                 src="https://cojo.ru/wp-content/uploads/2022/12/avatarki-dlia-vatsapa-25.webp"/>
-                                            <!--th:src="${group.getAvtar()}"/>-->
-                                        </div>
-                                        <div class="col-10 align-self-center" style="margin-left: -60px; align-content: start;">
-                                            <p class="name_user_comment_item_list p-text-color">Smrrr 2</p>
-                                            <!--th:text="${group.getName()}"></p>-->
-                                            <div>
-                                                <p class="description_comment_item_list p-text-color" style="width: 370px;">Не хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе хе-хе-хе </p>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col align-self-center" style="width: 200px; white-space: nowrap;">
-                                                    <p class="date_p_comment_item_list p-text-color">26 янв в 11:40</p>
-                                                    <!--Функция для вывода даты!!!!!!!!!!!!!!!!!!!!!!-->
-
-                                                </div>
-
-                                                <div class="col align-self-center" style=" width: 45px; margin-top: -33px; margin-left: -5px;">
-                                                    <a href="" class="p-text-color" style="font-size: 12px; margin-top: -15px; color: var(--main-color);">Ответить</a>
-                                                </div>
-
-                                                <div class="col align-self-center" style="width: 50px; margin-top: -35px; margin-left: 40px; white-space: nowrap">
-                                                    <i class="fa-regular fa-heart" style="color: var(--main-color); margin-top: 5px;"></i>
-                                                    <label style="width: fit-content; font-size: 12px; margin-top: -23px; color: var(--main-color);" th:text="5"></label>
-                                                </div>
-                                            </div>
-                                            <hr class="block_line" style="margin-left: 75px; width: 372px; margin-top: -15px;"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -508,6 +529,7 @@
     </div>
 </div>
 </body>
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
@@ -515,16 +537,24 @@
     $(document).ready(function () {
         //Скрыть PopUp при загрузке страницы
         PopUpHide();
-        commentsOff();
+        $("#postDetails").hide();
     });
 
     function comments(postId) {
-
-        $("#postDetails").show();
+        const div = document.getElementsByClassName("div_post_item_list");
+        for (let i = 0; i < div.length; i++) {
+            if (div[i].getElementsByTagName('p')[0].textContent === postId) {
+                document.querySelector("#divPostDetails").innerHTML = div.item(i).innerHTML;
+                document.querySelector("#divPostDetails").getElementsByClassName("commentsList")[0].style.display = "block";
+                $("#postDetails").show();
+            }
+        }
     }
 
     function commentsOff() {
-
+        const deleteElement = document.querySelector("#divPostDetails");
+        deleteElement.innerHTML = '';
+        $("#post").load(" #post > *");
         $("#postDetails").hide();
     }
 

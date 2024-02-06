@@ -26,6 +26,15 @@
     border-radius: 20px;
     padding: 5px;
 }
+.div_post_item_list2 {
+    height: 100%;
+    width: 100%;
+    margin-top: 15px;
+    margin-left: 25px;
+    margin-right: 25px;
+    border-radius: 20px;
+    padding: 5px;
+}
 
 .figure_img_post_item_list {
     object-fit: cover;

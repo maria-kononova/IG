@@ -230,9 +230,9 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="commentsList" style="display: none;">
-                                        <hr class="block_line"
-                                            style="margin-left: 0px; width: 530px; margin-top: 20px; margin-bottom: -5px;"/>
+                                    <div class="commentsList" style="display: none; margin-top: 10px;">
+                                        <!--<hr class="block_line"
+                                            style="margin-left: 0px; width: 526px; margin-top: 20px; margin-bottom: -5px;"/>-->
                                         <div th:each="comment : ${comments}">
                                             <div th:if="${comment == null}">
                                                 <p>Нет комментариев</p>
@@ -241,10 +241,12 @@
                                                 <div th:if="${comment.getIdPost() == post.getId()}">
                                                     <div th:each="userC : ${users}">
                                                         <div th:if="${comment.getIdUser() == userC.getId()}">
-                                                            <div class="row" style="margin-top: 0px;">
+                                                            <div class="row" style="margin-top: -5px;">
                                                                 <!--Комментарий уровень 1-->
                                                                 <div class="row"
                                                                      th:if="${comment.getIdComments() == 0}">
+                                                                    <hr class="block_line"
+                                                                        style="margin-left: 0px; width: 538px; margin-top: 5px; margin-bottom: -5px;"/>
                                                                     <div class="col-2" style="margin-top: 15px;">
                                                                         <img class="figure_img_comment_item_list"
                                                                              alt="image" th:src="${userC.getImg()}"/>
@@ -303,7 +305,7 @@
                                                                                             <p class="description_comment_item_list p-text-color"
                                                                                                style="width: 370px;" th:text="${subComment.getText()}"></p>
                                                                                         </div>
-                                                                                        <div class="row">
+                                                                                        <div class="row" style="margin-bottom: 0px;">
                                                                                             <div class="col align-self-center"
                                                                                                  style="width: 200px; white-space: nowrap;">
                                                                                                 <p class="date_p_comment_item_list p-text-color"></p>
@@ -327,8 +329,8 @@
                                                                                                        th:text="${subComment.getLikes()}"></label>
                                                                                             </div>
                                                                                         </div>
-                                                                                        <hr class="block_line"
-                                                                                            style="margin-left: 75px; width: 372px; margin-top: -10px;"/>
+                                                                                        <!--<hr class="block_line"
+                                                                                            style="margin-left: 75px; width: 372px; margin-top: -10px;"/>-->
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -336,10 +338,10 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div th:if="${comment.getIdComments() == 0}">
+                                                            <!--<div th:if="${comment.getIdComments() == 0}">
                                                                 <hr class="block_line"
                                                                     style="margin-left: 75px; width: 450px; margin-top: -10px;"/>
-                                                            </div>
+                                                            </div>-->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -525,11 +527,11 @@
                     </div>
                     <div class="row" style="position: absolute; bottom: 10px; ">
                         <!--Отправка комментария-->
-                        <div class="block_div" style="width: 538px; height: 40px; margin-left: 20px; margin-top: -20px;">
+                        <div class="block_div" style="width: 538px; height: 70px; margin-left: 20px; margin-top: -20px;">
                             <div class="row" style="margin-top: -25px; margin-bottom: -20px;">
-                                <hr class="block_line" style="margin-left: 7px; width: 526px; margin-top: 5px"/>
+                                <hr class="block_line" style="margin-left: 7px; width: 526px; margin-top: 25px"/>
                             </div>
-                            <div class="row" style="margin-top: 5px;">
+                            <div class="row" style="margin-top: 10px;">
                                 <div class="col-2" style="margin-top: 0px;">
                                     <img class="figure_img_comment_item_list" alt="image" th:src="${userLogin.getImg()}"/>
                                 </div>

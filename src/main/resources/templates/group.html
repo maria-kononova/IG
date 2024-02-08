@@ -414,22 +414,45 @@
 <div class="b-container" style="display: none;">
 </div>
 <div class="b-popup" id="popup2">
-    <div class="b-popup-content">
-        <div class="col-5" style="height: auto;">
-            <!--Создание поста-->
-            <div class="block_div" style="height: 650px; margin-left: 25px; width: 520px;">
-                <div class="block_div_no_color">
-                    <div class="row">
-                        <div class="col-7">
-                            <p class="p-main-color">Создание поста </p>
-                        </div>
-                        <div class="col-2">
-                            <button class="btn btn-primary bet_time" onclick="PopUpHide()"> X</button>
-                        </div>
+    <div class="center-screen" style="margin-top: -20px; margin-left: -40px;">
+        <div class="block_div" style="width: 505px; height: 625px;">
+            <div class="block_div_no_color">
+                <div class="row">
+                    <div class="col-10">
+                        <p class="p-main-color" style="white-space: nowrap; margin-top: 30px; margin-left: 140px;">Создание поста</p>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-primary bet_time" style="margin-top: 30px; margin-left: 100px;" onclick="PopUpHide()"> X </button>
                     </div>
                 </div>
-                <hr class="block_line"/>
             </div>
+            <hr class="block_line"/>
+            <form class="col" id="groupCreateForm" method="get" action="#" style="margin-left: 40px; margin-right: 40px; margin-top: 10px;"> <!--th:action=""-->
+                <div class="row">
+                    <textarea required type="text" name="desc" class="form-control" id="descGroupsInput"
+                              placeholder="Текст поста" style="width: 460px; white-space: normal; height: 105px; overflow-y: auto;"></textarea>
+                </div>
+                <div class="w-100"></div>
+                <main style="margin-left: -10px; margin-top: -10px;">
+                    <br/>
+                    <form method="post" id="formAvatar" th:action="@{/file/upload/group}" enctype="multipart/form-data">
+                        <input type="file" name="file" id="image1"  class="form-control-file">
+                        <div>
+                            <img class="post_img" id="avatar1" alt="image" src="https://images.squarespace-cdn.com/content/v1/5da8bac9f6d96b1bf0e5cb69/1605218099656-BR0JG492R2B375WU0QLE/Green+and+Purple+Minimal+Icons+Icon+Set+%283%29.png?format=1500w"/>
+                        </div>
+                        <button id="btnFormAvatar" type="submit" style="display: none;" class="btn btn-primary">Upload File</button>
+                    </form>
+                    <!--<input type="file" name="image" id="image" accept="image/*"/>
+                    <div>
+                        <img class="group_img" id="avatar" alt="image" src="https://images.squarespace-cdn.com/content/v1/5da8bac9f6d96b1bf0e5cb69/1605218099656-BR0JG492R2B375WU0QLE/Green+and+Purple+Minimal+Icons+Icon+Set+%283%29.png?format=1500w"/>
+                    </div>-->
+                </main>
+                <div class="w-100"></div>
+                <div class="row">
+                    <button type="submit" class="btn btn-primary" style="margin-left: 200px; margin-top: 20px; width: auto;">Сохранить</button>
+                    <p id="errorMessage" class="p-text-color"></p>
+                </div>
+            </form>
         </div>
     </div>
 </div>

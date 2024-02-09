@@ -1,5 +1,6 @@
 package com.example.ig.controller;
 
+import com.example.ig.entity.Comments;
 import com.example.ig.entity.LikeUser;
 import com.example.ig.entity.Likes;
 import com.example.ig.entity.Post;
@@ -11,21 +12,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
-import static com.example.ig.IgApplication.group;
 import static com.example.ig.IgApplication.user;
 
 @Controller
 public class PostController {
     private final PostRepository postRepository;
     private final LikesRepository likesRepository;
+    private final CommentsRepository commentsRepository;
 
     @Autowired
-    public PostController(PostRepository postRepository, LikesRepository likesRepository) {
+    public PostController(PostRepository postRepository, LikesRepository likesRepository, CommentsRepository commentsRepository) {
         this.postRepository = postRepository;
         this.likesRepository = likesRepository;
+        this.commentsRepository = commentsRepository;
     }
 
     @PostMapping("/like")
@@ -59,5 +60,22 @@ public class PostController {
         }
         return "noSuccess";
     }
+
+    @PostMapping("/sendComment")
+    @ResponseBody
+    public String comment(Model model, @RequestParam String postId, @RequestParam String textComment, @RequestParam String idComments) {
+        System.out.println("send");
+        if(user!=null) {
+            Comments comments = new Comments(Long.parseLong(postId), user.getId(), Long.parseLong(idComments), textComment, 0, new Date());
+            commentsRepository.save(comments);
+            Post post = postRepository.getById(Long.valueOf(postId));
+            post.setComments(post.getComments() + 1);
+            postRepository.save(post);
+            model.addAttribute("comments", commentsRepository.findAll());
+            return "Success";
+        }
+        return "noSuccess";
+    }
+
 
 }

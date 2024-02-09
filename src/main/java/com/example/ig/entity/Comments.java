@@ -25,4 +25,13 @@ public class Comments {
     private String text;
     private int likes;
     private Date date;
+
+    public Comments(long idPost, long idUser, long idComments, String text, int likes, Date date) {
+        this.idPost = idPost;
+        this.idUser = idUser;
+        this.idComments = idComments;
+        this.text = text;
+        this.likes = likes;
+        this.date = date;
+    }
 }

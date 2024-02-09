@@ -66,6 +66,13 @@ public class GroupController {
         model.addAttribute("comments", commentsRepository.findAll());
         return "group";
     }
+    @GetMapping("/likeUpdate")
+    @ResponseBody
+    public String likeUpdate(Model model){
+        model.addAttribute("likes", sortLikesByGroupId());
+        return "Success";
+    }
+
     public List<Likes> sortLikesByGroupId() {
         List<Likes> likes = new ArrayList<>();
         for (Post post : postRepository.getAllPostsOfGroup(group.getId())) {

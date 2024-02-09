@@ -84,6 +84,20 @@ public class GroupController {
         }
         return likes;
     }
+
+    @RequestMapping(value="/updateGroupList/{query}", method= RequestMethod.GET)
+    public String updateGroupList(Model model, @PathVariable("query") String query) {
+        model.addAttribute("groups", searchSort(query));
+        return "groups :: #groupList";
+    }
+
+    @RequestMapping(value="/getGroupList", method= RequestMethod.GET)
+    public String getGroupList(Model model) {
+        model.addAttribute("groups", groupRepository.findAll());
+        return "groups :: #groupList";
+    }
+
+
     @GetMapping("/groups")
     public String groupPage(Model model, HttpServletRequest request, HttpServletResponse response) {
         Long userId = getUserFromCookie(request, response);
@@ -140,7 +154,18 @@ public class GroupController {
         return max;
     }
 
-    @PostMapping("/searchGroup")
+    public List<Group> searchSort(String query){
+        List<Group> groupsQuery = new ArrayList<>();
+        for(Group gr : groupRepository.findAll()){
+            if(gr.getName().toLowerCase().contains(query)){
+                groupsQuery.add(gr);
+                System.out.println(gr.getName());
+            }
+        }
+        if(query.equals("")) { groupsQuery = groupRepository.findAll();}
+        return groupsQuery;
+    }
+   /* @PostMapping("/searchGroup")
     @ResponseBody
     public String searchGroup(Model model, @RequestParam String query){
         List<Group> groupsQuery = new ArrayList<>();
@@ -150,10 +175,10 @@ public class GroupController {
                 System.out.println(gr.getName());
             }
         }
-        //if(query.equals("")) { groupsQuery = groupRepository.findAll();}
+        if(query.equals("")) { groupsQuery = groupRepository.findAll();}
         model.addAttribute("groups", groupsQuery);
         return "Success";
-    }
+    }*/
 
 
     public List<Group> getMyGroup(List<Long> myGroupsLong){

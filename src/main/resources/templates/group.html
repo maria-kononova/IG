@@ -146,205 +146,221 @@
                     </div>
                 </div>
             </div>
-            <table id="post" style="height: 100%; width: 600px; margin-left: 260px; overflow-y: hidden;" class="scroll">
-                <tbody>
-                <tr th:each="post : ${posts}">
-                    <td>
-                        <!--Пост-->
-                        <div class="block_div"
-                             style="padding: 5px 5px 20px; height: auto; margin-bottom: 5px;">
-                            <div class="div_post_item_list">
-                                <div class="idPost" style="display: none;">
-                                    <p th:text="${post.getId()}"></p>
-                                </div>
-                                <div class="row">
-                                    <div class="col-2 col-md-1">
-                                        <img class="figure_img_post_item_list" alt="image"
-                                             th:src="${group.getAvtar()}"/>
+            <div id="postList">
+                <table style="height: 100%; width: 600px; margin-left: 260px; overflow-y: hidden;" class="scroll">
+                    <tbody>
+                    <tr th:each="post : ${posts}">
+                        <td>
+                            <!--Пост-->
+                            <div class="block_div"
+                                 style="padding: 5px 5px 20px; height: auto; margin-bottom: 5px;">
+                                <div class="div_post_item_list">
+                                    <div class="idPost" style="display: none;">
+                                        <p th:text="${post.getId()}"></p>
                                     </div>
-                                    <div class="col align-self-center" style="margin-left: -30px;">
-                                        <p class="name_post_item_list p-text-color" th:text="${group.getName()}"></p>
-                                        <div>
-                                            <p class="date_p_post_item_list p-text-color" th:text="${post.getDatePublication()}"></p>
-                                            <script th:inline="javascript">
-                                                getDateFormatForPost([[${post.getDatePublication()}]]);
-                                            </script>
+                                    <div class="row">
+                                        <div class="col-2 col-md-1">
+                                            <img class="figure_img_post_item_list" alt="image"
+                                                 th:src="${group.getAvtar()}"/>
+                                        </div>
+                                        <div class="col align-self-center" style="margin-left: -30px;">
+                                            <p class="name_post_item_list p-text-color"
+                                               th:text="${group.getName()}"></p>
+                                            <div>
+                                                <p class="date_p_post_item_list p-text-color"
+                                                   th:text="${post.getDatePublication()}"></p>
+                                                <script th:inline="javascript">
+                                                    getDateFormatForPost([[${post.getDatePublication()}]]);
+                                                </script>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col align-self-center" style="margin-left: 0px; align-content: center">
-                                        <p class="p-text-color"
-                                           style="text-align: start; margin-left: 0px; margin-right: 0px; width: 525px; height: auto; max-height:120px; overflow-y: auto;"
-                                           th:text="${post.getDescription()}"></p>
+                                    <div class="row">
+                                        <div class="col align-self-center"
+                                             style="margin-left: 0px; align-content: center">
+                                            <p class="p-text-color"
+                                               style="text-align: start; margin-left: 0px; margin-right: 0px; width: 525px; height: auto; max-height:120px; overflow-y: auto;"
+                                               th:text="${post.getDescription()}"></p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row image" th:if='${post.getImg()!=null}'>
-                                    <div>
-                                        <img align="middle"
-                                             style=" border-radius: 5px; display: block;height: 310px; width: 525px;"
-                                             th:src="${post.getImg()}"/>
+                                    <div class="row image" th:if='${post.getImg()!=null}'>
+                                        <div>
+                                            <img align="middle"
+                                                 style=" border-radius: 5px; display: block;height: 310px; width: 525px;"
+                                                 th:src="${post.getImg()}"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row" style="margin-top: 15px;">
-                                    <div class="col align-self-center"
-                                         style="margin-left: 0px; justify-content: space-between;">
-                                        <div class="like-container row">
-                                            <button class="btn btn-primary"
-                                                    th:onclick="'like(\'' + ${post.getId()} + '\');'"
-                                                    style="margin-left: 13px; width: 80px; height: 40px;">
-                                                <content>
-                                                    <i class="fa-regular fa-heart fa-bounce"
-                                                       style="fill: var(--second-color); pointer-events: none;cursor: default;"></i>
-                                                    <div th:if="${userLogin!=null}" style="display: none;">
-                                                        <div th:each="like : ${likes}">
-                                                            <div th:if="${like.getPostUserId().getUserId()==userLogin.getId()}">
-                                                                <div th:if="${like.getPostUserId().getPostId() == post.getId()}">
-                                                                    <script th:inline="javascript">
-                                                                        matchLike();
-                                                                    </script>
+                                    <div class="row" style="margin-top: 15px;">
+                                        <div class="col align-self-center"
+                                             style="margin-left: 0px; justify-content: space-between;">
+                                            <div class="like-container row">
+                                                <button class="btn btn-primary"
+                                                        th:onclick="'like(\'' + ${post.getId()} + '\');'"
+                                                        style="margin-left: 13px; width: 80px; height: 40px;">
+                                                    <content>
+                                                        <i class="fa-regular fa-heart fa-bounce"
+                                                           style="fill: var(--second-color); pointer-events: none;cursor: default;"></i>
+                                                        <div th:if="${userLogin!=null}" style="display: none;">
+                                                            <div th:each="like : ${likes}">
+                                                                <div th:if="${like.getPostUserId().getUserId()==userLogin.getId()}">
+                                                                    <div th:if="${like.getPostUserId().getPostId() == post.getId()}">
+                                                                        <script th:inline="javascript">
+                                                                            matchLike();
+                                                                        </script>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <label class="label"
-                                                           style="width: fit-content; pointer-events: none;cursor: default;"
-                                                           th:text=" ${post.getLikes()}"></label>
-                                                </content>
-                                            </button>
+                                                        <label class="label"
+                                                               style="width: fit-content; pointer-events: none;cursor: default;"
+                                                               th:text=" ${post.getLikes()}"></label>
+                                                    </content>
+                                                </button>
 
-                                            <button class="btn btn-primary c-button"
-                                                    th:onclick="'comments(\'' + ${post.getId()} + '\');'"
-                                                    style="margin-left: 10px; width: 75px; height: 40px;">
-                                                <i class="fa-regular fa-comment fa-beat-fade"
-                                                   style="fill: var(--second-color);"></i>
-                                                <label style="width: fit-content;" th:text="${post.getComments()}"></label>
-                                            </button>
+                                                <button class="btn btn-primary c-button"
+                                                        th:onclick="'comments(\'' + ${post.getId()} + '\');'"
+                                                        style="margin-left: 10px; width: 75px; height: 40px;">
+                                                    <i class="fa-regular fa-comment fa-beat-fade"
+                                                       style="fill: var(--second-color);"></i>
+                                                    <label style="width: fit-content;"
+                                                           th:text="${post.getComments()}"></label>
+                                                </button>
 
-                                            <button class="btn btn-primary c-button"
-                                                    th:onclick="'view(\'' + ${post.getId()} + '\');'"
-                                                    style="margin-left: 10px; width: fit-content; height: 40px;">
-                                                <i class="fa-regular fa-eye" style="fill: var(--second-color);"></i>
-                                                <label style="width: fit-content;"
-                                                       th:text=" ${post.getViews()}"></label>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="commentsList" style="display: none; margin-top: 0px;">
-                                        <!--<hr class="block_line"
-                                            style="margin-left: 0px; width: 526px; margin-top: 20px; margin-bottom: -5px;"/>-->
-                                        <div th:each="comment : ${comments}">
-                                            <div th:if="${comment == null}">
-                                                <p>Нет комментариев</p>
+                                                <button class="btn btn-primary c-button"
+                                                        th:onclick="'view(\'' + ${post.getId()} + '\');'"
+                                                        style="margin-left: 10px; width: fit-content; height: 40px;">
+                                                    <i class="fa-regular fa-eye" style="fill: var(--second-color);"></i>
+                                                    <label style="width: fit-content;"
+                                                           th:text=" ${post.getViews()}"></label>
+                                                </button>
                                             </div>
-                                            <div th:if="${comment != null}">
-                                                <div th:if="${comment.getIdPost() == post.getId()}">
-                                                    <div th:each="userC : ${users}">
-                                                        <div th:if="${comment.getIdUser() == userC.getId()}">
-                                                            <div class="row" style="margin-top: -5px;">
-                                                                <!--Комментарий уровень 1-->
-                                                                <div class="row"
-                                                                     th:if="${comment.getIdComments() == 0}">
-                                                                    <hr class="block_line"
-                                                                        style="margin-left: 0px; width: 538px; margin-top: 15px; margin-bottom: -5px;"/>
-                                                                    <div class="col-2" style="margin-top: 15px;">
-                                                                        <img class="figure_img_comment_item_list"
-                                                                             alt="image" th:src="${userC.getImg()}"/>
-                                                                    </div>
-                                                                    <div class="col-10 align-self-center"
-                                                                         style="margin-left: -90px; align-content: start;">
-                                                                        <p class="name_user_comment_item_list p-text-color"
-                                                                           th:text="${userC.getLogin()}"></p>
-                                                                        <div>
-                                                                            <p class="description_comment_item_list p-text-color"
-                                                                               th:text="${comment.getText()}"></p>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col align-self-center"
-                                                                                 style="width: 400px; white-space: nowrap;">
-                                                                                <p class="date_p_comment_item_list p-text-color" th:text="${comment.getDate()}"></p>
-                                                                                <script th:inline="javascript">
-                                                                                    getDateFormatForComments([[${comment.getDate()}]]);
-                                                                                </script>
-                                                                            </div>
-
-
-                                                                            <div style="width: 50px; height: 10px; margin-top: 0px; margin-left: -70px; white-space: nowrap; background: rgba(0, 0, 0, 0);">
-                                                                                <!--Кнопка ответить и лайки!!!-->
-                                                                                <button class="btn no-button c-button" th:onclick="'answer(\'' + ${comment.getId()} + '\');'" >
-                                                                                    <p class="p-text-color"
-                                                                                       style="font-size: 12px; margin-top: -65px; margin-left: -280px; color: var(--main-color);">Ответить</p>
-                                                                                </button>
-
-                                                                                <div style="margin-top: -113px;">
-                                                                                    <i class="fa-regular fa-heart"
-                                                                                       style="color: var(--main-color); margin-top: 0px; margin-left: 95px;"></i>
-                                                                                    <label style="width: fit-content; font-size: 12px; margin-top: 0px; color: var(--main-color);"
-                                                                                           th:text="${comment.getLikes()}"></label>
-                                                                                </div>
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div th:each="subComment : ${comments}">
-                                                                    <div th:if="${subComment.getIdComments() == comment.getId()}">
+                                        </div>
+                                        <div class="commentsList" style="display: none; margin-top: 0px;">
+                                            <!--<hr class="block_line"
+                                                style="margin-left: 0px; width: 526px; margin-top: 20px; margin-bottom: -5px;"/>-->
+                                            <div th:each="comment : ${comments}">
+                                                <div th:if="${comment == null}">
+                                                    <p>Нет комментариев</p>
+                                                </div>
+                                                <div th:if="${comment != null}">
+                                                    <div th:if="${comment.getIdPost() == post.getId()}">
+                                                        <div th:each="userC : ${users}">
+                                                            <div th:if="${comment.getIdUser() == userC.getId()}">
+                                                                <div class="row" style="margin-top: -5px;">
+                                                                    <!--Комментарий уровень 1-->
+                                                                    <div class="row"
+                                                                         th:if="${comment.getIdComments() == 0}">
                                                                         <hr class="block_line"
-                                                                            style="margin-left: 75px; width: 450px; margin-top: -10px;"/>
-                                                                        <div th:each="userSC : ${users}">
-                                                                            <div th:if="${comment.getIdUser() == userSC.getId()}">
-                                                                                <div class="row"
-                                                                                     style="margin-top: -20px; margin-left: 60px;">
-                                                                                    <!--Комментарий уровень 2-->
-                                                                                    <div class="col-2"
-                                                                                         style="margin-top: 15px;">
-                                                                                        <img class="figure_img_comment_item_list"
-                                                                                             alt="image" th:src="${userSC.getImg()}"/>
+                                                                            style="margin-left: 0px; width: 538px; margin-top: 15px; margin-bottom: -5px;"/>
+                                                                        <div class="col-2" style="margin-top: 15px;">
+                                                                            <img class="figure_img_comment_item_list"
+                                                                                 alt="image"
+                                                                                 th:src="${userC.getImg()}"/>
+                                                                        </div>
+                                                                        <div class="col-10 align-self-center"
+                                                                             style="margin-left: -90px; align-content: start;">
+                                                                            <p class="name_user_comment_item_list p-text-color"
+                                                                               th:text="${userC.getLogin()}"></p>
+                                                                            <div>
+                                                                                <p class="description_comment_item_list p-text-color"
+                                                                                   th:text="${comment.getText()}"></p>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col align-self-center"
+                                                                                     style="width: 400px; white-space: nowrap;">
+                                                                                    <p class="date_p_comment_item_list p-text-color"
+                                                                                       th:text="${comment.getDate()}"></p>
+                                                                                    <script th:inline="javascript">
+                                                                                        getDateFormatForComments([[${comment.getDate()}]]);
+                                                                                    </script>
+                                                                                </div>
+
+
+                                                                                <div style="width: 50px; height: 10px; margin-top: 0px; margin-left: -70px; white-space: nowrap; background: rgba(0, 0, 0, 0);">
+                                                                                    <!--Кнопка ответить и лайки!!!-->
+                                                                                    <button class="btn no-button c-button"
+                                                                                            th:onclick="'answer(\'' + ${comment.getId()} + '\');'">
+                                                                                        <p class="p-text-color"
+                                                                                           style="font-size: 12px; margin-top: -65px; margin-left: -280px; color: var(--main-color);">
+                                                                                            Ответить</p>
+                                                                                    </button>
+
+                                                                                    <div style="margin-top: -113px;">
+                                                                                        <i class="fa-regular fa-heart"
+                                                                                           style="color: var(--main-color); margin-top: 0px; margin-left: 95px;"></i>
+                                                                                        <label style="width: fit-content; font-size: 12px; margin-top: 0px; color: var(--main-color);"
+                                                                                               th:text="${comment.getLikes()}"></label>
                                                                                     </div>
-                                                                                    <div class="col-10 align-self-center"
-                                                                                         style="margin-left: -80px; align-content: start;">
-                                                                                        <p class="name_user_comment_item_list p-text-color" th:text="${userSC.getLogin()}"></p>
-                                                                                        <div>
-                                                                                            <p class="description_comment_item_list p-text-color"
-                                                                                               style="width: 370px;" th:text="${subComment.getText()}"></p>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div th:each="subComment : ${comments}">
+                                                                        <div th:if="${subComment.getIdComments() == comment.getId()}">
+                                                                            <hr class="block_line"
+                                                                                style="margin-left: 75px; width: 450px; margin-top: -10px;"/>
+                                                                            <div th:each="userSC : ${users}">
+                                                                                <div th:if="${comment.getIdUser() == userSC.getId()}">
+                                                                                    <div class="row"
+                                                                                         style="margin-top: -20px; margin-left: 60px;">
+                                                                                        <!--Комментарий уровень 2-->
+                                                                                        <div class="col-2"
+                                                                                             style="margin-top: 15px;">
+                                                                                            <img class="figure_img_comment_item_list"
+                                                                                                 alt="image"
+                                                                                                 th:src="${userSC.getImg()}"/>
                                                                                         </div>
-                                                                                        <div class="row" style="margin-bottom: 0px;">
-                                                                                            <div class="col align-self-center"
-                                                                                                 style="width: 200px; white-space: nowrap;">
-                                                                                                <p class="date_p_comment_item_list p-text-color"></p>
-                                                                                                <script th:inline="javascript">
-                                                                                                    getDateFormatForComments([[${subComment.getDate()}]]);
-                                                                                                </script>
+                                                                                        <div class="col-10 align-self-center"
+                                                                                             style="margin-left: -80px; align-content: start;">
+                                                                                            <p class="name_user_comment_item_list p-text-color"
+                                                                                               th:text="${userSC.getLogin()}"></p>
+                                                                                            <div>
+                                                                                                <p class="description_comment_item_list p-text-color"
+                                                                                                   style="width: 370px;"
+                                                                                                   th:text="${subComment.getText()}"></p>
                                                                                             </div>
+                                                                                            <div class="row"
+                                                                                                 style="margin-bottom: 0px;">
+                                                                                                <div class="col align-self-center"
+                                                                                                     style="width: 200px; white-space: nowrap;">
+                                                                                                    <p class="date_p_comment_item_list p-text-color"></p>
+                                                                                                    <script th:inline="javascript">
+                                                                                                        getDateFormatForComments([[${subComment.getDate()}]]);
+                                                                                                    </script>
+                                                                                                </div>
 
-                                                                                            <div style="width: 50px; height: 10px; margin-top: 0px; margin-left: -104px; white-space: nowrap; background: rgba(0, 0, 0, 0);">
-                                                                                                <!--Кнопка ответить и лайки!!!-->
-                                                                                                <button class="btn no-button c-button" th:onclick="'answer(\'' + ${comment.getId()} + '\');'" >
-                                                                                                    <p class="p-text-color"
-                                                                                                       style="font-size: 12px; margin-top: -65px; margin-left: -280px; color: var(--main-color);">Ответить</p>
-                                                                                                </button>
+                                                                                                <div style="width: 50px; height: 10px; margin-top: 0px; margin-left: -104px; white-space: nowrap; background: rgba(0, 0, 0, 0);">
+                                                                                                    <!--Кнопка ответить и лайки!!!-->
+                                                                                                    <button class="btn no-button c-button"
+                                                                                                            th:onclick="'answer(\'' + ${comment.getId()} + '\');'">
+                                                                                                        <p class="p-text-color"
+                                                                                                           style="font-size: 12px; margin-top: -65px; margin-left: -280px; color: var(--main-color);">
+                                                                                                            Ответить</p>
+                                                                                                    </button>
 
-                                                                                                <div style="margin-top: -113px;">
-                                                                                                    <i class="fa-regular fa-heart"
-                                                                                                       style="color: var(--main-color); margin-top: 0px; margin-left: 95px;"></i>
-                                                                                                    <label style="width: fit-content; font-size: 12px; margin-top: 0px; color: var(--main-color);"
-                                                                                                           th:text="${comment.getLikes()}"></label>
+                                                                                                    <div style="margin-top: -113px;">
+                                                                                                        <i class="fa-regular fa-heart"
+                                                                                                           style="color: var(--main-color); margin-top: 0px; margin-left: 95px;"></i>
+                                                                                                        <label style="width: fit-content; font-size: 12px; margin-top: 0px; color: var(--main-color);"
+                                                                                                               th:text="${comment.getLikes()}"></label>
+                                                                                                    </div>
                                                                                                 </div>
                                                                                             </div>
+                                                                                            <!--<hr class="block_line"
+                                                                                                style="margin-left: 75px; width: 372px; margin-top: -10px;"/>-->
                                                                                         </div>
-                                                                                        <!--<hr class="block_line"
-                                                                                            style="margin-left: 75px; width: 372px; margin-top: -10px;"/>-->
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <!--<div th:if="${comment.getIdComments() == 0}">
+                                                                    <hr class="block_line"
+                                                                        style="margin-left: 75px; width: 450px; margin-top: -10px;"/>
+                                                                </div>-->
                                                             </div>
-                                                            <!--<div th:if="${comment.getIdComments() == 0}">
-                                                                <hr class="block_line"
-                                                                    style="margin-left: 75px; width: 450px; margin-top: -10px;"/>
-                                                            </div>-->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -353,11 +369,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="col-4" id="recGroup">
@@ -424,28 +440,36 @@
             <div class="block_div_no_color">
                 <div class="row">
                     <div class="col-10">
-                        <p class="p-main-color" style="white-space: nowrap; margin-top: 30px; margin-left: 140px;">Создание поста</p>
+                        <p class="p-main-color" style="white-space: nowrap; margin-top: 30px; margin-left: 140px;">
+                            Создание поста</p>
                     </div>
                     <div class="col-2">
-                        <button class="btn btn-primary bet_time" style="margin-top: 30px; margin-left: 100px;" onclick="PopUpHide()"> X </button>
+                        <button class="btn btn-primary bet_time" style="margin-top: 30px; margin-left: 100px;"
+                                onclick="PopUpHide()"> X
+                        </button>
                     </div>
                 </div>
             </div>
             <hr class="block_line"/>
-            <form class="col" id="groupCreateForm" method="get" action="#" style="margin-left: 40px; margin-right: 40px; margin-top: 10px;"> <!--th:action=""-->
+            <form class="col" id="groupCreateForm" method="get" action="#"
+                  style="margin-left: 40px; margin-right: 40px; margin-top: 10px;"> <!--th:action=""-->
                 <div class="row">
                     <textarea required type="text" name="desc" class="form-control" id="descGroupsInput"
-                              placeholder="Текст поста" style="width: 460px; white-space: normal; height: 105px; overflow-y: auto;"></textarea>
+                              placeholder="Текст поста"
+                              style="width: 460px; white-space: normal; height: 105px; overflow-y: auto;"></textarea>
                 </div>
                 <div class="w-100"></div>
                 <main style="margin-left: -10px; margin-top: -10px;">
                     <br/>
                     <form method="post" id="formAvatar" th:action="@{/file/upload/group}" enctype="multipart/form-data">
-                        <input type="file" name="file" id="image1"  class="form-control-file">
+                        <input type="file" name="file" id="image1" class="form-control-file">
                         <div>
-                            <img class="post_img" id="avatar1" alt="image" src="https://images.squarespace-cdn.com/content/v1/5da8bac9f6d96b1bf0e5cb69/1605218099656-BR0JG492R2B375WU0QLE/Green+and+Purple+Minimal+Icons+Icon+Set+%283%29.png?format=1500w"/>
+                            <img class="post_img" id="avatar1" alt="image"
+                                 src="https://images.squarespace-cdn.com/content/v1/5da8bac9f6d96b1bf0e5cb69/1605218099656-BR0JG492R2B375WU0QLE/Green+and+Purple+Minimal+Icons+Icon+Set+%283%29.png?format=1500w"/>
                         </div>
-                        <button id="btnFormAvatar" type="submit" style="display: none;" class="btn btn-primary">Upload File</button>
+                        <button id="btnFormAvatar" type="submit" style="display: none;" class="btn btn-primary">Upload
+                            File
+                        </button>
                     </form>
                     <!--<input type="file" name="image" id="image" accept="image/*"/>
                     <div>
@@ -454,7 +478,9 @@
                 </main>
                 <div class="w-100"></div>
                 <div class="row">
-                    <button type="submit" class="btn btn-primary" style="margin-left: 200px; margin-top: 20px; width: auto;">Сохранить</button>
+                    <button type="submit" class="btn btn-primary"
+                            style="margin-left: 200px; margin-top: 20px; width: auto;">Сохранить
+                    </button>
                     <p id="errorMessage" class="p-text-color"></p>
                 </div>
             </form>
@@ -481,30 +507,34 @@
                     </div>
                     <div class="row" style="position: absolute; bottom: 10px; ">
                         <!--Отправка комментария-->
-                        <div class="block_div" style="width: 538px; height: 70px; margin-left: 20px; margin-top: -20px;">
+                        <div class="block_div"
+                             style="width: 538px; height: 70px; margin-left: 20px; margin-top: -20px;">
                             <div class="row" style="margin-top: -25px; margin-bottom: -20px;">
                                 <hr class="block_line" style="margin-left: 7px; width: 526px; margin-top: 25px"/>
                             </div>
                             <div class="row" style="margin-top: 10px;">
                                 <div class="col-2" style="margin-top: 0px;">
-                                    <img class="figure_img_comment_item_list" alt="image" th:src="${userLogin.getImg()}"/>
+                                    <img class="figure_img_comment_item_list" alt="image"
+                                         th:src="${userLogin.getImg()}"/>
                                 </div>
                                 <div class="col-9" style="margin-top: 10px; margin-left: -15px;">
-                                    <input required type="text" name="name" class="form-control margin-top-20" id="commentsInput"
+                                    <input required type="text" name="name" class="form-control margin-top-20"
+                                           id="commentsInput"
                                            aria-describedby="nameHelp" placeholder="Комментарий..."
                                            style="width: 400px;"
                                            minlength="1" oninvalid="this.setCustomValidity('Пустое поле не допустимо')"
                                            oninput="this.setCustomValidity('')"/>
                                 </div>
                                 <div class="col-1" style="margin-top: 10px; margin-left: 5px;">
-                                   <!-- <button class="btn btn-primary c-button"
-                                            th:onclick="'sendComments(\'' + ${post.getId()} + '\');'"
-                                            style="margin-left: 10px; width: 75px; height: 40px;">
-                                        <i class="fa-regular fa-comment fa-beat-fade"
-                                           style="fill: var(&#45;&#45;second-color);"></i>
-                                        <label style="width: fit-content;" th:text="100"></label>
-                                    </button>-->
-                                    <i  id="sendComments" class="fa-regular fa-paper-plane" style="color: var(--main-color); font-size: 30px;"></i>
+                                    <!-- <button class="btn btn-primary c-button"
+                                             th:onclick="'sendComments(\'' + ${post.getId()} + '\');'"
+                                             style="margin-left: 10px; width: 75px; height: 40px;">
+                                         <i class="fa-regular fa-comment fa-beat-fade"
+                                            style="fill: var(&#45;&#45;second-color);"></i>
+                                         <label style="width: fit-content;" th:text="100"></label>
+                                     </button>-->
+                                    <i id="sendComments" class="fa-regular fa-paper-plane"
+                                       style="color: var(--main-color); font-size: 30px;"></i>
                                 </div>
                             </div>
                         </div>
@@ -528,13 +558,13 @@
         $("#postDetails").hide();
     });
     let selectedPostId;
-    let subComment;
+    let subComment = 0;
 
     function comments(postId) {
         const div = document.getElementsByClassName("div_post_item_list");
         for (let i = 0; i < div.length; i++) {
             if (div[i].getElementsByTagName('p')[0].textContent === postId) {
-                selectedPostId =  postId;
+                selectedPostId = postId;
                 document.querySelector("#divPostDetails").innerHTML = div.item(i).innerHTML;
                 document.querySelector("#divPostDetails").getElementsByClassName("commentsList")[0].style.display = "block";
                 $("#postDetails").show();
@@ -542,22 +572,23 @@
         }
     }
 
-    function answer(commentId){
+    function answer(commentId) {
         subComment = commentId;
     }
 
     document.getElementById('sendComments')
         .addEventListener('click', function (event) {
             const inputComments = document.getElementById('commentsInput');
-            let idSubComment = 0;
+            /*let idSubComment = 0;
+            alert(idSubComment);
             if(subComment!== null){
                 idSubComment = subComment;
-            }
-            if(inputComments.value !== ""){
+            }*/
+            if (inputComments.value !== "") {
                 const formData = {
-                    postId:  selectedPostId.toString(),
+                    postId: selectedPostId.toString(),
                     textComment: inputComments.value,
-                    idComments: idSubComment,
+                    idComments: subComment,
                 };
                 $.ajax({
                     url: "/sendComment",
@@ -565,18 +596,23 @@
                     data: formData,
                     success: function (response) {
                         if (response === "Success") {
-                            $("#post").load(" #post > *");
+                            updatePostList();
                             inputComments.value = "";
-                            $("#postDetails").load(" #postDetails > *");
-                            document.getElementById('post').getElementsByClassName('div_post_item_list');
+                            //document.getElementById('post').getElementsByClassName('div_post_item_list');
+                            //$("#divPostDetails").load(" #divPostDetails > *");
                             subComment = 0;
-
-
                         }
                     }
                 });
             }
         });
+
+    function updatePostList() {
+        $.get("updatePostList").done(function (fragment) { // get from controller
+            $("#postList").replaceWith(fragment); // update snippet of page
+        });
+    }
+
 
     function commentsOff() {
         const deleteElement = document.querySelector("#divPostDetails");
@@ -587,9 +623,9 @@
             success: function (response) {
             }
         });
-        $("#post").load(" #post > *");
+        updatePostList();
         $("#postDetails").hide();
-        reloadDatePost();
+        //reloadDatePost();
     }
 
 

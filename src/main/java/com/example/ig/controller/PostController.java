@@ -8,12 +8,13 @@ import com.example.ig.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import static com.example.ig.IgApplication.group;
 import static com.example.ig.IgApplication.user;
 
 @Controller
@@ -77,5 +78,23 @@ public class PostController {
         return "noSuccess";
     }
 
+    @RequestMapping(value="/updatePostList", method= RequestMethod.GET)
+    public String updatePostList(Model model) {
+        model.addAttribute("posts", postRepository.getAllPostsOfGroup(group.getId()));
+        model.addAttribute("likes", sortLikesByGroupId());
+        model.addAttribute("comments", commentsRepository.findAll());
+        return "group :: #postList";
+    }
 
+    public List<Likes> sortLikesByGroupId() {
+        List<Likes> likes = new ArrayList<>();
+        for (Post post : postRepository.getAllPostsOfGroup(group.getId())) {
+            for (Likes like : likesRepository.findAll()) {
+                if (post.getId() == like.getPostUserId().getPostId() && user.getId() == like.getPostUserId().getUserId()) {
+                    likes.add(like);
+                }
+            }
+        }
+        return likes;
+    }
 }

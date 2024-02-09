@@ -101,7 +101,7 @@
             </div>
         </div>
 
-        <div class="col-5" style="height: auto;" id="groupList">
+        <div class="col-5" style="height: auto;">
             <!--Поиск-->
             <div class="block_div" style="height: 600px; margin-left: 25px; width: 505px;">
                 <div class="block_div_no_color">
@@ -122,7 +122,8 @@
                     </div>
                 </div>
                 <hr class="block_line"/>
-                    <table style="margin-top: -15px; margin-left: -2px; height: auto; max-height: 500px; margin-right: 10px; display: flex; justify-content: center;"
+                <div id="groupList">
+                    <table style="margin-top: -15px; margin-left: -2px; height: 500px; max-height: 500px; margin-right: 10px; display: flex; justify-content: center;"
                            class="scroll">
                         <tbody>
                         <tr th:if="${groups.isEmpty()}">
@@ -145,7 +146,11 @@
                                                         Имя </p>
                                                     <div class="main_div_group_item_list">
                                                         <div class="icon_div_group_item_list">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" height="15px" width="15" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="15px"
+                                                                 width="15" viewBox="0 0 448 512">
+                                                                <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                                                <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
+                                                            </svg>
                                                         </div>
                                                         <div class="subscribes_div_group_item_list">
                                                             <p class="subscribes_p_group_item_list"
@@ -161,12 +166,14 @@
                         </tr>
                         </tbody>
                     </table>
+                </div>
             </div>
         </div>
 
         <div class="col-4">
             <!--Список сообществ пользователя-->
-            <div class="block_div" style="margin-top: 50px; margin-left: 30px; width: 385px; height: 500px; position: fixed;">
+            <div class="block_div"
+                 style="margin-top: 50px; margin-left: 30px; width: 385px; height: 500px; position: fixed;">
                 <div class="block_div_no_color" style="margin-top: 0px;">
                     <br/>
                     <p class="block_p_no_color p-main-color">Подписки</p>
@@ -198,7 +205,11 @@
                                                 <p class="name_group_item_list" th:text="${group.getName()}"> Имя </p>
                                                 <div class="main_div_group_item_list">
                                                     <div class="icon_div_group_item_list">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" height="15px" width="15" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" height="15px" width="15"
+                                                             viewBox="0 0 448 512">
+                                                            <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                                            <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
+                                                        </svg>
                                                     </div>
                                                     <div class="subscribes_div_group_item_list">
                                                         <p class="subscribes_p_group_item_list"
@@ -227,10 +238,13 @@
             <div class="block_div_no_color">
                 <div class="row">
                     <div class="col-10">
-                        <p class="p-main-color" style="white-space: nowrap; margin-top: 30px; margin-left: 80px;">Создание сообщества</p>
+                        <p class="p-main-color" style="white-space: nowrap; margin-top: 30px; margin-left: 80px;">
+                            Создание сообщества</p>
                     </div>
                     <div class="col-2">
-                        <button class="btn btn-primary bet_time" style="margin-top: 30px; margin-left: 100px;" onclick="PopUpHide()"> X </button>
+                        <button class="btn btn-primary bet_time" style="margin-top: 30px; margin-left: 100px;"
+                                onclick="PopUpHide()"> X
+                        </button>
                     </div>
                 </div>
             </div>
@@ -238,18 +252,22 @@
             <main style="margin-left: -25px; margin-top: -10px;">
                 <br/>
                 <form method="post" id="formAvatar" th:action="@{/file/upload/group}" enctype="multipart/form-data">
-                    <input type="file" name="file" id="image"  class="form-control-file">
+                    <input type="file" name="file" id="image" class="form-control-file">
                     <div>
-                        <img class="avatar_img" id="avatar" alt="image" src="https://images.squarespace-cdn.com/content/v1/5da8bac9f6d96b1bf0e5cb69/1605218099656-BR0JG492R2B375WU0QLE/Green+and+Purple+Minimal+Icons+Icon+Set+%283%29.png?format=1500w"/>
+                        <img class="avatar_img" id="avatar" alt="image"
+                             src="https://images.squarespace-cdn.com/content/v1/5da8bac9f6d96b1bf0e5cb69/1605218099656-BR0JG492R2B375WU0QLE/Green+and+Purple+Minimal+Icons+Icon+Set+%283%29.png?format=1500w"/>
                     </div>
-                    <button id="btnFormAvatar" type="submit" style="display: none;" class="btn btn-primary">Upload File</button>
+                    <button id="btnFormAvatar" type="submit" style="display: none;" class="btn btn-primary">Upload
+                        File
+                    </button>
                 </form>
                 <!--<input type="file" name="image" id="image" accept="image/*"/>
                 <div>
                     <img class="group_img" id="avatar" alt="image" src="https://images.squarespace-cdn.com/content/v1/5da8bac9f6d96b1bf0e5cb69/1605218099656-BR0JG492R2B375WU0QLE/Green+and+Purple+Minimal+Icons+Icon+Set+%283%29.png?format=1500w"/>
                 </div>-->
             </main>
-            <form class="row justify-content-center" id="groupCreateForm" method="get" action="#" style="margin-left: 60px; margin-top: -140px;"> <!--th:action=""-->
+            <form class="row justify-content-center" id="groupCreateForm" method="get" action="#"
+                  style="margin-left: 60px; margin-top: -140px;"> <!--th:action=""-->
                 <div class="mb-3 col-12 col-md-6">
                     <input required type="text" name="name" class="form-control margin-top-20" id="nameGroupsInput"
                            aria-describedby="nameHelp" placeholder="Название сообщества"
@@ -260,7 +278,8 @@
                 <div class="w-100"></div>
                 <div class="mb-3 col-12 col-md-6">
                     <textarea required type="text" name="desc" class="form-control" id="descGroupsInput"
-                           placeholder="Описание сообщества" style="width: 300px; white-space: normal; height: 105px; overflow-y: auto;"></textarea>
+                              placeholder="Описание сообщества"
+                              style="width: 300px; white-space: normal; height: 105px; overflow-y: auto;"></textarea>
                 </div>
                 <div class="w-100"></div>
                 <div class="mb-3 col-12 col-md-6">
@@ -275,13 +294,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+</script>
+<script>
     let file;
     const AVATAR = document.getElementById("avatar");
     AVATAR.addEventListener("click", event => {
-        const inputImage =  document.getElementById("image");
+        const inputImage = document.getElementById("image");
         inputImage.click();
     });
-    document.getElementById('image').addEventListener('change', function(e) {
+    document.getElementById('image').addEventListener('change', function (e) {
         if (e.target.files[0]) {
             file = event.target.files[0];
             const reader = new FileReader();
@@ -316,41 +337,38 @@
                         }
                     }
                 });
-            }
-            else document.getElementById('errorMessage').textContent = "Необходимо загрузить фотографию сообщества";
+            } else document.getElementById('errorMessage').textContent = "Необходимо загрузить фотографию сообщества";
         });
     });
 </script>
 <script>
     const search = document.getElementById("search");
     search.addEventListener('input', function (event) {
-        alert("ok");
-        const formData = {
-            query: this.value,
-        };
-        $.ajax({
-            url: "/searchGroup",
-            type: "POST",
-            data: formData,
-            success: function (response) {
-                if (response === "Success") {
-                    $("#groupList").load(" #groupList > *");
-                }
-            }
-        });
+        if(this.value == null || this.value == ""){
+            $.get("getGroupList").done(function (fragment) { // get from controller
+                $("#groupList").replaceWith(fragment); // update snippet of page
+            });
+        }
+        else{
+            $.get("updateGroupList/" + this.value).done(function (fragment) { // get from controller
+                $("#groupList").replaceWith(fragment); // update snippet of page
+            });
+        }
     });
 </script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         //Скрыть PopUp при загрузке страницы
         PopUpHide();
     });
+
     //Функция отображения PopUp
-    function PopUpShow(){
+    function PopUpShow() {
         $("#popup1").show();
     }
+
     //Функция скрытия PopUp
-    function PopUpHide(){
+    function PopUpHide() {
         $("#popup1").hide();
     }
 </script>

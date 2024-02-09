@@ -93,41 +93,25 @@
                  style="margin-top: 50px; margin-left: 0px; width: 230px; height: 500px; position: fixed;">
                 <div class="block_div_no_color" style="margin-top: 0px;">
                     <br/>
-                    <p class="block_p_no_color p-main-color">Что-то</p>
+                    <p class="block_p_no_color p-main-color" id="nameNavigation">Новости</p>
                 </div>
                 <hr class="block_line"/>
                 <div style="margin-top: -15px; margin-left: -2px; height: auto; margin-right: 10px;">
                     <button class="btn btn-primary c-button"
-                            style="width: 150px; margin-left: 10px; margin-top: 15px;" onclick="PopUpShow();">
+                            style="width: 150px; margin-left: 10px; margin-top: 15px;" onclick="newsSort()">
                         Новости
                     </button>
                 </div>
                 <div style="margin-top: -2px; margin-left: -2px; height: auto; margin-right: 10px;">
                     <button class="btn btn-primary c-button"
-                            style="width: 150px; margin-left: 10px; margin-top: 15px;" onclick="PopUpShow();">
+                            style="width: 150px; margin-left: 10px; margin-top: 15px;" onclick="recSort()">
                         Рекомендации
                     </button>
                 </div>
             </div>
         </div>
 
-        <div class="col-6" style="height: auto; ">
-            <!--<div style="margin-top: 50px; margin-left: 50px; height: 100px; width: 600px;">
-                <div class="block_div" style="margin-top: 0px; height: 75px; width: 600px;">
-                    <div>
-                        <button class="btn btn-primary c-button"
-                                style="width: 150px; margin-left: 0px; margin-top: 15px;" onclick="PopUpShow();">
-                            Новости
-                        </button>
-                        <button class="btn btn-primary c-button"
-                                style="width: 150px; margin-left: 10px; margin-top: 15px;" onclick="PopUpShow();">
-                            Рекомендации
-                        </button>
-                    </div>
-                    <hr class="block_line" style="margin-top: 10px; width: 590px; margin-left: 5px;"/>
-                </div>
-
-            </div>-->
+        <div class="col-6" style="height: auto; " id="postList">
             <table style="margin-top: 20px; height: 650px; width: 600px; margin-left: 50px;">
                 <tbody>
                 <tr th:each="post : ${posts}">
@@ -135,23 +119,23 @@
                         <!--Пост-->
                         <div class="block_div" style="padding: 5px 5px 20px; height: auto; margin-bottom: 5px;">
                             <div class="div_post_item_list">
-                                    <div class="row" th:each="group : ${groups}" th:onclick="'toGroupPage(\'' + ${group.getId()} + '\');'">
-                                        <div class="col-2 col-md-1" th:if="${post.getIdGroup() == group.getId()}" >
-                                            <img class="figure_img_post_item_list" alt="image"
-                                                 th:src="${group.getAvtar()}"/>
-                                        </div>
-                                        <div class="col align-self-center" style="margin-left: -30px;"
-                                             th:if="${post.getIdGroup() == group.getId()}">
-                                            <p class="name_post_item_list p-text-color"
-                                               th:text="${group.getName()}"></p>
-                                            <div>
-                                                <p class="date_p_post_item_list p-text-color"></p>
-                                                <script th:inline="javascript">
-                                                    getDateFormatForPost([[${post.getDatePublication()}]]);
-                                                </script>
-                                            </div>
+                                <div class="row" th:each="group : ${groups}" th:onclick="'toGroupPage(\'' + ${group.getId()} + '\');'">
+                                    <div class="col-2 col-md-1" th:if="${post.getIdGroup() == group.getId()}" >
+                                        <img class="figure_img_post_item_list" alt="image"
+                                             th:src="${group.getAvtar()}"/>
+                                    </div>
+                                    <div class="col align-self-center" style="margin-left: -30px;"
+                                         th:if="${post.getIdGroup() == group.getId()}">
+                                        <p class="name_post_item_list p-text-color"
+                                           th:text="${group.getName()}"></p>
+                                        <div>
+                                            <p class="date_p_post_item_list p-text-color"></p>
+                                            <script th:inline="javascript">
+                                                getDateFormatForPost([[${post.getDatePublication()}]]);
+                                            </script>
                                         </div>
                                     </div>
+                                </div>
                                 <div class="row">
                                     <div class="col align-self-center" style="margin-left: 0px; align-content: center">
                                         <p class="p-text-color"
@@ -276,6 +260,27 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function newsSort(){
+        $.get("newSort").done(function (fragment) { // get from controller
+            $("#postList").replaceWith(fragment); // update snippet of page
+        });
+        document.getElementById('nameNavigation').innerText = "Новости";
+    }
+    function recSort(){
+        $.get("recSort").done(function (fragment) { // get from controller
+            $("#postList").replaceWith(fragment); // update snippet of page
+        });
+        document.getElementById('nameNavigation').innerText = "Рекомендации";
+    }
+
+    function updateEventCount() {
+        $.get("recSort").done(function (fragment) { // get from controller
+            $("#postList").replaceWith(fragment); // update snippet of page
+        });
+    }
+
+</script>
 <script>
     function toGroupPage(groupId){
         window.location.href = "/group/" + groupId + "?";

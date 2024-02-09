@@ -11,4 +11,7 @@ import java.util.List;
 public interface SubscriptionsRepository extends JpaRepository<Subscriptions, Long> {
     @Query("SELECT sub.groupUserId.groupId FROM Subscriptions sub where sub.groupUserId.userId=:userId")
     List<Long> getAllGroupsOfUser(long userId);
+
+
+
 }

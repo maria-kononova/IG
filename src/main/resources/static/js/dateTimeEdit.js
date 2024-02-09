@@ -1,3 +1,4 @@
+
 function getDateFormatForPost(date){
     showMessage(date, "date_p_post_item_list p-text-color");
 }
@@ -9,8 +10,27 @@ function showMessage(date, className) {
     //2024-01-25T18:39:10.000+03:00
     //Thu Jan 25 2024 03:00:00 GMT+0300 (Москва, стандартное время)
     //var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    var optionsDay = {day: 'numeric', month: 'short'};
+    /*var optionsDay = {day: 'numeric', month: 'short'};
+    let newDate = new Date(date.split('T')[0]);
+    let newTime = date.split('T')[1].split(':')[0] + ":" + date.split('T')[1].split(':')[1];
+    let dateString = newDate.toLocaleDateString("ru-Ru", optionsDay);
+    let dif = checkDate(date);
+    let result = "";
+    if(dif > 31536000000){
+        result = dateString.substring(0, dateString.length - 1) + " " +date.split('-')[0];
+    }
+    else if (dif < 21600000) {
+        result = difString(dif);
+    }
+    else {
+        result = dateString.substring(0, dateString.length - 1) + " в " + newTime;
+    }*/
     let p = document.getElementsByClassName(className);
+    p[p.length - 1].textContent = getDate(date);
+}
+
+function getDate(date){
+    var optionsDay = {day: 'numeric', month: 'short'};
     let newDate = new Date(date.split('T')[0]);
     let newTime = date.split('T')[1].split(':')[0] + ":" + date.split('T')[1].split(':')[1];
     let dateString = newDate.toLocaleDateString("ru-Ru", optionsDay);
@@ -25,7 +45,18 @@ function showMessage(date, className) {
     else {
         result = dateString.substring(0, dateString.length - 1) + " в " + newTime;
     }
-    p[p.length - 1].textContent += result;
+    return result;
+}
+
+function reloadDatePost(){
+    let p = document.getElementsByClassName("date_p_post_item_list p-text-color");
+    //alert(p.length);
+    for(let i = 0; i < p.length; i++){
+        //alert(p.item(i).textContent);
+        let result = getDate(p.item(i).textContent);
+       // alert(result);
+        p.item(i).textContent = result;
+    }
 }
 
 function checkDate(date) {

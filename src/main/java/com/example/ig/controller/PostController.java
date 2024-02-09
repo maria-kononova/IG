@@ -78,13 +78,14 @@ public class PostController {
         return "noSuccess";
     }
 
-    @RequestMapping(value="/updatePostList", method= RequestMethod.GET)
-    public String updatePostList(Model model) {
-        model.addAttribute("posts", postRepository.getAllPostsOfGroup(group.getId()));
-        model.addAttribute("likes", sortLikesByGroupId());
-        model.addAttribute("comments", commentsRepository.findAll());
-        return "group :: #postList";
-    }
+
+
+
+    /*@RequestMapping(value="/updatePostList", method=RequestMethod.GET)
+    public String recSort(Model model) {
+        System.out.println("2");
+        return "index :: #postList";
+    }*/
 
     public List<Likes> sortLikesByGroupId() {
         List<Likes> likes = new ArrayList<>();

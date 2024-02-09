@@ -6,11 +6,23 @@ function getDateFormatForComments(date){
     showMessage(date, "date_p_comment_item_list p-text-color");
 }
 
+function dateReload(){
+    let pPost = document.getElementsByClassName("date_p_post_item_list p-text-color");
+    for(let i = 0; i < pPost.length; i++){
+        pPost.item(i).textContent = getDate(pPost.item(i).textContent);
+    }
+    let pComment = document.getElementsByClassName("date_p_comment_item_list p-text-color");
+    for(let i = 0; i < pComment.length; i++){
+        pComment.item(i).textContent = getDate(pComment.item(i).textContent);
+    }
+
+
+}
+
+
 function showMessage(date, className) {
-    //2024-01-25T18:39:10.000+03:00
-    //Thu Jan 25 2024 03:00:00 GMT+0300 (Москва, стандартное время)
-    //var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    /*var optionsDay = {day: 'numeric', month: 'short'};
+
+    var optionsDay = {day: 'numeric', month: 'short'};
     let newDate = new Date(date.split('T')[0]);
     let newTime = date.split('T')[1].split(':')[0] + ":" + date.split('T')[1].split(':')[1];
     let dateString = newDate.toLocaleDateString("ru-Ru", optionsDay);
@@ -24,15 +36,16 @@ function showMessage(date, className) {
     }
     else {
         result = dateString.substring(0, dateString.length - 1) + " в " + newTime;
-    }*/
+    }
     let p = document.getElementsByClassName(className);
-    p[p.length - 1].textContent = getDate(date);
+    p[p.length - 1].textContent = result;
 }
 
 function getDate(date){
+    //2024-02-09 23:47:10.0
     var optionsDay = {day: 'numeric', month: 'short'};
-    let newDate = new Date(date.split('T')[0]);
-    let newTime = date.split('T')[1].split(':')[0] + ":" + date.split('T')[1].split(':')[1];
+    let newDate = new Date(date.split(' ')[0]);
+    let newTime = date.split(' ')[1].split(':')[0] + ":" + date.split(' ')[1].split(':')[1];
     let dateString = newDate.toLocaleDateString("ru-Ru", optionsDay);
     let dif = checkDate(date);
     let result = "";

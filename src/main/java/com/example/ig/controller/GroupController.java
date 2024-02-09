@@ -10,9 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static com.example.ig.IgApplication.group;
 import static com.example.ig.IgApplication.user;
@@ -49,6 +47,40 @@ public class GroupController {
         }
         return null;
     }
+
+   /* public List<Post> sortDate(List<Post> posts){
+       *//* Collections.sort(posts, new Comparator<Post>() {
+            public int compare(Post o1, Post o2) {
+                return o1.getDatePublication().compareTo(o2.getDatePublication());
+            }
+        });
+        return Collections.sort(posts);;*//*
+        return posts.sort(Comparator.comparing(o -> o.getDatePublication()));
+    }*/
+
+
+    @RequestMapping(value="/updatePostList", method = RequestMethod.GET)
+    public String updatePostList(Model model) {
+        model.addAttribute("userLogin", user);
+        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("groups", groupRepository.findAll());
+        model.addAttribute("group", group);
+        List<Post> posts = postRepository.getAllPostsOfGroup(group.getId());
+        posts.sort(Comparator.comparing(Post::getDatePublication));
+        model.addAttribute("posts", reverse(posts));
+        model.addAttribute("likes", sortLikesByGroupId());
+        List<Comments> comments = commentsRepository.findAll();
+        comments.sort(Comparator.comparing(Comments::getDate));
+        model.addAttribute("comments", reverse(comments));
+        return "group :: .postList";
+    }
+
+    static <T> List<T> reverse(final List<T> list) {
+        final List<T> result = new ArrayList<>(list);
+        Collections.reverse(result);
+        return result;
+    }
+
     @GetMapping("/group/{id}")
     public String groupPage(@PathVariable("id") long id, Model model, HttpServletRequest request, HttpServletResponse response){
         Long userId = getUserFromCookie(request, response);
@@ -61,9 +93,13 @@ public class GroupController {
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("groups", groupRepository.findAll());
         model.addAttribute("group", group);
-        model.addAttribute("posts", postRepository.getAllPostsOfGroup(group.getId()));
+        List<Post> posts = postRepository.getAllPostsOfGroup(group.getId());
+        posts.sort(Comparator.comparing(Post::getDatePublication));
+        model.addAttribute("posts", reverse(posts));
         model.addAttribute("likes", sortLikesByGroupId());
-        model.addAttribute("comments", commentsRepository.findAll());
+        List<Comments> comments = commentsRepository.findAll();
+        comments.sort(Comparator.comparing(Comments::getDate));
+        model.addAttribute("comments", reverse(comments));
         return "group";
     }
     @GetMapping("/likeUpdate")

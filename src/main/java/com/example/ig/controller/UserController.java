@@ -1,29 +1,21 @@
 package com.example.ig.controller;
 
-import com.example.ig.entity.FileDto;
-import com.example.ig.entity.Likes;
+import com.example.ig.entity.Comments;
 import com.example.ig.entity.Post;
+import com.example.ig.entity.Subscriptions;
 import com.example.ig.entity.User;
-import com.example.ig.repository.GroupRepository;
-import com.example.ig.repository.LikesRepository;
-import com.example.ig.repository.PostRepository;
-import com.example.ig.repository.UserRepository;
+import com.example.ig.repository.*;
+import com.google.common.eventbus.Subscribe;
 import jakarta.servlet.http.*;
-import org.apache.tomcat.jni.FileInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.*;
-import java.net.URI;
-import java.net.http.HttpRequest;
-import java.rmi.ServerException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.example.ig.IgApplication.*;
@@ -35,30 +27,80 @@ public class UserController {
     private final GroupRepository groupRepository;
     private final PostRepository postRepository;
     private final LikesRepository likesRepository;
+    private final SubscriptionsRepository subscriptionsRepository;
     private static final String FILE_IMAGE = "src/main/resources/image/";
 
     //авбдыаы
     @Autowired
-    public UserController(UserRepository userRepository, GroupRepository groupRepository, PostRepository postRepository, LikesRepository likesRepository) {
+    public UserController(UserRepository userRepository, GroupRepository groupRepository, PostRepository postRepository, LikesRepository likesRepository, SubscriptionsRepository subscriptionsRepository) {
         this.userRepository = userRepository;
         this.groupRepository = groupRepository;
         this.postRepository = postRepository;
         this.likesRepository = likesRepository;
+        this.subscriptionsRepository = subscriptionsRepository;
     }
     @GetMapping("/")
     public String homePage(Model model, HttpServletRequest request, HttpServletResponse response) {
+        List<Post> posts = new ArrayList<>();
         if (user == null) {
             Long userId = getUserFromCookie(request, response);
-            if (userId != null) user = userRepository.getById(userId);
-        } else {
-            model.addAttribute("users", userRepository.findAll());
+            if (userId != null) {
+                user = userRepository.getById(userId);
+                posts = getPostOfUserGroup();
+            }
+            else{
+                posts = postRepository.findAll();
+            }
         }
+        else {posts = getPostOfUserGroup();}
         model.addAttribute("userLogin",user);
-        model.addAttribute("posts", postRepository.findAll());
+        model.addAttribute("posts", posts);
         model.addAttribute("groups", groupRepository.findAll());
         model.addAttribute("likes", likesRepository.findAll());
         return "index";
     }
+
+    @RequestMapping(value="/recSort", method=RequestMethod.GET)
+    public String recSort(Model model) {
+        model.addAttribute("posts", getPostNoUserGroup());
+        model.addAttribute("groups", groupRepository.findAll());
+        model.addAttribute("likes", likesRepository.findAll());
+        return "index :: #postList";
+    }
+
+    @RequestMapping(value="/newSort", method=RequestMethod.GET)
+    public String newsSort(Model model) {
+        if (user != null){
+            model.addAttribute("posts", getPostOfUserGroup());
+            model.addAttribute("groups", groupRepository.findAll());
+            model.addAttribute("likes", likesRepository.findAll());
+        }
+        return "index :: #postList";
+    }
+
+    public List<Post> getPostOfUserGroup(){
+        List<Post> posts = new ArrayList<>();
+        for(Long sub : subscriptionsRepository.getAllGroupsOfUser(user.getId())){
+            posts.addAll(postRepository.getAllPostsOfGroup(sub));
+        }
+        return posts;
+    }
+    public List<Post> getPostNoUserGroup(){
+        List<Long> groups = subscriptionsRepository.getAllGroupsOfUser(user.getId());
+        List<Post> posts = new ArrayList<>();
+       for(Post post : postRepository.findAll()){
+           for(int i = 0; i < groups.size(); i++){
+               if(post.getIdGroup()==groups.get(i)){
+                   break;
+               }
+               else{
+                   posts.add(post);
+               }
+           }
+       }
+        return posts;
+    }
+
 
     public Long getUserFromCookie(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();

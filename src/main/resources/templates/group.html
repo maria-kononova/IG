@@ -165,7 +165,7 @@
                                     <div class="col align-self-center" style="margin-left: -30px;">
                                         <p class="name_post_item_list p-text-color" th:text="${group.getName()}"></p>
                                         <div>
-                                            <p class="date_p_post_item_list p-text-color"></p>
+                                            <p class="date_p_post_item_list p-text-color" th:text="${post.getDatePublication()}"></p>
                                             <script th:inline="javascript">
                                                 getDateFormatForPost([[${post.getDatePublication()}]]);
                                             </script>
@@ -179,7 +179,7 @@
                                            th:text="${post.getDescription()}"></p>
                                     </div>
                                 </div>
-                                <div class="row image">
+                                <div class="row image" th:if='${post.getImg()!=null}'>
                                     <div>
                                         <img align="middle"
                                              style=" border-radius: 5px; display: block;height: 310px; width: 525px;"
@@ -218,7 +218,7 @@
                                                     style="margin-left: 10px; width: 75px; height: 40px;">
                                                 <i class="fa-regular fa-comment fa-beat-fade"
                                                    style="fill: var(--second-color);"></i>
-                                                <label style="width: fit-content;" th:text="100"></label>
+                                                <label style="width: fit-content;" th:text="${post.getComments()}"></label>
                                             </button>
 
                                             <button class="btn btn-primary c-button"
@@ -262,7 +262,7 @@
                                                                         <div class="row">
                                                                             <div class="col align-self-center"
                                                                                  style="width: 250px; white-space: nowrap;">
-                                                                                <p class="date_p_comment_item_list p-text-color"></p>
+                                                                                <p class="date_p_comment_item_list p-text-color" th:text="${comment.getDate()}"></p>
                                                                                 <script th:inline="javascript">
                                                                                     getDateFormatForComments([[${comment.getDate()}]]);
                                                                                 </script>
@@ -270,8 +270,10 @@
 
                                                                             <div class="col align-self-center"
                                                                                  style=" width: 45px; margin-top: -33px; margin-left: 5px;">
-                                                                                <a href="" class="p-text-color"
-                                                                                   style="font-size: 12px; margin-top: -15px; color: var(--main-color);">Ответить</a>
+                                                                                <button class="btn no-button c-button" th:onclick="'answer(\'' + ${comment.getId()} + '\');'">
+                                                                                    <p class="p-text-color"
+                                                                                       style="font-size: 12px; margin-top: -15px; color: var(--main-color);">Ответить</p>
+                                                                                </button>
                                                                             </div>
 
                                                                             <div class="col align-self-center"
@@ -316,9 +318,10 @@
 
                                                                                             <div class="col align-self-center"
                                                                                                  style=" width: 45px; margin-top: -33px; margin-left: 5px;">
-                                                                                                <a href=""
-                                                                                                   class="p-text-color"
-                                                                                                   style="font-size: 12px; margin-top: -15px; color: var(--main-color);">Ответить</a>
+                                                                                                <button class="btn no-button c-button" th:onclick="'answer(\'' + ${comment.getId()} + '\');'">
+                                                                                                    <p class="p-text-color"
+                                                                                                       style="font-size: 12px; margin-top: -15px; color: var(--main-color);">Ответить</p>
+                                                                                                </button>
                                                                                             </div>
 
                                                                                             <div class="col align-self-center"
@@ -461,55 +464,6 @@
 <div class="b-container" style="display: none;">
 </div>
 <!--Пост развёрнутый-->
-<!--<div class="b-popup" id="postDetails">
-    <div class="center-screen" style="margin-top: -20px; margin-left: -40px;">
-        <div class="block_div" style="width: 600px; height: 600px;">
-            <div class="block_div" style="padding: 5px 5px 20px; height: auto; margin-bottom: 5px;">
-                <div class="div_post_item_list2" style="margin-left: 10px; margin-top: 20px;">
-                    <div class="scroll" style="height: 600px; margin-left: 15px; margin-right: 10px;">
-                        <div class="col align-self-center btnClosePostDetails"
-                             style="position: absolute; top: 35px; right: 20px;">
-                            <button class="btn btn-primary bet_time"
-                                    style="margin-top: 15px; margin-left: 50px;" onclick="commentsOff()"> X
-                            </button>
-                        </div>
-                        <div id="divPostDetails">
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="position: absolute; bottom: 20px; ">
-                    &lt;!&ndash;Отправка комментария&ndash;&gt;
-                    <div class="block_div" style="width: 538px; height: 40px; margin-left: 20px; margin-top: -20px;">
-                        <div class="row" style="margin-top: -25px; margin-bottom: -20px;">
-                            <hr class="block_line" style="margin-left: 7px; width: 526px;"/>
-                        </div>
-                        <div class="row" style="margin-top: 10px;">
-                            <div class="col-2" style="margin-top: 0px;">
-                                <img class="figure_img_comment_item_list" alt="image"
-                                     src="https://cojo.ru/wp-content/uploads/2022/12/avatarki-dlia-vatsapa-25.webp"/>
-                                &lt;!&ndash;th:src="${group.getAvtar()}"/>&ndash;&gt;
-                            </div>
-                            <div class="col-9" style="margin-top: 15px; margin-left: -15px;">
-                                <input required type="text" name="name" class="form-control margin-top-20" id="nameGroupsInput"
-                                       aria-describedby="nameHelp" placeholder="Комментарий..."
-                                       style="width: 400px;"
-                                       minlength="1" oninvalid="this.setCustomValidity('Пустое поле не допустимо')"
-                                       oninput="this.setCustomValidity('')"/>
-                            </div>
-                            <div class="col-1" style="margin-top: 20px; margin-left: 5px;">
-                                <i class="fa-regular fa-paper-plane" style="color: var(&#45;&#45;main-color); font-size: 30px;"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</body>-->
-
-
-<!--Пост развёрнутый-->
 <div class="b-popup" id="postDetails">
     <div class="center-screen" style="margin-top: -20px; margin-left: -40px;">
         <div class="block_div" style="width: 600px; height: 700px;">
@@ -536,14 +490,21 @@
                                     <img class="figure_img_comment_item_list" alt="image" th:src="${userLogin.getImg()}"/>
                                 </div>
                                 <div class="col-9" style="margin-top: 10px; margin-left: -15px;">
-                                    <input required type="text" name="name" class="form-control margin-top-20" id="nameGroupsInput"
+                                    <input required type="text" name="name" class="form-control margin-top-20" id="commentsInput"
                                            aria-describedby="nameHelp" placeholder="Комментарий..."
                                            style="width: 400px;"
                                            minlength="1" oninvalid="this.setCustomValidity('Пустое поле не допустимо')"
                                            oninput="this.setCustomValidity('')"/>
                                 </div>
                                 <div class="col-1" style="margin-top: 10px; margin-left: 5px;">
-                                    <i class="fa-regular fa-paper-plane" style="color: var(--main-color); font-size: 30px;"></i>
+                                   <!-- <button class="btn btn-primary c-button"
+                                            th:onclick="'sendComments(\'' + ${post.getId()} + '\');'"
+                                            style="margin-left: 10px; width: 75px; height: 40px;">
+                                        <i class="fa-regular fa-comment fa-beat-fade"
+                                           style="fill: var(&#45;&#45;second-color);"></i>
+                                        <label style="width: fit-content;" th:text="100"></label>
+                                    </button>-->
+                                    <i  id="sendComments" class="fa-regular fa-paper-plane" style="color: var(--main-color); font-size: 30px;"></i>
                                 </div>
                             </div>
                         </div>
@@ -559,16 +520,21 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
 <script>
+    const renderDatePost = [];
+    const renderDateComments = [];
     $(document).ready(function () {
         //Скрыть PopUp при загрузке страницы
         PopUpHide();
         $("#postDetails").hide();
     });
+    let selectedPostId;
+    let subComment;
 
     function comments(postId) {
         const div = document.getElementsByClassName("div_post_item_list");
         for (let i = 0; i < div.length; i++) {
             if (div[i].getElementsByTagName('p')[0].textContent === postId) {
+                selectedPostId =  postId;
                 document.querySelector("#divPostDetails").innerHTML = div.item(i).innerHTML;
                 document.querySelector("#divPostDetails").getElementsByClassName("commentsList")[0].style.display = "block";
                 $("#postDetails").show();
@@ -576,12 +542,56 @@
         }
     }
 
+    function answer(commentId){
+        subComment = commentId;
+    }
+
+    document.getElementById('sendComments')
+        .addEventListener('click', function (event) {
+            const inputComments = document.getElementById('commentsInput');
+            let idSubComment = 0;
+            if(subComment!== null){
+                idSubComment = subComment;
+            }
+            if(inputComments.value !== ""){
+                const formData = {
+                    postId:  selectedPostId.toString(),
+                    textComment: inputComments.value,
+                    idComments: idSubComment,
+                };
+                $.ajax({
+                    url: "/sendComment",
+                    type: "POST",
+                    data: formData,
+                    success: function (response) {
+                        if (response === "Success") {
+                            $("#post").load(" #post > *");
+                            inputComments.value = "";
+                            $("#postDetails").load(" #postDetails > *");
+                            document.getElementById('post').getElementsByClassName('div_post_item_list');
+                            subComment = 0;
+
+
+                        }
+                    }
+                });
+            }
+        });
+
     function commentsOff() {
         const deleteElement = document.querySelector("#divPostDetails");
         deleteElement.innerHTML = '';
+        $.ajax({
+            url: "/likeUpdate",
+            type: "GET",
+            success: function (response) {
+            }
+        });
         $("#post").load(" #post > *");
         $("#postDetails").hide();
+        reloadDatePost();
     }
+
 
     function view(postId) {
         alert(postId);

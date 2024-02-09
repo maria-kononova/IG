@@ -16,3 +16,9 @@
     margin-top:10px;
     margin-right:10px;
 }
+
+.no-button{
+    border: 2px solid var(--second-color) !important;
+    background: var(--second-color) !important;
+    color: var(--main-color) !important;
+}

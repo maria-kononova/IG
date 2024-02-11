@@ -214,17 +214,17 @@
                                                     <content>
                                                         <i class="fa-regular fa-heart fa-bounce"
                                                            style="fill: var(--second-color); pointer-events: none;cursor: default;"></i>
-                                                        <div th:if="${userLogin!=null}" style="display: none;">
+                                                       <!-- <div th:if="${userLogin!=null}" style="display: none;">
                                                             <div th:each="like : ${likes}">
                                                                 <div th:if="${like.getPostUserId().getUserId()==userLogin.getId()}">
                                                                     <div th:if="${like.getPostUserId().getPostId() == post.getId()}">
                                                                         <script th:inline="javascript">
-                                                                            matchLike();
+                                                                            matchLike([[${likes}]]);
                                                                         </script>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div>-->
                                                         <label class="label"
                                                                style="width: fit-content; pointer-events: none;cursor: default;"
                                                                th:text=" ${post.getLikes()}"></label>
@@ -382,6 +382,15 @@
                     </tr>
                     </tbody>
                 </table>
+                <div th:if="${userLogin!=null}" style="display: none;">
+                    <div th:each="like : ${likes}">
+                        <div th:if="${like.getPostUserId().getUserId()==userLogin.getId()}">
+                                <script th:inline="javascript">
+                                    matchLike([[${like.getPostUserId().getPostId()}]]);
+                                </script>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

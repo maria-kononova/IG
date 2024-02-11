@@ -31,9 +31,14 @@ function like(postId){
     });
 }
 
-function matchLike(){
-    const i = document.getElementsByClassName("fa-regular fa-heart fa-bounce");
-    i[i.length-1].className="fa-solid fa-heart";
+function matchLike(postId){
+    const div = document.getElementsByClassName("div_post_item_list");
+    for (let i = 0; i < div.length; i++) {
+        if (Number(div[i].getElementsByTagName('p')[0].textContent) === postId) {
+            selectedI = div[i].getElementsByTagName("i")[0];
+            selectedI.className = "fa-solid fa-heart";
+        }
+    }
 }
 
 /*function like(postId) {

@@ -224,17 +224,6 @@
                                                     <content>
                                                         <i class="fa-regular fa-heart fa-bounce"
                                                            style="fill: var(--second-color); pointer-events: none;cursor: default;"></i>
-                                                        <!-- <div th:if="${userLogin!=null}" style="display: none;">
-                                                             <div th:each="like : ${likes}">
-                                                                 <div th:if="${like.getPostUserId().getUserId()==userLogin.getId()}">
-                                                                     <div th:if="${like.getPostUserId().getPostId() == post.getId()}">
-                                                                         <script th:inline="javascript">
-                                                                             matchLike([[${likes}]]);
-                                                                         </script>
-                                                                     </div>
-                                                                 </div>
-                                                             </div>
-                                                         </div>-->
                                                         <label class="label"
                                                                style="width: fit-content; pointer-events: none;cursor: default;"
                                                                th:text=" ${post.getLikes()}"></label>
@@ -669,15 +658,20 @@
 
     function answer(commentId) {
         subComment = commentId;
+        const inputComments = document.getElementById('commentsInput');
+        alert(inputComments.innerText);
+        let inputText = inputComments.value;
+        inputComments.value = "|ответ| " + inputText;
     }
 
     document.getElementById('sendComments')
         .addEventListener('click', function (event) {
             const inputComments = document.getElementById('commentsInput');
             if (inputComments.value !== "") {
+                if(!inputComments.value.includes("|ответ|")) subComment = 0;
                 const formData = {
                     postId: selectedPostId.toString(),
-                    textComment: inputComments.value,
+                    textComment: inputComments.value.replace("|ответ| ",""),
                     idComments: subComment,
                 };
                 $.ajax({

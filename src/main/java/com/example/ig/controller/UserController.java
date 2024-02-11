@@ -2,10 +2,8 @@ package com.example.ig.controller;
 
 import com.example.ig.entity.Comments;
 import com.example.ig.entity.Post;
-import com.example.ig.entity.Subscriptions;
 import com.example.ig.entity.User;
 import com.example.ig.repository.*;
-import com.google.common.eventbus.Subscribe;
 import jakarta.servlet.http.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +13,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.example.ig.IgApplication.*;
+import static com.example.ig.controller.GroupController.reverse;
 
 @Controller
 public class UserController {
@@ -27,16 +26,20 @@ public class UserController {
     private final GroupRepository groupRepository;
     private final PostRepository postRepository;
     private final LikesRepository likesRepository;
+    private final CommentsRepository commentsRepository;
     private final SubscriptionsRepository subscriptionsRepository;
     private static final String FILE_IMAGE = "src/main/resources/image/";
 
+    private Boolean newsType = true;
+
     //авбдыаы
     @Autowired
-    public UserController(UserRepository userRepository, GroupRepository groupRepository, PostRepository postRepository, LikesRepository likesRepository, SubscriptionsRepository subscriptionsRepository) {
+    public UserController(UserRepository userRepository, GroupRepository groupRepository, PostRepository postRepository, LikesRepository likesRepository, CommentsRepository commentsRepository, SubscriptionsRepository subscriptionsRepository) {
         this.userRepository = userRepository;
         this.groupRepository = groupRepository;
         this.postRepository = postRepository;
         this.likesRepository = likesRepository;
+        this.commentsRepository = commentsRepository;
         this.subscriptionsRepository = subscriptionsRepository;
     }
     @GetMapping("/")
@@ -53,29 +56,73 @@ public class UserController {
             }
         }
         else {posts = getPostOfUserGroup();}
+        model.addAttribute("users", userRepository.findAll());
         model.addAttribute("userLogin",user);
-        model.addAttribute("posts", posts);
         model.addAttribute("groups", groupRepository.findAll());
         model.addAttribute("likes", likesRepository.findAll());
+        posts.sort(Comparator.comparing(Post::getDatePublication));
+        model.addAttribute("posts", reverse(posts));
+        model.addAttribute("likes", likesRepository.findAll());
+        List<Comments> comments = commentsRepository.findAll();
+        comments.sort(Comparator.comparing(Comments::getDate));
+        model.addAttribute("comments", reverse(comments));
         return "index";
     }
 
     @RequestMapping(value="/recSort", method=RequestMethod.GET)
     public String recSort(Model model) {
-        model.addAttribute("posts", getPostNoUserGroup());
+        newsType = false;
+        model.addAttribute("userLogin",user);
+        model.addAttribute("users", userRepository.findAll());
         model.addAttribute("groups", groupRepository.findAll());
         model.addAttribute("likes", likesRepository.findAll());
-        return "index :: #postList";
+        List<Post> posts = getPostNoUserGroup();
+        posts.sort(Comparator.comparing(Post::getDatePublication));
+        model.addAttribute("posts", reverse(posts));
+        model.addAttribute("likes", likesRepository.findAll());
+        List<Comments> comments = commentsRepository.findAll();
+        comments.sort(Comparator.comparing(Comments::getDate));
+        model.addAttribute("comments", reverse(comments));
+        return "index :: .postList";
     }
 
     @RequestMapping(value="/newSort", method=RequestMethod.GET)
     public String newsSort(Model model) {
         if (user != null){
-            model.addAttribute("posts", getPostOfUserGroup());
+            newsType = true;
+            model.addAttribute("userLogin",user);
+            model.addAttribute("users", userRepository.findAll());
             model.addAttribute("groups", groupRepository.findAll());
             model.addAttribute("likes", likesRepository.findAll());
+            List<Post> posts = getPostOfUserGroup();
+            posts.sort(Comparator.comparing(Post::getDatePublication));
+            model.addAttribute("posts", reverse(posts));
+            model.addAttribute("likes", likesRepository.findAll());
+            List<Comments> comments = commentsRepository.findAll();
+            comments.sort(Comparator.comparing(Comments::getDate));
+            model.addAttribute("comments", reverse(comments));
         }
-        return "index :: #postList";
+        return "index :: .postList";
+    }
+
+    @RequestMapping(value="/updatePostListHomePage", method = RequestMethod.GET)
+    public String updatePostList(Model model) {
+        model.addAttribute("userLogin", user);
+        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("groups", groupRepository.findAll());
+        model.addAttribute("group", group);
+        List<Post> posts = new ArrayList<>();
+        if (newsType){
+            posts = getPostOfUserGroup();
+        }
+        else posts = getPostNoUserGroup();
+        posts.sort(Comparator.comparing(Post::getDatePublication));
+        model.addAttribute("posts", reverse(posts));
+        model.addAttribute("likes", likesRepository.findAll());
+        List<Comments> comments = commentsRepository.findAll();
+        comments.sort(Comparator.comparing(Comments::getDate));
+        model.addAttribute("comments", reverse(comments));
+        return "index :: .postList";
     }
 
     public List<Post> getPostOfUserGroup(){

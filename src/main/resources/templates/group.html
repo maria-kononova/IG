@@ -139,25 +139,35 @@
                         <p class="block_p_no_color p-main-color">Действия</p>
                     </div>
                     <hr class="block_line"/>
-                    <div th:if="${userLogin.getId()==group.getIdAdmin()}">
-                        <div style="margin-top: -2px; margin-left: -2px; height: 50px;  margin-right: 10px;">
-                            <button class="btn btn-primary c-button" style="margin-left: 10px;">
-                                <i class="fa-solid fa-plus" style="fill: var(--second-color);"></i>
-                                Предложка
-                            </button>
+                    <div th:if="${userLogin!=null}">
+                        <div th:if="${userLogin.getId()==group.getIdAdmin()}">
+                            <div style="margin-top: -2px; margin-left: -2px; height: 50px;  margin-right: 10px;">
+                                <button class="btn btn-primary c-button" style="margin-left: 10px;">
+                                    <i class="fa-solid fa-plus" style="fill: var(--second-color);"></i>
+                                    Предложка
+                                </button>
+                            </div>
+                            <div style="margin-top: -2px; margin-left: -2px; height: 50px;  margin-right: 10px;">
+                                <button class="btn btn-primary c-button" style="margin-left: 10px;">
+                                    <i class="fa-solid fa-plus" style="fill: var(--second-color);"></i>
+                                    Изменить
+                                </button>
+                            </div>
                         </div>
-                        <div style="margin-top: -2px; margin-left: -2px; height: 50px;  margin-right: 10px;">
-                            <button class="btn btn-primary c-button" style="margin-left: 10px;">
+                        <div style="margin-top: -2px; margin-left: -2px; height: 50px; margin-right: 10px;">
+                            <button class="btn btn-primary c-button" style="margin-left: 10px;" onclick="PopUpShow();">
                                 <i class="fa-solid fa-plus" style="fill: var(--second-color);"></i>
-                                Изменить
+                                Создать пост
                             </button>
                         </div>
                     </div>
-                    <div style="margin-top: -2px; margin-left: -2px; height: 50px; margin-right: 10px;">
-                        <button class="btn btn-primary c-button" style="margin-left: 10px;" onclick="PopUpShow();">
-                            <i class="fa-solid fa-plus" style="fill: var(--second-color);"></i>
-                            Создать пост
-                        </button>
+                    <div th:if="${userLogin==null}">
+                        <div style="margin-top: -2px; margin-left: -2px; height: 100px;  margin-right: 10px;">
+                            <p style="text-align: center; margin-left: 5px; margin-right: 5px;">Вы не
+                                зарегистрированы</p>
+                            <a class="p-main-color" style="text-align: center; margin-left: 5px; margin-right: 5px;"
+                               href="/new">исправить</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -214,17 +224,17 @@
                                                     <content>
                                                         <i class="fa-regular fa-heart fa-bounce"
                                                            style="fill: var(--second-color); pointer-events: none;cursor: default;"></i>
-                                                       <!-- <div th:if="${userLogin!=null}" style="display: none;">
-                                                            <div th:each="like : ${likes}">
-                                                                <div th:if="${like.getPostUserId().getUserId()==userLogin.getId()}">
-                                                                    <div th:if="${like.getPostUserId().getPostId() == post.getId()}">
-                                                                        <script th:inline="javascript">
-                                                                            matchLike([[${likes}]]);
-                                                                        </script>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>-->
+                                                        <!-- <div th:if="${userLogin!=null}" style="display: none;">
+                                                             <div th:each="like : ${likes}">
+                                                                 <div th:if="${like.getPostUserId().getUserId()==userLogin.getId()}">
+                                                                     <div th:if="${like.getPostUserId().getPostId() == post.getId()}">
+                                                                         <script th:inline="javascript">
+                                                                             matchLike([[${likes}]]);
+                                                                         </script>
+                                                                     </div>
+                                                                 </div>
+                                                             </div>
+                                                         </div>-->
                                                         <label class="label"
                                                                style="width: fit-content; pointer-events: none;cursor: default;"
                                                                th:text=" ${post.getLikes()}"></label>
@@ -385,9 +395,9 @@
                 <div th:if="${userLogin!=null}" style="display: none;">
                     <div th:each="like : ${likes}">
                         <div th:if="${like.getPostUserId().getUserId()==userLogin.getId()}">
-                                <script th:inline="javascript">
-                                    matchLike([[${like.getPostUserId().getPostId()}]]);
-                                </script>
+                            <script th:inline="javascript">
+                                matchLike([[${like.getPostUserId().getPostId()}]]);
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -520,7 +530,7 @@
                         <div id="divPostDetails">
                         </div>
                     </div>
-                    <div class="row" style="position: absolute; bottom: 10px; ">
+                    <div class="row" style="position: absolute; bottom: 10px; " th:if="${userLogin!=null}">
                         <!--Отправка комментария-->
                         <div class="block_div"
                              style="width: 538px; height: 70px; margin-left: 20px; margin-top: -20px;">
@@ -551,6 +561,18 @@
                                     <i id="sendComments" class="fa-regular fa-paper-plane"
                                        style="color: var(--main-color); font-size: 30px;"></i>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="text-align: center; position: absolute; bottom: 10px; "
+                         th:if="${userLogin==null}">
+                        <div class="block_div"
+                             style="width: 538px; height: 70px; margin-left: 20px; margin-top: -20px;">
+                            <div class="row" style="margin-top: -25px; margin-bottom: -20px;">
+                                <hr class="block_line" style="margin-left: 7px; width: 526px; margin-top: 25px"/>
+                                <p>
+                                    Чтобы прокомментировать пост необходимо <a href="/new">зарегистрироваться</a>
+                                </p>
                             </div>
                         </div>
                     </div>

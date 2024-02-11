@@ -92,11 +92,20 @@
                     <p class="block_p_no_color p-main-color">Управление</p>
                 </div>
                 <hr class="block_line"/>
-                <div style="margin-top: -2px; margin-left: -2px; height: 400px; margin-right: 10px;">
+                <div th:if="${userLogin!=null}" style="margin-top: -2px; margin-left: -2px; height: 400px; margin-right: 10px;">
                     <button class="btn btn-primary c-button" style="margin-left: 10px;" onclick="PopUpShow();">
                         <i class="fa-solid fa-plus" style="fill: var(--second-color);"></i>
                         Создать сообщество
                     </button>
+                </div>
+                <div th:if="${userLogin==null}">
+                    <div style="margin-top: -2px; margin-left: -2px; height: 100px;  margin-right: 10px;">
+                        <p style="text-align: center; margin-left: 5px; margin-right: 5px;">Вы не
+                            зарегистрированы</p>
+                        <a class="p-main-color" style="text-align: center; margin-left: 5px; margin-right: 5px;"
+                           href="/new">исправить</a>
+                    </div>
+
                 </div>
             </div>
         </div>

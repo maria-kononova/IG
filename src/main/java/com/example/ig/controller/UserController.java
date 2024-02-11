@@ -86,16 +86,14 @@ public class UserController {
         return posts;
     }
     public List<Post> getPostNoUserGroup(){
+        //список групп, на которые подписан конкретный пользователь
         List<Long> groups = subscriptionsRepository.getAllGroupsOfUser(user.getId());
+        System.out.println(groups);
         List<Post> posts = new ArrayList<>();
+        //перебор по постам
        for(Post post : postRepository.findAll()){
-           for(int i = 0; i < groups.size(); i++){
-               if(post.getIdGroup()==groups.get(i)){
-                   break;
-               }
-               else{
-                   posts.add(post);
-               }
+           if(!groups.contains(post.getIdGroup())){
+               posts.add(post);
            }
        }
         return posts;

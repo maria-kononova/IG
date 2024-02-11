@@ -89,7 +89,7 @@
                  style="margin-top: 50px; margin-left: 0px; width: 305px; height: 170px; position: fixed;">
                 <div class="block_div_no_color" style="margin-top: 0px;">
                     <br/>
-                    <p class="block_p_no_color p-main-color">Что-то</p>
+                    <p class="block_p_no_color p-main-color">Управление</p>
                 </div>
                 <hr class="block_line"/>
                 <div style="margin-top: -2px; margin-left: -2px; height: 400px; margin-right: 10px;">
@@ -329,7 +329,6 @@
                     data: formData2,
                     success: function (response) {
                         if (response !== "Success") {
-                            alert("ok");
                             PopUpHide();
                             document.getElementById('image').val = file;
                             const btnFormAvatar = document.getElementById("btnFormAvatar");

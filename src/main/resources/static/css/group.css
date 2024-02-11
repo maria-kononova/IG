@@ -78,3 +78,14 @@ input[type="file"] {
     transform: translate(-50%,-50%);
 }
 
+article {
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.thumbnail {
+    height: 100px;
+    margin: 10px;
+}
+

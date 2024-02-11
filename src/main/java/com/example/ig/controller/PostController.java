@@ -1,9 +1,6 @@
 package com.example.ig.controller;
 
-import com.example.ig.entity.Comments;
-import com.example.ig.entity.LikeUser;
-import com.example.ig.entity.Likes;
-import com.example.ig.entity.Post;
+import com.example.ig.entity.*;
 import com.example.ig.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.example.ig.IgApplication.group;
-import static com.example.ig.IgApplication.user;
+import static com.example.ig.IgApplication.*;
 
 @Controller
 public class PostController {
@@ -78,8 +74,33 @@ public class PostController {
         return "noSuccess";
     }
 
+    @GetMapping("/publicPost")
+    @ResponseBody
+    public String comment(Model model, @RequestParam String text, @RequestParam int countImage) {
+        if(user!=null) {
+            count = 0;
+            //long idGroup, int type, String description, String img, Date datePublication, int likes, int views, int comments)
+            List<String> images = new ArrayList<>();
+            long newId = getMaxId() + 1;
+            Post post1 = new Post(newId, group.getId(), 1, text, images, new Date(), 0, 0, 0);
+            for(int i = 0; i < countImage; i++){
+                images.add("http://localhost:8080/file/post/post" + post1.getId() + "_"+ i +".jpg");
+            }
+            post1.setImg(images);
+            postRepository.save(post1);
+            post = post1;
+            return "Success";
+        }
+        return "noSuccess";
+    }
 
-
+    public long getMaxId(){
+        long max = 0;
+        for(Post post1 : postRepository.findAll()){
+            if(post1.getId() > max) max = post1.getId();
+        }
+        return max;
+    }
 
     /*@RequestMapping(value="/updatePostList", method=RequestMethod.GET)
     public String recSort(Model model) {

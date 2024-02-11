@@ -1,6 +1,7 @@
 package com.example.ig;
 
 import com.example.ig.entity.Group;
+import com.example.ig.entity.Post;
 import com.example.ig.entity.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,6 +20,8 @@ public class IgApplication {
     public static  final String BASE_URL = "http://localhost:8080/";
     public static User user;
     public static Group group;
+    public static Post post;
+    public static int count = 0;
     public static void main(String[] args) {
         SpringApplication.run(IgApplication.class, args);
 

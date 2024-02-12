@@ -576,6 +576,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
 <script>
+    let selectedImages = [];
     //добавление изображения к созданию поста!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     var filesInput = document.getElementById("imagePost");
     filesInput.addEventListener("change", function (event) {
@@ -583,6 +584,7 @@
         var output = document.getElementById("result");
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
+            selectedImages.push(files[i]);
             //Only pics
             if (!file.type.match('image'))
                 continue;
@@ -601,8 +603,15 @@
 
     //даление изображения из списка
     function removeImage() {
+        let images = document.getElementsByClassName("thumbnail");
         var button = event.target;
         let image = button.previousElementSibling;
+        for(let i = 0; i < images.length; i++){
+            if(image.src === images.item(i).src) {
+                selectedImages.splice(i, 1);
+                break;
+            }
+        }
         image.remove();
         button.remove();
     }
@@ -626,6 +635,11 @@
             data: formData,
             success: function (response) {
                 if (response === "Success") {
+                    const fileList = new DataTransfer();
+                    selectedImages.forEach(image => {
+                        fileList.items.add(image);
+                    });
+                    document.getElementById('imagePost').files = fileList.files;
                     const btnSendPostImage = document.getElementById("btnSendPostImage");
                     btnSendPostImage.click();
                 }

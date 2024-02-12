@@ -128,7 +128,7 @@
                 <tr th:each="post : ${posts}">
                     <td>
                         <!--Пост-->
-                        <div class="block_div" style="padding: 5px 5px 20px; height: auto; margin-bottom: 5px;">
+                        <div class="block_div post" style="padding: 5px 5px 20px; height: auto; margin-bottom: 5px;">
                             <div class="div_post_item_list">
                                 <div class="idPost" style="display: none;">
                                     <p th:text="${post.getId()}"></p>
@@ -521,26 +521,32 @@
                         if (response === "Success") {
                             inputComments.value = "";
                             subComment = 0;
-                            const deleteElement = document.querySelector("#divPostDetails");
-                            deleteElement.innerHTML = '';
-                            $("#postDetails").hide();
-                            $.get("/updatePostList").done(function (fragment) { // get from controller
-                                $('.postList').replaceWith(fragment);
-                            });
-                            const div = document.getElementsByClassName("div_post_item_list");
-                            alert(div.length);
-                            for (let i = 0; i < div.length; i++) {
-                                if (div[i].getElementsByTagName('p')[0].textContent === selectedPostId) {
-                                    document.querySelector("#divPostDetails").innerHTML = div.item(i).innerHTML;
-                                    document.querySelector("#divPostDetails").getElementsByClassName("commentsList")[0].style.display = "block";
-                                    $("#postDetails").show();
-                                }
-                            }
+                            commentsReload();
+                            //alert(selectedPostId);
+                            //comments(selectedPostId);
                         }
                     }
                 });
             }
         });
+
+    function commentsReload() {
+        const deleteElement = document.querySelector("#divPostDetails");
+        deleteElement.innerHTML = '';
+        if (document.getElementById('nameNavigation').innerText === "Новости") {
+            newsSort();
+        } else {
+            recSort();
+        }
+        const div = document.getElementsByClassName("div_post_item_list");
+        /*for (let i = 0; i < div.length; i++) {
+            if (div[i].getElementsByTagName('p')[0].textContent === selectedPostId) {
+                alert(div.item(i).innerHTML);
+                document.querySelector("#divPostDetails").innerHTML = div.item(i).innerHTML;
+                deleteElement.getElementsByClassName("commentsList")[0].style.display = "block";
+            }
+        }*/
+    }
 
     function updatePostList() {
         $.get("/updatePostListHomePage").done(function (fragment) { // get from controller

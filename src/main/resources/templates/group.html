@@ -696,21 +696,9 @@
                         if (response === "Success") {
                             inputComments.value = "";
                             subComment = 0;
-                            const deleteElement = document.querySelector("#divPostDetails");
-                            deleteElement.innerHTML = '';
-                            $("#postDetails").hide();
-                            $.get("/updatePostList").done(function (fragment) { // get from controller
-                                $('.postList').replaceWith(fragment);
-                            });
-                            const div = document.getElementsByClassName("div_post_item_list");
-                            alert(div.length);
-                            for (let i = 0; i < div.length; i++) {
-                                if (div[i].getElementsByTagName('p')[0].textContent === selectedPostId) {
-                                    document.querySelector("#divPostDetails").innerHTML = div.item(i).innerHTML;
-                                    document.querySelector("#divPostDetails").getElementsByClassName("commentsList")[0].style.display = "block";
-                                    $("#postDetails").show();
-                                }
-                            }
+                            updatePostList();
+                            commentsOff();
+
                         }
                     }
                 });

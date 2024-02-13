@@ -10,9 +10,9 @@
     <link rel="stylesheet" th:href="@{/css/search.css}"/>
     <link rel="stylesheet" th:href="@{/css/button.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" th:href="@{/css/toast.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toastify.css}"/>
     <script type="text/javascript" th:src="@{/js/getThemeFromCookie.js}"></script>
-    <script type="text/javascript" th:src="@{/js/toast.js}"></script>
+    <script type="text/javascript" th:src="@{/js/toastify.js}"></script>
     <!--Картинки-->
     <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
 
@@ -271,9 +271,6 @@
         </div>
     </div>
 </div>-->
-
-
-
 </body>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -354,6 +351,10 @@
             event.preventDefault(); // Предотвращаем отправку формы по умолчанию
             setCookie("mainColor", document.getElementById("primary_color").value, 10);
             setCookie("secondColor", document.getElementById("second_color").value, 10);
+            let myToast = Toastify({
+                text: "Тема сайта успешно сохранена!",
+                duration: 5000
+            }).showToast()
         });
     });
 </script>
@@ -372,6 +373,10 @@
                 success: function (authResponse) {
                 }
             });
+            let myToast = Toastify({
+                text: "Аватар пользователя изменён!",
+                duration: 5000
+            }).showToast();
             btnFormAvatar.click();
         }
     });
@@ -392,6 +397,10 @@
                 data: formData,
                 success: function (response) {
                     if (response === "Success") {
+                        let myToast = Toastify({
+                            text: "Пароль успешно изменён!",
+                            duration: 5000
+                        }).showToast();
                         window.location.href = '/account';
                     } else if (response === "Match") {
                         document.getElementById('passwordUpdate').textContent = "Новый пароль совпадает со старым!";

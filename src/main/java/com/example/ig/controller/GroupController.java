@@ -182,6 +182,18 @@ public class GroupController {
         return "http://localhost:8080/group/" + group.getId() + "?";
     }
 
+    @GetMapping("/updateGroup")
+    @ResponseBody
+    public String updateGroup(@RequestParam String imgGroup, @RequestParam String nameGroup, @RequestParam String desGroup){
+        Group updateGroup = groupRepository.getById(group.getId());
+        updateGroup.setAvtar("http://localhost:8080/file/group/group" + updateGroup.getId() + ".jpg");
+        updateGroup.setName(nameGroup);
+        updateGroup.setDescription(desGroup);
+        groupRepository.save(updateGroup);
+        group = groupRepository.getById(updateGroup.getId());
+        return "http://localhost:8080/group/" + group.getId() + "?";
+    }
+
     public long getMaxId(){
         long max = 0;
         for(Group group1 : groupRepository.findAll()){

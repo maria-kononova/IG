@@ -14,6 +14,8 @@
     <link rel="stylesheet" th:href="@{/css/form_popup.css}"/>
     <script type="text/javascript" th:src="@{/js/getThemeFromCookie.js}"></script>
     <script type="text/javascript" th:src="@{/js/avatar.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/toastify.css}"/>
+    <script type="text/javascript" th:src="@{/js/toastify.js}"></script>
 
     <!--Картинки-->
     <script src="https://kit.fontawesome.com/9e56eb5395.js" crossorigin="anonymous"></script>
@@ -340,6 +342,10 @@
                         if (response !== "Success") {
                             PopUpHide();
                             document.getElementById('image').val = file;
+                            let myToast = Toastify({
+                                text: "Новая группа создана!",
+                                duration: 5000
+                            }).showToast();
                             const btnFormAvatar = document.getElementById("btnFormAvatar");
                             btnFormAvatar.click();
                         }

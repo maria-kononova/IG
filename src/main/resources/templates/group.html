@@ -16,6 +16,8 @@
     <script type="text/javascript" th:src="@{/js/dateTimeEdit.js}"></script>
     <script type="text/javascript" th:src="@{/js/like.js}"></script>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" th:href="@{/css/toastify.css}"/>
+    <script type="text/javascript" th:src="@{/js/toastify.js}"></script>
     <!--<script type="text/javascript" th:src="@{/js/button_up_page.js}"></script>-->
 
     <!--Картинки-->
@@ -141,16 +143,17 @@
                     <hr class="block_line"/>
                     <div th:if="${userLogin!=null}">
                         <div th:if="${userLogin.getId()==group.getIdAdmin()}">
-                            <div style="margin-top: -2px; margin-left: -2px; height: 50px;  margin-right: 10px;">
+                            <!--<div style="margin-top: -2px; margin-left: -2px; height: 50px;  margin-right: 10px;">
                                 <button class="btn btn-primary c-button" style="margin-left: 10px;">
-                                    <i class="fa-solid fa-plus" style="fill: var(--second-color);"></i>
+                                    <i class="fa-solid fa-plus" style="fill: var(&#45;&#45;second-color);"></i>
                                     Предложка
                                 </button>
-                            </div>
+                            </div>-->
                             <div style="margin-top: -2px; margin-left: -2px; height: 50px;  margin-right: 10px;">
-                                <button class="btn btn-primary c-button" style="margin-left: 10px;">
+                                <button class="btn btn-primary c-button" onclick="PopUp1Show()"
+                                        style="margin-left: 10px;">
                                     <i class="fa-solid fa-plus" style="fill: var(--second-color);"></i>
-                                    Изменить
+                                    Редактировать
                                 </button>
                             </div>
                         </div>
@@ -206,11 +209,13 @@
                                         </div>
                                     </div>
                                     <div th:if="${!post.getImg().isEmpty()}">
-                                        <div class="row image" th:each="img : ${post.getImg()}">
-                                            <div>
-                                                <img align="middle"
-                                                     style=" border-radius: 5px; display: block;height: 310px; width: 525px;"
-                                                     th:src="${img}"/>
+                                        <div class="scroll" style="height: 310px; width: 525px; overflow-x: hidden; overflow-y: auto;">
+                                            <div class="row image" th:each="img : ${post.getImg()}">
+                                                <div>
+                                                    <img align="middle"
+                                                         style=" border-radius: 5px;height: 310px; width: auto;max-width: 525px;"
+                                                         th:src="${img}"/>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -487,7 +492,7 @@
                         Добавить изображение
                     </button>
                     <div class="row scroll" id="result"
-                         style="height: 200px; overflow-y: hidden; overflow-x: scroll;">
+                         style="height: 250px; overflow-y: scroll; overflow-x: hidden;">
                     </div>
                     <button id="btnSendPostImage" type="submit" style="display: none;" class="btn btn-primary"></button>
                 </form>
@@ -570,11 +575,116 @@
         </div>
     </div>
 </div>
+<div class="b-container" style="display: none;">
+</div>
+<div class="b-popup" id="popup1">
+    <div class="center-screen" style="margin-top: -20px; margin-left: -40px;">
+        <div class="block_div" style="width: 505px; height: 600px;">
+            <div class="block_div_no_color">
+                <div class="row">
+                    <div class="col-10">
+                        <p class="p-main-color" style="white-space: nowrap; margin-top: 30px; margin-left: 80px;">
+                            Редактирование</p>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-primary bet_time" style="margin-top: 30px; margin-left: 100px;"
+                                onclick="PopUp1Hide()"> X
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr class="block_line"/>
+            <main style="margin-left: -25px; margin-top: -10px;">
+                <br/>
+                <form method="post" id="formAvatar" th:action="@{/file/upload/group}" enctype="multipart/form-data">
+                    <input type="file" name="file" id="imageGroup" class="form-control-file">
+                    <div>
+                        <img style="margin-left: 40px;" class="avatar_img" id="avatarGroup" alt="image"
+                             th:src="${group.getAvtar()}"/>
+                    </div>
+                    <button id="btnFormAvatar" type="submit" style="display: none;" class="btn btn-primary">Upload
+                        File
+                    </button>
+                </form>
+                <!--<input type="file" name="image" id="image" accept="image/*"/>
+                <div>
+                    <img class="group_img" id="avatar" alt="image" src="https://images.squarespace-cdn.com/content/v1/5da8bac9f6d96b1bf0e5cb69/1605218099656-BR0JG492R2B375WU0QLE/Green+and+Purple+Minimal+Icons+Icon+Set+%283%29.png?format=1500w"/>
+                </div>-->
+            </main>
+            <form class="row justify-content-center" id="groupCreateForm" method="get" action="#"
+                  style="margin-left: 60px; margin-top: -140px;"> <!--th:action=""-->
+                <div class="mb-3 col-12 col-md-6">
+                    <input required type="text" name="name" class="form-control margin-top-20" id="nameGroupsInput"
+                           aria-describedby="nameHelp" placeholder="Название сообщества"
+                           style="width: 300px;"
+                           th:value="${group.getName()}"
+                           minlength="1" oninvalid="this.setCustomValidity('Пустое поле не допустимо')"
+                           oninput="this.setCustomValidity('')"/>
+                </div>
+                <div class="w-100"></div>
+                <div class="mb-3 col-12 col-md-6">
+                    <textarea required type="text" name="desc" class="form-control" id="descGroupsInput"
+                              placeholder="Описание сообщества"
+                              style="width: 300px; white-space: normal; height: 105px; overflow-y: auto;"
+                              th:text="${group.getDescription()}"></textarea>
+                </div>
+                <div class="w-100"></div>
+                <div class="mb-3 col-12 col-md-6">
+                    <button type="submit" class="btn btn-primary" style="margin-left: 75px;">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
-
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+<script>
+    let file;
+    const AVATAR = document.getElementById("avatarGroup");
+    AVATAR.addEventListener("click", event => {
+        const inputImage = document.getElementById("imageGroup");
+        inputImage.click();
+    });
+    document.getElementById('imageGroup').addEventListener('change', function (e) {
+        if (e.target.files[0]) {
+            file = event.target.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+                AVATAR.src = `${reader.result}`;
+            };
+        }
+    });
+    $(document).ready(function () {
+        $("#groupCreateForm").submit(function (event) {
+            event.preventDefault();
+            const formData2 = {
+                imgGroup: $("#avatarGroup").attr("src"),
+                nameGroup: $("#nameGroupsInput").val(),
+                desGroup: $("#descGroupsInput").val(),
+            };
+            $.ajax({
+                url: "/updateGroup",
+                type: "GET",
+                data: formData2,
+                success: function (response) {
+                    if (response !== "Success") {
+                        PopUpHide();
+                        document.getElementById('image').val = file;
+                        let myToast = Toastify({
+                            text: "Изменения группы успешно зафиксированны!",
+                            duration: 5000
+                        }).showToast()
+                        const btnFormAvatar = document.getElementById("btnFormAvatar");
+                        btnFormAvatar.click();
+                    }
+                }
+            });
+        });
+    });
+</script>
 <script>
     let selectedImages = [];
     //добавление изображения к созданию поста!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -592,7 +702,7 @@
             picReader.addEventListener("load", function (event) {
                 var picFile = event.target;
                 var div = document.createElement("div");
-                div.innerHTML = '<img class="thumbnail" src="' + picFile.result + '" />' +
+                div.innerHTML = '<img class="thumbnail" style="margin: 5px; border: 2px solid #fff;" src="' + picFile.result + '" />' +
                     '<button onclick="removeImage();" class="btn btn-primary img-remove">x</button>';
                 output.insertBefore(div, null);
             });
@@ -606,8 +716,8 @@
         let images = document.getElementsByClassName("thumbnail");
         var button = event.target;
         let image = button.previousElementSibling;
-        for(let i = 0; i < images.length; i++){
-            if(image.src === images.item(i).src) {
+        for (let i = 0; i < images.length; i++) {
+            if (image.src === images.item(i).src) {
                 selectedImages.splice(i, 1);
                 break;
             }
@@ -652,6 +762,7 @@
         //Скрыть PopUp при загрузке страницы
         dateReload();
         PopUpHide();
+        PopUp1Hide();
         $("#postDetails").hide();
     });
     let selectedPostId;
@@ -682,10 +793,10 @@
         .addEventListener('click', function (event) {
             const inputComments = document.getElementById('commentsInput');
             if (inputComments.value !== "") {
-                if(!inputComments.value.includes("|ответ|")) subComment = 0;
+                if (!inputComments.value.includes("|ответ|")) subComment = 0;
                 const formData = {
                     postId: selectedPostId.toString(),
-                    textComment: inputComments.value.replace("|ответ| ",""),
+                    textComment: inputComments.value.replace("|ответ| ", ""),
                     idComments: subComment,
                 };
                 $.ajax({
@@ -731,9 +842,17 @@
         $("#popup2").show();
     }
 
+    function PopUp1Show() {
+        $("#popup1").show();
+    }
+
     //Функция скрытия PopUp
     function PopUpHide() {
         $("#popup2").hide();
+    }
+
+    function PopUp1Hide() {
+        $("#popup1").hide();
     }
 </script>
 <script>
@@ -839,31 +958,5 @@
             }
         });
     }
-</script>
-<script>
-    const FILE_INPUT = document.querySelector("input[type=file]");
-    const AVATAR = document.getElementById("avatar");
-    AVATAR.addEventListener("click", () => FILE_INPUT.click());
-    FILE_INPUT.addEventListener("change", event => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            AVATAR.setAttribute("aria-label", file.name);
-            AVATAR.src = `${reader.result}`;
-            const formData = {
-                url: reader.result
-            };
-            $.ajax({
-                url: "/changeImg",
-                type: "POST",
-                data: formData,
-                success: function (authResponse) {
-                }
-            });
-        };
-    });
-    document.addEventListener('DOMContentLoaded', function () {
-    }, false);
 </script>
 </html>
